@@ -101,8 +101,6 @@ jobs:
       VERSION_NAME: ${{ github.event.inputs.version }}
       VERSION_CODE: ${{ github.event.inputs.version_code }}
 
-      # Kept outside the checkout so it never shows up in the working tree.
-      RELEASE_KEYSTORE_FILE: ${{ runner.temp }}/release.keystore
       KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
       RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
       RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
@@ -128,7 +126,11 @@ jobs:
       # produces an unsigned APK, which the release job then rejects.
       - name: Decode signing keystore
         if: env.KEYSTORE_BASE64 != ''
-        run: printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RELEASE_KEYSTORE_FILE"
+        run: |
+          set -euo pipefail
+          keystore="$RUNNER_TEMP/release.keystore"
+          printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$keystore"
+          printf 'RELEASE_KEYSTORE_FILE=%s\n' "$keystore" >> "$GITHUB_ENV"
 
       - name: Resolve version
         id: version
