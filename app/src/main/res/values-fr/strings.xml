@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Every string the app puts in front of the user.
+
+    Deliberately not here: the packet log and the connect log. Those are diagnostics, the
+    equivalent of logcat, and they name protocol fields and error codes that mean nothing
+    once translated - a translated log is harder to act on, not easier.
+
+    Entries marked translatable="false" are identifiers or brand names: the model codes the
+    gimbal advertises itself as, and the raw field names shown in the device panel.
+-->
+<resources>
+
+    <!-- Navigation -->
+    <string name="nav_gimbal">Nacelle</string>
+    <string name="nav_mappings">Mappages</string>
+    <string name="nav_control">Pilotage</string>
+    <string name="nav_settings">Réglages</string>
+
+    <!-- Shared -->
+    <string name="state_enabled">Activé</string>
+    <string name="state_disabled">Désactivé</string>
+    <string name="value_enabled">activé</string>
+    <string name="value_disabled">désactivé</string>
+    <string name="value_not_connected">non connecté</string>
+    <string name="value_unknown">Inconnu</string>
+    <string name="value_idle">inactif</string>
+    <string name="value_in_use">utilisé</string>
+    <string name="value_free">libre</string>
+    <string name="value_dash">-</string>
+    <string name="value_released">relâché</string>
+    <string name="value_press_hold">appui / maintien</string>
+    <string name="value_turning">en rotation</string>
+    <string name="value_yes">oui</string>
+    <string name="value_no">non</string>
+    <string name="value_unknown_state">inconnu</string>
+    <string name="value_not_reported">non signalé</string>
+    <string name="value_used_by_another_app">utilisé par une autre application</string>
+    <string name="value_zoom_in">zoom AVANT (%1$s)</string>
+    <string name="value_zoom_out">zoom ARRIÈRE (%1$s)</string>
+    <string name="value_mode_code">code %1$d</string>
+    <string name="value_offset_centred">centré</string>
+    <string name="value_offset_right">%1$d px à droite</string>
+    <string name="value_offset_left">%1$d px à gauche</string>
+    <string name="value_offset_above">%1$d px au-dessus du centre</string>
+    <string name="value_offset_below">%1$d px au-dessous du centre</string>
+    <string name="status_idle">Inactif</string>
+    <string name="status_scanning_for_gimbals">Recherche de nacelles…</string>
+    <string name="status_scanning">Recherche…</string>
+    <string name="status_connecting">Connexion…</string>
+    <string name="status_disconnected">Déconnecté</string>
+    <string name="status_discovering">Connecté, découverte des services…</string>
+    <string name="status_negotiating_mtu">Négociation du MTU…</string>
+    <string name="status_handshaking">Poignée de main…</string>
+    <string name="status_no_handshake">Aucune réponse à la poignée de main</string>
+    <string name="status_streaming">Flux en cours</string>
+    <string name="source_connected">connecté</string>
+    <string name="source_paired">appairé</string>
+    <string name="source_advertising">en diffusion</string>
+    <string name="label_state">État</string>
+    <string name="microphone_not_readable">non lisible</string>
+
+    <!-- Accessibility service panel -->
+    <string name="accessibility_service_title">Service d\'accessibilité</string>
+    <string name="action_open_accessibility_settings">Ouvrir les paramètres d\'accessibilité</string>
+    <string name="action_enable_accessibility_service">Activer le service d\'accessibilité</string>
+
+    <!-- Device screen -->
+    <string name="device_subtitle">Connecter une nacelle Hohem / Proove / Honji et observer ce qu\'elle signale</string>
+    <string name="permissions_title">Autorisations</string>
+    <string name="permissions_bluetooth_required">L\'autorisation Bluetooth est nécessaire pour rechercher et se connecter.</string>
+    <string name="permissions_versions_explanation">Android 12 et versions ultérieures exigent BLUETOOTH_SCAN / BLUETOOTH_CONNECT. Les versions antérieures exigent l\'accès à la localisation pour la recherche BLE.</string>
+    <string name="action_grant_permission">Accorder l\'autorisation</string>
+    <string name="action_disconnect">Déconnecter</string>
+    <string name="action_connect">Connecter</string>
+    <string name="action_stop_scan">Arrêter la recherche</string>
+    <string name="action_scan_for_gimbal">Rechercher une nacelle</string>
+    <string name="action_refresh_paired">Actualiser les appairés</string>
+    <string name="action_show_less">Afficher moins</string>
+    <string name="action_show_all_entries">Afficher les %1$d entrées</string>
+    <string name="connection_title">Connexion</string>
+    <string name="label_name">Nom</string>
+    <string name="label_model">Modèle</string>
+    <string name="label_address">Adresse</string>
+    <string name="label_status">Statut</string>
+    <string name="label_mtu">MTU</string>
+    <string name="label_packets">Paquets</string>
+    <string name="auto_connect_label">Connexion automatique</string>
+    <string name="auto_connect_description">Se connecter sans demander quand une seule nacelle est disponible</string>
+    <string name="notifications_blocked_warning">Les notifications sont bloquées, l\'état de la connexion ne sera donc pas affiché.</string>
+    <string name="found_gimbals_title">Nacelles détectées</string>
+    <string name="inputs_title">Entrées détectées</string>
+    <string name="label_trigger">Gâchette</string>
+    <string name="label_shutter">Déclencheur</string>
+    <string name="label_m_button">Bouton M</string>
+    <string name="label_knob">Molette</string>
+    <string name="label_zoom_slider">Curseur de zoom</string>
+    <string name="label_mode">Mode</string>
+    <string name="label_joystick">Joystick</string>
+    <string name="value_joystick">dir=%1$d état=%2$d</string>
+    <string name="label_battery">Batterie</string>
+    <string name="value_battery">niveau %1$d</string>
+    <string name="raw_fields_title">Champs bruts</string>
+    <string name="log_title">Journal des paquets</string>
+    <string name="label_last_packet">Dernier paquet</string>
+    <string name="log_empty">Rien pour l\'instant.</string>
+
+    <!-- What the on-screen shutter detector did, read back in Settings. -->
+    <string name="shutter_report_flipped">Téléphone retourné pendant l\'enregistrement — fin du clip et début d\'un nouveau</string>
+    <string name="shutter_report_named_suffix"> (%1$s)</string>
+    <string name="shutter_report_pressed_named">Déclencheur actionné en %1$d,%2$d%3$s</string>
+    <string name="shutter_report_pixel_description">cercle %1$s %2$dx%3$d (score %4$s)</string>
+    <string name="shutter_report_pressed_pixels">Appui effectué sur le %1$s repéré à l\'écran en %2$d,%3$d</string>
+    <string name="shutter_report_pixels_untappable">Le %1$s a été trouvé à l\'écran en %2$d,%3$d, mais impossible d\'appuyer dessus</string>
+    <string name="shutter_report_none">Aucun bouton déclencheur trouvé à l\'écran</string>
+    <string name="shutter_report_shape_suffix"> - %1$s</string>
+    <string name="shutter_report_pressed_by_shape">Déclencheur actionné en %1$d,%2$d (score %3$s)%4$s</string>
+    <string name="shutter_report_shape_unpressable">Déclencheur trouvé en %1$d,%2$d (score %3$s), mais impossible de l\'actionner</string>
+    <string name="shutter_colour_white">blanc</string>
+    <string name="shutter_colour_red">rouge</string>
+    <string name="shutter_colour_ring">creux</string>
+    <string name="shutter_colour_coloured">coloré</string>
+
+    <!-- Mappings screen -->
+    <string name="mappings_subtitle">Choisir ce que chaque bouton et le curseur de zoom font dans les autres applications</string>
+    <string name="mappings_live_message">Ces mappages sont actifs. Les gestes vont à l\'application au premier plan.</string>
+    <string name="mappings_saved_message">Les réglages sont enregistrés ici, mais rien ne fonctionne tant que le service n\'est pas activé.</string>
+    <string name="trigger_mappings_title">Mappages de la gâchette</string>
+    <string name="volume_note">Remarque : les actions de volume changent le volume multimédia par le système audio. Elles ne peuvent pas simuler un vrai appui sur une touche de volume, donc les applications photo qui utilisent la touche de volume comme déclencheur n\'y réagiront pas.</string>
+    <string name="pinch_zoom_title">Zoom par pincement</string>
+    <string name="pinch_zoom_description">Distance parcourue par les deux doigts à chaque geste. L\'augmenter si le zoom semble trop lent.</string>
+    <string name="pinch_zoom_strength">Force : %1$d%%</string>
+
+    <!-- Triggers -->
+    <string name="trigger_zoom_slider">Curseur de zoom</string>
+    <string name="trigger_zoom_slider_hint">Continu : positif = un sens, négatif = l\'autre, 0 = relâché</string>
+    <string name="trigger_single">Gâchette · appui simple</string>
+    <string name="trigger_single_hint">Signalé comme valeur brute 1, juste après le 15 initial</string>
+    <string name="trigger_double">Gâchette · double appui</string>
+    <string name="trigger_double_hint">Signalé comme valeur brute 2, juste après le 15 initial</string>
+    <string name="trigger_long">Gâchette · appui long</string>
+    <string name="trigger_long_hint">Le second 15, envoyé tant que le bouton est maintenu</string>
+    <string name="trigger_shutter_2">Déclencheur · double appui</string>
+    <string name="trigger_shutter_2_hint">Bascule normalement en mode vidéo</string>
+    <string name="trigger_shutter_3">Déclencheur · triple appui</string>
+    <string name="trigger_shutter_3_hint">Change normalement d\'appareil photo</string>
+    <string name="trigger_m_single">Bouton M · appui simple</string>
+    <string name="trigger_m_single_hint">Change normalement le mode de la nacelle</string>
+    <string name="trigger_m_double">Bouton M · double appui</string>
+    <string name="trigger_m_double_hint">Ferme normalement le suivi</string>
+
+    <!-- Actions -->
+    <string name="action_none">Ne rien faire</string>
+    <string name="action_none_description">Ne rien associer à cette gâchette</string>
+    <string name="action_pinch_zoom">Zoom par pincement (continu)</string>
+    <string name="action_pinch_zoom_description">Envoie des gestes à deux doigts, pour que les applications photo zooment avant et arrière</string>
+    <string name="action_volume_step">Volume +/- (continu)</string>
+    <string name="action_volume_step_description">Monte ou descend le flux musical tant que le curseur est maintenu</string>
+    <string name="action_screen_shutter">Appuyer sur le déclencheur à l\'écran</string>
+    <string name="action_screen_shutter_description">Trouve le bouton déclencheur de l\'application photo et appuie dessus. Fonctionne dans les applications qui ignorent la touche de volume</string>
+    <string name="action_volume_up">Volume +</string>
+    <string name="action_volume_up_description">Un cran sur le flux musical</string>
+    <string name="action_volume_down">Volume -</string>
+    <string name="action_volume_down_description">Un cran sur le flux musical</string>
+    <string name="action_play_pause">Lecture / pause</string>
+    <string name="action_media_next">Piste suivante</string>
+    <string name="action_media_previous">Piste précédente</string>
+    <string name="action_media_description">Envoyé à la session multimédia active</string>
+    <string name="action_back">Retour</string>
+    <string name="action_home">Accueil</string>
+    <string name="action_recents">Applications récentes</string>
+    <string name="action_global_description">Action globale d\'accessibilité</string>
+    <string name="action_swipe_up">Balayer vers le haut</string>
+    <string name="action_swipe_down">Balayer vers le bas</string>
+    <string name="action_swipe_left">Balayer vers la gauche</string>
+    <string name="action_swipe_right">Balayer vers la droite</string>
+    <string name="action_swipe_description">Balayage vertical au centre de l\'écran</string>
+    <string name="action_swipe_horizontal_description">Balayage horizontal au centre de l\'écran</string>
+
+    <!-- Control screen -->
+    <string name="control_subtitle">Orienter la nacelle à la main, sans la molette physique</string>
+    <string name="stick_title">Manette</string>
+    <string name="stick_connect_prompt">Connecter une nacelle pour la piloter.</string>
+    <string name="stick_help_aim">Maintenir pour déplacer, relâcher pour arrêter, pousser plus loin pour aller plus vite. La visée ci-dessous est celle demandée à la nacelle, en degrés.</string>
+    <string name="stick_help_steer">Maintenir pour déplacer, relâcher pour arrêter, pousser plus loin pour aller plus vite.</string>
+    <string name="label_aim">Visée</string>
+    <string name="value_aim">lacet %1$d°, tangage %2$d°</string>
+    <string name="stick_sweep_speed">Vitesse de balayage, %1$s° par seconde en butée</string>
+    <string name="action_back_to_level">Revenir à l\'horizontale</string>
+    <string name="command_title">Commande</string>
+    <string name="command_description">Le protocole a deux façons de demander un mouvement à la nacelle. Celle-ci envoie une vitesse tant que la manette est maintenue, comme le fait la boucle de suivi de l\'application officielle.</string>
+    <string name="stick_mode_aim">Viser un angle</string>
+    <string name="stick_mode_aim_description">Envoie les degrés à viser. La nacelle s\'y place et y reste.</string>
+    <string name="stick_mode_steer">Pilotage (style suivi)</string>
+    <string name="stick_mode_steer_description">Envoie une vitesse tant que la manette est maintenue.</string>
+    <string name="direction_title">Sens</string>
+    <string name="direction_description">Le sens dans lequel la nacelle tourne pour une valeur donnée ne peut être trouvé qu\'en essayant, car l\'application officielle n\'utilise ces commandes que pour suivre un objet. Si un axe va dans le mauvais sens, l\'inverser ici.</string>
+    <string name="direction_invert_x">Inverser gauche / droite</string>
+    <string name="direction_invert_y">Inverser haut / bas</string>
+    <string name="direction_app_driven">Envoyer l\'indicateur app-driven</string>
+    <string name="direction_app_driven_description">Utilisé uniquement par la commande de pilotage. L\'application officielle l\'active quand c\'est le téléphone qui vise.</string>
+
+    <!-- Object tracking -->
+    <string name="tracking_title">Suivi d\'objet</string>
+    <string name="tracking_description">Suit un élément que vous touchez à l\'écran. Activez cette option, ouvrez une application photo, puis appuyez sur le bouton flottant et touchez l\'objet à garder au centre du cadre.</string>
+    <string name="tracking_trigger_note">Appuyer deux fois sur la gâchette de la nacelle l\'arrête, car la nacelle se remet à niveau quand vous faites cela.</string>
+    <string name="tracking_battery_note">Le suivi coûte cher : l\'écran est copié et chaque image est analysée pour chercher votre objet, donc attendez-vous à une autonomie nettement plus courte tant qu\'il est activé.</string>
+    <string name="tracking_button_label">Bouton flottant</string>
+    <string name="tracking_needs_service">Nécessite le service d\'accessibilité, qui est actuellement désactivé.</string>
+    <string name="tracking_button_hint">Activez cette option, puis ouvrez une application photo — le bouton n\'apparaît que par-dessus.</string>
+    <string name="tracking_button_live">Le bouton est à l\'écran tant qu\'une application photo tourne.</string>
+    <string name="tracking_phase_off">Désactivé</string>
+    <string name="tracking_phase_idle">Prêt, en attente du bouton</string>
+    <string name="tracking_phase_waiting_for_camera">En attente d\'une application photo — le bouton apparaît par-dessus</string>
+    <string name="tracking_phase_connecting">En attente de l\'autorisation de capture d\'écran</string>
+    <string name="tracking_phase_selecting">Appuyer sur un objet à suivre</string>
+    <string name="tracking_phase_tracking">Suivi en cours</string>
+    <string name="tracking_phase_lost">Objet perdu, la nacelle reste immobile</string>
+    <string name="tracking_label_screen_read">Lecture de l\'écran</string>
+    <string name="tracking_value_fps">%1$s images par seconde</string>
+    <string name="tracking_label_match">Correspondance</string>
+    <string name="tracking_value_percent">%1$d%%</string>
+    <string name="tracking_label_object_at">Objet en</string>
+    <string name="tracking_label_correcting">Correction</string>
+    <string name="tracking_value_correction">%1$s° de lacet, %2$s° de tangage</string>
+    <string name="tracking_label_measured">Mesuré</string>
+    <string name="tracking_label_scale">Taille</string>
+    <string name="tracking_value_scale">%1$s×</string>
+    <string name="tracking_value_px_per_degree">%1$s px par degré</string>
+    <string name="tracking_readout_help">Pendant le suivi, surveillez ces chiffres. L\'objet doit être ramené vers le centre, la correction doit diminuer et les pixels par degré mesurés doivent se stabiliser au lieu de rester à leur valeur de départ. Si l\'objet est repoussé vers l\'extérieur, inversez le sens correspondant ci-dessous.</string>
+    <string name="tracking_reversed_warning">Quelque chose part dans le mauvais sens : %1$d corrections sont allées à l\'opposé de la direction attendue. Inversez le sens correspondant ci-dessous.</string>
+    <string name="tracking_strength">Force de correction, %1$d%%</string>
+    <string name="tracking_strength_help">Part de la distance jusqu\'au centre que la nacelle essaie de couvrir en une étape. Par défaut, elle n\'en corrige que la moitié, ce qui laisse de la marge au cas où l\'idée que se fait la nacelle de la distance parcourue par l\'image pour un degré serait fausse — cette valeur est mesurée pendant le suivi et affichée ci-dessus. L\'augmenter corrige plus fort et risque un dépassement.</string>
+
+    <!-- Tracking overlay -->
+    <string name="overlay_track_object">Suivre un objet</string>
+    <string name="overlay_press_object">Appuyer sur un objet à suivre</string>
+    <string name="overlay_camera_keeps_running">L\'application photo continue de tourner en dessous</string>
+    <string name="overlay_chip_waiting_permission">Attente de l\'autorisation de capture…</string>
+    <string name="overlay_chip_following">Suivi · %1$s img/s · %2$s%%</string>
+    <string name="overlay_chip_lost">Perdu · %1$s%% · bouton pour choisir à nouveau</string>
+    <string name="overlay_chip_idle">Toucher le bouton pour suivre un objet</string>
+    <string name="toast_no_camera_app">Aucune application photo détectée</string>
+    <string name="tracking_message_capture_refused">La capture d\'écran a été refusée</string>
+    <string name="tracking_message_capture_unavailable">La capture d\'écran n\'est pas disponible</string>
+    <string name="tracking_message_capture_not_allowed">La capture d\'écran n\'a pas été autorisée</string>
+    <string name="tracking_message_mirror_failed">Impossible de dupliquer l\'écran</string>
+    <string name="tracking_message_pick_further_from_edge">Choisissez un objet plus loin du bord de l\'écran</string>
+    <string name="tracking_message_pick_detail">Cette zone est trop uniforme pour être suivie — choisissez quelque chose avec de la texture ou un contour</string>
+    <string name="tracking_capture_channel_name">Capture d\'écran</string>
+    <string name="tracking_capture_channel_description">Affiché pendant que la nacelle suit un objet à l\'écran</string>
+    <string name="tracking_notification_title">Suivi d\'un objet</string>
+    <string name="tracking_notification_text">Le suivi observe l\'écran</string>
+    <string name="tracking_notification_stop">Arrêter</string>
+
+    <!-- Settings screen -->
+    <string name="settings_subtitle">Préférences et aperçu en direct de ce que l\'application peut voir</string>
+    <string name="status_title">État</string>
+    <string name="label_accessibility">Accessibilité</string>
+    <string name="label_gimbal">Nacelle</string>
+    <string name="label_camera">Appareil photo</string>
+    <string name="camera_detection_title">Détection de l\'appareil photo</string>
+    <string name="camera_only_label">Uniquement quand une application photo tourne</string>
+    <string name="camera_only_description">Se sert du fait que l\'appareil photo devient indisponible comme signal qu\'une autre application l\'a ouvert. Cette application n\'ouvre jamais d\'appareil photo elle-même.</string>
+    <string name="camera_not_reported">La disponibilité de l\'appareil photo n\'est pas signalée sur cet appareil.</string>
+    <string name="camera_none_held">Aucune application photo n\'utilise l\'appareil photo en ce moment.</string>
+    <string name="camera_held_by_other">%1$d sur %2$d appareils photo occupés par une autre application : %3$s</string>
+    <string name="camera_unavailable_warning">Cet appareil ne signale pas la disponibilité de l\'appareil photo, donc avec l\'option activée les mappages ne s\'exécuteraient jamais.</string>
+    <string name="recording_title">Enregistrement</string>
+    <string name="flip_restart_label">Redémarrer la vidéo quand la nacelle retourne le téléphone</string>
+    <string name="flip_restart_description">Le fait que l\'appareil photo soit ouvert ne signifie pas qu\'il enregistre, donc ceci vérifie aussi si le microphone est utilisé. Quand la nacelle fait pivoter le téléphone d\'environ 120 degrés ou plus pendant un enregistrement, le déclencheur est actionné pour terminer le clip, puis de nouveau peu après pour en démarrer un autre dans le bon sens. Désactivé par défaut, car cela prend le contrôle de l\'application photo.</string>
+    <string name="label_microphone">Microphone</string>
+    <string name="label_recording_video">Enregistrement vidéo</string>
+    <string name="recording_no_camera_only">non, seul l\'appareil photo est utilisé</string>
+    <string name="microphone_unavailable_warning">Cet appareil ne permet pas aux autres applications de savoir si le microphone est utilisé, donc une vidéo ne peut pas être distinguée d\'une photo et le redémarrage après basculement ne se déclenchera pas. Le reste n\'est pas affecté.</string>
+    <string name="shutter_title">Déclencheur à l\'écran</string>
+    <string name="shutter_description">Quand une gâchette est mappée sur « Appuyer sur le déclencheur à l\'écran », trois pistes sont tentées : un bouton qui se présente comme un déclencheur, puis les pixels d\'une capture d\'écran, puis un bouton qui se trouve simplement là où se place habituellement un déclencheur et qui en a la forme. La couleur ne sert qu\'à départager, car une arborescence d\'accessibilité ne transporte aucun pixel et tous les déclencheurs ne sont pas blancs ou rouges.</string>
+    <string name="shutter_no_attempt">Aucune tentative pour l\'instant. Déclenchez-le depuis une application photo, puis revenez ici — le résultat ne peut pas être affiché tant qu\'une autre application est au premier plan.</string>
+    <string name="about_title">À propos</string>
+    <string name="label_version">Version</string>
+    <string name="label_protocol">Protocole</string>
+    <string name="about_protocol">rétro-ingénierie de Gimbal Show 2.2.7.2</string>
+    <string name="about_icon_credit">Icône de l\'application : « gimbal » par Johannes Osterburg, publiée sous CC0 1.0.</string>
+
+    <!-- Language picker. The language names are shown in their own language, as is the
+         convention everywhere else, so they are not translated. -->
+    <string name="language_title">Langue de l\'application</string>
+    <string name="language_description">Change la langue de cette application seulement, pas celle du reste du téléphone.</string>
+    <string name="language_system">Langue du système</string>
+    <string name="language_unsupported">Le choix d\'une langue nécessite Android 13 ou une version plus récente. Sur cet appareil, l\'application suit la langue du système.</string>
+
+    <!-- Gimbal modes -->
+    <string name="gimbal_mode_ll_follow">Suivi (LL)</string>
+    <string name="gimbal_mode_pan_follow">Suivi panoramique</string>
+    <string name="gimbal_mode_all_lock">Verrouillage total</string>
+    <string name="gimbal_mode_fpv">FPV</string>
+    <string name="gimbal_mode_spin_shot">Vue rotative</string>
+    <string name="gimbal_mode_pan_follow_plus">Suivi panoramique+</string>
+    <string name="gimbal_mode_all_follow_plus">Suivi total+</string>
+
+    <!-- Accessibility service configuration -->
+    <string name="accessibility_service_label">OpenGimbal</string>
+    <string name="accessibility_service_summary">Mappe les boutons de la nacelle et le curseur de zoom sur le zoom par pincement, le volume et des actions de navigation, et peut appuyer sur le déclencheur à l\'écran d\'une application photo.</string>
+    <string name="accessibility_service_description">Transforme les événements des boutons et du curseur de la nacelle en entrées système.\n\nUtilise des gestes pour le zoom par pincement et la navigation, et le système audio pour le volume. C\'est uniquement lorsque vous mappez une gâchette sur le déclencheur à l\'écran qu\'il lit l\'écran courant — la hiérarchie des vues, et si cela ne trouve rien, une capture d\'écran — dans le seul but de localiser ce bouton. Si vous activez le redémarrage vidéo, il demande aussi au système audio si le microphone est utilisé, pour distinguer un enregistrement vidéo d\'une photo ; il n\'enregistre et n\'écoute jamais rien. Rien n\'est stocké ni envoyé nulle part.</string>
+
+    <!-- Connection notification -->
+    <string name="connection_channel_name">Connexion de la nacelle</string>
+    <string name="connection_channel_description">Indique si la nacelle est connectée.</string>
+    <string name="notification_connecting_title">Connexion à la nacelle</string>
+    <string name="notification_connected_title">Nacelle connectée</string>
+    <string name="notification_disconnected_title">Nacelle déconnectée</string>
+    <string name="action_reconnect">Reconnecter</string>
+
+    <!-- Raw trigger values, as reported in the inputs panel. -->
+    <string name="trigger_single_value">appui simple</string>
+    <string name="trigger_double_value">double appui</string>
+    <string name="trigger_long_value">appui long</string>
+    <string name="capture_switch_video">passer en mode VIDÉO</string>
+    <string name="capture_switch_camera">changer d\'appareil photo</string>
+    <string name="model_button_next_mode">appui simple -&gt; mode suivant de la nacelle</string>
+    <string name="model_button_close_tracking">double appui -&gt; fermer le suivi</string>
+    <string name="value_unknown_with_code">inconnu(%1$d)</string>
+
+</resources>

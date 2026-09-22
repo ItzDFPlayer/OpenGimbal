@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Adaptive launcher icon background: flat red.
+    Change @color/launcher_red to re-tint the whole icon.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="@color/launcher_red"
+        android:pathData="M0,0h108v108h-108z" />
+</vector>

@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Every string the app puts in front of the user.
+
+    Deliberately not here: the packet log and the connect log. Those are diagnostics, the
+    equivalent of logcat, and they name protocol fields and error codes that mean nothing
+    once translated - a translated log is harder to act on, not easier.
+
+    Entries marked translatable="false" are identifiers or brand names: the model codes the
+    gimbal advertises itself as, and the raw field names shown in the device panel.
+-->
+<resources>
+
+    <!-- Navigation -->
+    <string name="nav_gimbal">云台</string>
+    <string name="nav_mappings">映射</string>
+    <string name="nav_control">控制</string>
+    <string name="nav_settings">设置</string>
+
+    <!-- Shared -->
+    <string name="state_enabled">已启用</string>
+    <string name="state_disabled">已禁用</string>
+    <string name="value_enabled">已启用</string>
+    <string name="value_disabled">已禁用</string>
+    <string name="value_not_connected">未连接</string>
+    <string name="value_unknown">未知</string>
+    <string name="value_idle">空闲</string>
+    <string name="value_in_use">使用中</string>
+    <string name="value_free">可用</string>
+    <string name="value_dash">-</string>
+    <string name="value_released">已松开</string>
+    <string name="value_press_hold">按下 / 长按</string>
+    <string name="value_turning">转动中</string>
+    <string name="value_yes">是</string>
+    <string name="value_no">否</string>
+    <string name="value_unknown_state">未知</string>
+    <string name="value_not_reported">未上报</string>
+    <string name="value_used_by_another_app">被其他应用占用</string>
+    <string name="value_zoom_in">放大（%1$s）</string>
+    <string name="value_zoom_out">缩小（%1$s）</string>
+    <string name="value_mode_code">代码 %1$d</string>
+    <string name="value_offset_centred">居中</string>
+    <string name="value_offset_right">右 %1$d px</string>
+    <string name="value_offset_left">左 %1$d px</string>
+    <string name="value_offset_above">中心上方 %1$d px</string>
+    <string name="value_offset_below">中心下方 %1$d px</string>
+    <string name="status_idle">空闲</string>
+    <string name="status_scanning_for_gimbals">正在搜索云台…</string>
+    <string name="status_scanning">正在搜索…</string>
+    <string name="status_connecting">正在连接…</string>
+    <string name="status_disconnected">已断开</string>
+    <string name="status_discovering">已连接，正在发现服务…</string>
+    <string name="status_negotiating_mtu">正在协商 MTU…</string>
+    <string name="status_handshaking">正在握手…</string>
+    <string name="status_no_handshake">无握手响应</string>
+    <string name="status_streaming">正在传输</string>
+    <string name="source_connected">已连接</string>
+    <string name="source_paired">已配对</string>
+    <string name="source_advertising">正在广播</string>
+    <string name="label_state">状态</string>
+    <string name="microphone_not_readable">无法读取</string>
+
+    <!-- Accessibility service panel -->
+    <string name="accessibility_service_title">无障碍服务</string>
+    <string name="action_open_accessibility_settings">打开无障碍设置</string>
+    <string name="action_enable_accessibility_service">启用无障碍服务</string>
+
+    <!-- Device screen -->
+    <string name="device_subtitle">连接 Hohem / Proove / Honji 云台，查看它上报的内容</string>
+    <string name="permissions_title">权限</string>
+    <string name="permissions_bluetooth_required">搜索和连接需要蓝牙权限。</string>
+    <string name="permissions_versions_explanation">Android 12 及更高版本需要 BLUETOOTH_SCAN / BLUETOOTH_CONNECT。较旧版本需要位置权限才能搜索 BLE 设备。</string>
+    <string name="action_grant_permission">授予权限</string>
+    <string name="action_disconnect">断开连接</string>
+    <string name="action_connect">连接</string>
+    <string name="action_stop_scan">停止搜索</string>
+    <string name="action_scan_for_gimbal">搜索云台</string>
+    <string name="action_refresh_paired">刷新已配对设备</string>
+    <string name="action_show_less">收起</string>
+    <string name="action_show_all_entries">显示全部 %1$d 项</string>
+    <string name="connection_title">连接</string>
+    <string name="label_name">名称</string>
+    <string name="label_model">型号</string>
+    <string name="label_address">地址</string>
+    <string name="label_status">状态</string>
+    <string name="label_mtu">MTU</string>
+    <string name="label_packets">数据包</string>
+    <string name="auto_connect_label">自动连接</string>
+    <string name="auto_connect_description">只有一台云台可用时无需询问直接连接</string>
+    <string name="notifications_blocked_warning">通知已被屏蔽，因此不会显示连接状态。</string>
+    <string name="found_gimbals_title">找到的云台</string>
+    <string name="inputs_title">检测到的输入</string>
+    <string name="label_trigger">扳机</string>
+    <string name="label_shutter">拍摄键</string>
+    <string name="label_m_button">M 键</string>
+    <string name="label_knob">旋钮</string>
+    <string name="label_zoom_slider">变焦滑杆</string>
+    <string name="label_mode">模式</string>
+    <string name="label_joystick">摇杆</string>
+    <string name="value_joystick">dir=%1$d state=%2$d</string>
+    <string name="label_battery">电池</string>
+    <string name="value_battery">电量 %1$d</string>
+    <string name="raw_fields_title">原始字段</string>
+    <string name="log_title">数据包日志</string>
+    <string name="label_last_packet">最后一个数据包</string>
+    <string name="log_empty">暂无内容。</string>
+
+    <!-- What the on-screen shutter detector did, read back in Settings. -->
+    <string name="shutter_report_flipped">录制中手机发生翻转，正在结束本段并开始新的一段</string>
+    <string name="shutter_report_named_suffix">（%1$s）</string>
+    <string name="shutter_report_pressed_named">按下了 %1$d,%2$d 处的快门%3$s</string>
+    <string name="shutter_report_pixel_description">%1$s圆形 %2$dx%3$d（得分 %4$s）</string>
+    <string name="shutter_report_pressed_pixels">按下了屏幕上 %2$d,%3$d 处看到的%1$s</string>
+    <string name="shutter_report_pixels_untappable">在屏幕 %2$d,%3$d 处找到了%1$s，但无法点击</string>
+    <string name="shutter_report_none">屏幕上未找到快门按钮</string>
+    <string name="shutter_report_shape_suffix"> - %1$s</string>
+    <string name="shutter_report_pressed_by_shape">按下了 %1$d,%2$d 处的快门（得分 %3$s）%4$s</string>
+    <string name="shutter_report_shape_unpressable">在 %1$d,%2$d 处找到了快门（得分 %3$s），但无法按下</string>
+    <string name="shutter_colour_white">白色</string>
+    <string name="shutter_colour_red">红色</string>
+    <string name="shutter_colour_ring">空心</string>
+    <string name="shutter_colour_coloured">彩色</string>
+
+    <!-- Mappings screen -->
+    <string name="mappings_subtitle">选择各个按键和变焦滑杆在其他应用中的作用</string>
+    <string name="mappings_live_message">这些映射立即生效。手势会发送到当前前台的那个应用。</string>
+    <string name="mappings_saved_message">设置会保存在这里，但在服务启用之前不会有任何效果。</string>
+    <string name="trigger_mappings_title">扳机映射</string>
+    <string name="volume_note">注意：音量操作通过音频系统更改媒体音量。它们无法模拟真实的音量键按下，因此把音量键当作快门使用的相机应用不会对它们作出反应。</string>
+    <string name="pinch_zoom_title">双指缩放</string>
+    <string name="pinch_zoom_description">每个手势中两根手指移动的距离。如果觉得缩放太慢，可以调大。</string>
+    <string name="pinch_zoom_strength">强度：%1$d%%</string>
+
+    <!-- Triggers -->
+    <string name="trigger_zoom_slider">变焦滑杆</string>
+    <string name="trigger_zoom_slider_hint">连续：正值 = 一个方向，负值 = 另一个方向，0 = 已松开</string>
+    <string name="trigger_single">扳机 · 单击</string>
+    <string name="trigger_single_hint">上报为原始值 1，紧跟在开头的 15 之后</string>
+    <string name="trigger_double">扳机 · 双击</string>
+    <string name="trigger_double_hint">上报为原始值 2，紧跟在开头的 15 之后</string>
+    <string name="trigger_long">扳机 · 长按</string>
+    <string name="trigger_long_hint">第二个 15，在按键仍被按住时发送</string>
+    <string name="trigger_shutter_2">拍摄键 · 双击</string>
+    <string name="trigger_shutter_2_hint">通常会切换到视频模式</string>
+    <string name="trigger_shutter_3">拍摄键 · 三击</string>
+    <string name="trigger_shutter_3_hint">通常会切换摄像头</string>
+    <string name="trigger_m_single">M 键 · 短按</string>
+    <string name="trigger_m_single_hint">通常会循环切换云台模式</string>
+    <string name="trigger_m_double">M 键 · 连按两次</string>
+    <string name="trigger_m_double_hint">通常会关闭跟踪</string>
+
+    <!-- Actions -->
+    <string name="action_none">无操作</string>
+    <string name="action_none_description">不在这个扳机上做任何事</string>
+    <string name="action_pinch_zoom">双指缩放（连续）</string>
+    <string name="action_pinch_zoom_description">派发双指手势，让相机应用放大或缩小</string>
+    <string name="action_volume_step">音量 +/-（连续）</string>
+    <string name="action_volume_step_description">在滑杆被按住期间把音乐音量逐步调高或调低</string>
+    <string name="action_screen_shutter">按下屏幕快门</string>
+    <string name="action_screen_shutter_description">找到相机应用的快门按钮并点击它。对忽略音量键的应用同样有效</string>
+    <string name="action_volume_up">音量加</string>
+    <string name="action_volume_up_description">音乐音量调高一档</string>
+    <string name="action_volume_down">音量减</string>
+    <string name="action_volume_down_description">音乐音量调低一档</string>
+    <string name="action_play_pause">媒体播放 / 暂停</string>
+    <string name="action_media_next">下一首</string>
+    <string name="action_media_previous">上一首</string>
+    <string name="action_media_description">发送到当前活动的媒体会话</string>
+    <string name="action_back">返回</string>
+    <string name="action_home">主屏幕</string>
+    <string name="action_recents">最近的应用</string>
+    <string name="action_global_description">无障碍全局操作</string>
+    <string name="action_swipe_up">向上滑动</string>
+    <string name="action_swipe_down">向下滑动</string>
+    <string name="action_swipe_left">向左滑动</string>
+    <string name="action_swipe_right">向右滑动</string>
+    <string name="action_swipe_description">在屏幕中央做垂直滑动</string>
+    <string name="action_swipe_horizontal_description">在屏幕中央做水平滑动</string>
+
+    <!-- Control screen -->
+    <string name="control_subtitle">不用物理旋钮，用手来调整云台朝向</string>
+    <string name="stick_title">虚拟摇杆</string>
+    <string name="stick_connect_prompt">连接一台云台后即可操控它。</string>
+    <string name="stick_help_aim">按住移动，松开停止，偏移越大速度越快。下方的朝向就是要求云台指向的角度，单位为度。</string>
+    <string name="stick_help_steer">按住移动，松开停止，偏移越大速度越快。</string>
+    <string name="label_aim">朝向</string>
+    <string name="value_aim">偏航 %1$d°，俯仰 %2$d°</string>
+    <string name="stick_sweep_speed">扫动速度，满偏移时每秒 %1$s°</string>
+    <string name="action_back_to_level">回到水平</string>
+    <string name="command_title">指令</string>
+    <string name="command_description">协议有两种方式让云台移动。这一种在按住摇杆时发送速度，官方应用的跟踪循环就是这样发送的。</string>
+    <string name="stick_mode_aim">指向指定角度</string>
+    <string name="stick_mode_aim_description">发送要指向的角度。云台会转到那里并保持。</string>
+    <string name="stick_mode_steer">转向（跟踪方式）</string>
+    <string name="stick_mode_steer_description">按住摇杆时发送一个速度。</string>
+    <string name="direction_title">方向</string>
+    <string name="direction_description">某个数值会让云台朝哪个方向转，只能实际试出来，因为官方应用只把这些指令用于跟随被跟踪的目标。如果某个轴向反了，就在这里翻转。</string>
+    <string name="direction_invert_x">翻转左 / 右</string>
+    <string name="direction_invert_y">翻转上 / 下</string>
+    <string name="direction_app_driven">发送应用驱动标志</string>
+    <string name="direction_app_driven_description">只用于转向指令。官方应用在由手机负责瞄准时会设置它。</string>
+
+    <!-- Object tracking -->
+    <string name="tracking_title">目标跟踪</string>
+    <string name="tracking_description">跟随你在屏幕上点选的目标。开启这一项，打开一个相机应用，然后按下悬浮按钮，再点选你想保持在画面中央的目标。</string>
+    <string name="tracking_trigger_note">连按两次云台扳机会停止跟踪，因为你这样做时云台会自行回正。</string>
+    <string name="tracking_battery_note">跟踪很费电：屏幕会被复制，每一帧都要搜索你的目标，所以开启期间续航会明显缩短。</string>
+    <string name="tracking_button_label">悬浮按钮</string>
+    <string name="tracking_needs_service">需要无障碍服务，而它当前处于关闭状态。</string>
+    <string name="tracking_button_hint">开启这一项，然后打开一个相机应用，按钮只会在相机应用上方出现。</string>
+    <string name="tracking_button_live">相机应用运行时，按钮会显示在屏幕上。</string>
+    <string name="tracking_phase_off">关闭</string>
+    <string name="tracking_phase_idle">就绪，等待按钮</string>
+    <string name="tracking_phase_waiting_for_camera">正在等待相机应用，按钮会出现在相机应用上方</string>
+    <string name="tracking_phase_connecting">正在等待屏幕捕获权限</string>
+    <string name="tracking_phase_selecting">点选一个要跟踪的目标</string>
+    <string name="tracking_phase_tracking">跟随中</string>
+    <string name="tracking_phase_lost">目标丢失，云台保持不动</string>
+    <string name="tracking_label_screen_read">屏幕读取</string>
+    <string name="tracking_value_fps">每秒 %1$s 帧</string>
+    <string name="tracking_label_match">匹配度</string>
+    <string name="tracking_value_percent">%1$d%%</string>
+    <string name="tracking_label_object_at">目标位置</string>
+    <string name="tracking_label_correcting">校正</string>
+    <string name="tracking_value_correction">偏航 %1$s°，俯仰 %2$s°</string>
+    <string name="tracking_label_measured">实测</string>
+    <string name="tracking_label_scale">尺寸</string>
+    <string name="tracking_value_scale">%1$s×</string>
+    <string name="tracking_value_px_per_degree">每度 %1$s px</string>
+    <string name="tracking_readout_help">跟随期间请留意这些数值。目标应该被拉向中央，校正量应该变小，实测的每度像素数应该稳定下来，而不是停在起始值上。如果目标反而被推得更远，就在下面翻转对应的方向。</string>
+    <string name="tracking_reversed_warning">有东西在朝错误的方向动：%1$d 次校正的方向与应有的方向相反。请在下面翻转对应的方向。</string>
+    <string name="tracking_strength">校正强度，%1$d%%</string>
+    <string name="tracking_strength_help">云台每一步试图走完的、到画面中央的距离比例。默认只校正其中一半，这样即使云台自己对“一度会让画面移动多远”的判断有误也还有余量——那个值会在跟随过程中实测并显示在上方。调高会追得更紧，但有超调的风险。</string>
+
+    <!-- Tracking overlay -->
+    <string name="overlay_track_object">跟踪目标</string>
+    <string name="overlay_press_object">点选要跟踪的目标</string>
+    <string name="overlay_camera_keeps_running">相机应用仍在后台运行</string>
+    <string name="overlay_chip_waiting_permission">等待屏幕捕获权限…</string>
+    <string name="overlay_chip_following">跟随中 · %1$s fps · %2$s%%</string>
+    <string name="overlay_chip_lost">已丢失 · %1$s%% · 按按钮重选</string>
+    <string name="overlay_chip_idle">点按按钮跟踪目标</string>
+    <string name="toast_no_camera_app">未检测到相机应用</string>
+    <string name="tracking_message_capture_refused">屏幕捕获被拒绝</string>
+    <string name="tracking_message_capture_unavailable">屏幕捕获不可用</string>
+    <string name="tracking_message_capture_not_allowed">未获准进行屏幕捕获</string>
+    <string name="tracking_message_mirror_failed">无法镜像屏幕</string>
+    <string name="tracking_message_pick_further_from_edge">请选择离屏幕边缘更远一些的目标</string>
+    <string name="tracking_message_pick_detail">这块区域太平坦，无法跟随，请选择有纹理或边缘的目标</string>
+    <string name="tracking_capture_channel_name">屏幕捕获</string>
+    <string name="tracking_capture_channel_description">云台正在跟随屏幕上的目标时显示</string>
+    <string name="tracking_notification_title">正在跟踪目标</string>
+    <string name="tracking_notification_text">跟踪正在观察屏幕</string>
+    <string name="tracking_notification_stop">停止</string>
+
+    <!-- Settings screen -->
+    <string name="settings_subtitle">偏好设置，以及应用当前能看到什么的实时视图</string>
+    <string name="status_title">状态</string>
+    <string name="label_accessibility">无障碍</string>
+    <string name="label_gimbal">云台</string>
+    <string name="label_camera">相机</string>
+    <string name="camera_detection_title">相机检测</string>
+    <string name="camera_only_label">仅在相机应用运行时</string>
+    <string name="camera_only_description">把相机变为不可用当作其他应用打开了相机的信号。本应用自身从不打开相机。</string>
+    <string name="camera_not_reported">此设备不上报相机的可用性。</string>
+    <string name="camera_none_held">当前没有相机应用占用相机。</string>
+    <string name="camera_held_by_other">%2$d 台相机中有 %1$d 台被其他应用占用：%3$s</string>
+    <string name="camera_unavailable_warning">此设备不上报相机的可用性，所以开启该选项后映射永远不会执行。</string>
+    <string name="recording_title">录制</string>
+    <string name="flip_restart_label">云台翻转手机时重新开始录像</string>
+    <string name="flip_restart_description">相机处于打开状态并不代表正在录制，所以这里还会检查麦克风是否在使用。录制过程中云台把手机翻转约 120 度或更多时，会按下快门结束这一段，稍后再按一次，以便正着重新开始录制。默认关闭，因为它会接管相机应用。</string>
+    <string name="label_microphone">麦克风</string>
+    <string name="label_recording_video">正在录制视频</string>
+    <string name="recording_no_camera_only">否，只有相机在使用中</string>
+    <string name="microphone_unavailable_warning">此设备不允许其他应用查看麦克风是否在使用，因此无法把录像和拍照区分开，翻转重启也不会触发。其他一切都不受影响。</string>
+    <string name="shutter_title">屏幕快门</string>
+    <string name="shutter_description">当某个扳机被映射为“按下屏幕快门”时，会依次尝试三种途径：先是自称快门的按钮，然后是截图的像素，最后是仅仅位于快门通常在的位置、形状也像快门的按钮。颜色只用作最后的取舍依据，因为无障碍树不包含像素，而且并非每个快门都是白色或红色。</string>
+    <string name="shutter_no_attempt">尚未尝试。请从相机应用中触发它，然后回到这里——其他应用在前台时无法显示结果。</string>
+    <string name="about_title">关于</string>
+    <string name="label_version">版本</string>
+    <string name="label_protocol">协议</string>
+    <string name="about_protocol">逆向自 Gimbal Show 2.2.7.2</string>
+    <string name="about_icon_credit">应用图标：Johannes Osterburg 的“gimbal”，以 CC0 1.0 发布。</string>
+
+    <!-- Language picker. The language names are shown in their own language, as is the
+         convention everywhere else, so they are not translated. -->
+    <string name="language_title">应用语言</string>
+    <string name="language_description">只更改本应用的语言，不影响手机的其他部分。</string>
+    <string name="language_system">跟随系统</string>
+    <string name="language_unsupported">选择语言需要 Android 13 或更高版本。在此设备上，应用会跟随系统语言。</string>
+
+    <!-- Gimbal modes -->
+    <string name="gimbal_mode_ll_follow">跟随（LL）</string>
+    <string name="gimbal_mode_pan_follow">偏航跟随</string>
+    <string name="gimbal_mode_all_lock">全部锁定</string>
+    <string name="gimbal_mode_fpv">FPV</string>
+    <string name="gimbal_mode_spin_shot">旋转拍摄</string>
+    <string name="gimbal_mode_pan_follow_plus">偏航跟随+</string>
+    <string name="gimbal_mode_all_follow_plus">全部跟随+</string>
+
+    <!-- Accessibility service configuration -->
+    <string name="accessibility_service_label">OpenGimbal</string>
+    <string name="accessibility_service_summary">把云台按键和变焦滑杆映射为双指缩放、音量及导航操作，并且可以按下相机应用的屏幕快门。</string>
+    <string name="accessibility_service_description">把云台按键和滑杆事件转换为系统级输入。\n\n双指缩放和导航使用手势，音量使用音频系统。只有当你把某个扳机映射为屏幕快门时，它才会读取当前屏幕——先是视图层级，如果那里什么也没找到，就用截图——纯粹是为了定位那个按钮。如果你开启了录像重启，它还会向音频系统询问麦克风是否在使用，以区分录像和拍照；它从不录制或监听任何内容。不会存储任何内容，也不会发送到任何地方。</string>
+
+    <!-- Connection notification -->
+    <string name="connection_channel_name">云台连接</string>
+    <string name="connection_channel_description">显示云台是否已连接。</string>
+    <string name="notification_connecting_title">正在连接云台</string>
+    <string name="notification_connected_title">云台已连接</string>
+    <string name="notification_disconnected_title">云台已断开</string>
+    <string name="action_reconnect">重新连接</string>
+
+    <!-- Raw trigger values, as reported in the inputs panel. -->
+    <string name="trigger_single_value">单击</string>
+    <string name="trigger_double_value">双击</string>
+    <string name="trigger_long_value">长按</string>
+    <string name="capture_switch_video">切换到视频模式</string>
+    <string name="capture_switch_camera">切换摄像头</string>
+    <string name="model_button_next_mode">短按 -&gt; 下一个云台模式</string>
+    <string name="model_button_close_tracking">连按两次 -&gt; 关闭跟踪</string>
+    <string name="value_unknown_with_code">未知(%1$d)</string>
+
+</resources>

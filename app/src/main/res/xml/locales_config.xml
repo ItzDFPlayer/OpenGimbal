@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    The languages this app ships. Declared so the system's own per-app language screen
+    offers the same list as the picker inside the app, rather than the two disagreeing.
+-->
+<locale-config xmlns:android="http://schemas.android.com/apk/res/android">
+    <locale android:name="en" />
+    <locale android:name="de" />
+    <locale android:name="fr" />
+    <locale android:name="it" />
+    <locale android:name="uk" />
+    <locale android:name="ru" />
+    <locale android:name="es" />
+    <locale android:name="pt" />
+    <locale android:name="pl" />
+    <locale android:name="zh-CN" />
+    <locale android:name="ja" />
+    <locale android:name="hu" />
+</locale-config>

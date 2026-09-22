@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Generated from gimbal.svg by Johannes Osterburg (CC0 1.0).
+    Adaptive launcher icon foreground: 108dp canvas, glyph 54dp tall and centred.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.21982"
+        android:scaleY="0.21982"
+        android:translateX="27.433"
+        android:translateY="7.716">
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="M115.688,223.499h16.5379a6.65749,6.65749 0 0 1 6.65749,6.65749v96.5742a6.65749,6.65749 0 0 1 -6.65749,6.65749h-16.5379a6.65749,6.65749 0 0 1 -6.65749,-6.65749v-96.5742a6.65749,6.65749 0 0 1 6.65749,-6.65749z" />
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="M101.732,205.551h44.45a9.19933,9.19933 0 0 1 9.19933,9.19933v17.4975a9.19933,9.19933 0 0 1 -9.19933,9.19933h-44.45a9.19933,9.19933 0 0 1 -9.19933,-9.19933v-17.4975a9.19933,9.19933 0 0 1 9.19933,-9.19933z" />
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="M122.239,87.7277h33.2882a5.32217,5.32217 0 0 1 5.32217,5.32217v11.3092a5.32217,5.32217 0 0 1 -5.32217,5.32217h-33.2882a5.32217,5.32217 0 0 1 -5.32217,-5.32217v-11.3092a5.32217,5.32217 0 0 1 5.32217,-5.32217z" />
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="M96.7442,98.9825h6.97337a4.16072,4.16072 0 0 1 4.16072,4.16072v7.04418a4.16072,4.16072 0 0 1 -4.16072,4.16072h-6.97337a4.16072,4.16072 0 0 1 -4.16072,-4.16072v-7.04418a4.16072,4.16072 0 0 1 4.16072,-4.16072z" />
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="M46.1129,107.958h24.4761a4.16072,4.16072 0 0 1 4.16072,4.16072v15.8129a4.16072,4.16072 0 0 1 -4.16072,4.16072h-24.4761a4.16072,4.16072 0 0 1 -4.16072,-4.16072v-15.8129a4.16072,4.16072 0 0 1 4.16072,-4.16072z" />
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="M122.029,170.533h33.7086a4.16072,4.16072 0 0 1 4.16072,4.16072v15.8129a4.16072,4.16072 0 0 1 -4.16072,4.16072h-33.7086a4.16072,4.16072 0 0 1 -4.16072,-4.16072v-15.8129a4.16072,4.16072 0 0 1 4.16072,-4.16072z" />
+        <path
+            android:pathData="M 92.532533,223.49861 H 61.263834 a 11,11 45 0 1 -11,-11 v -92.47297"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="10.5183"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+        <path
+            android:fillColor="#FFFFFFFF"
+            android:fillType="evenOdd"
+            android:pathData="m 91.168152,103.50994 c -7.297111,0 -13.172504,5.87436 -13.172504,13.17148 v 40.67924 c 0,7.29712 5.875393,13.1725 13.172504,13.1725 h 95.430798 c 7.29711,0 13.17148,-5.87538 13.17148,-13.1725 v -40.67924 c 0,-7.29712 -5.87437,-13.17148 -13.17148,-13.17148 z m 47.715398,6.17127 a 26.428936,27.3402 0 0 1 26.42822,27.34035 26.428936,27.3402 0 0 1 -26.42822,27.34032 26.428936,27.3402 0 0 1 -26.42923,-27.34032 26.428936,27.3402 0 0 1 26.42923,-27.34035 z m 0,10.27279 a 16.49794,17.066787 0 0 0 -16.4985,17.06756 16.49794,17.066787 0 0 0 16.4985,17.06652 16.49794,17.066787 0 0 0 16.49748,-17.06652 16.49794,17.066787 0 0 0 -16.49748,-17.06756 z" />
+        <path
+            android:pathData="M 141.24235,182.6003 H 77.12842 A 10.964412,10.964412 45.092834 0 1 66.164066,171.60036 l 0.16713,-51.57472"
+            android:strokeColor="#FFFFFFFF"
+            android:strokeWidth="10.5183"
+            android:strokeLineCap="round"
+            android:strokeLineJoin="round" />
+    </group>
+</vector>

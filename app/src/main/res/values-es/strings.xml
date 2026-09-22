@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Every string the app puts in front of the user.
+
+    Deliberately not here: the packet log and the connect log. Those are diagnostics, the
+    equivalent of logcat, and they name protocol fields and error codes that mean nothing
+    once translated - a translated log is harder to act on, not easier.
+
+    Entries marked translatable="false" are identifiers or brand names: the model codes the
+    gimbal advertises itself as, and the raw field names shown in the device panel.
+-->
+<resources>
+
+    <!-- Navigation -->
+    <string name="nav_gimbal">Gimbal</string>
+    <string name="nav_mappings">Asignaciones</string>
+    <string name="nav_control">Control</string>
+    <string name="nav_settings">Ajustes</string>
+
+    <!-- Shared -->
+    <string name="state_enabled">Activado</string>
+    <string name="state_disabled">Desactivado</string>
+    <string name="value_enabled">activado</string>
+    <string name="value_disabled">desactivado</string>
+    <string name="value_not_connected">no conectado</string>
+    <string name="value_unknown">Desconocido</string>
+    <string name="value_idle">inactivo</string>
+    <string name="value_in_use">en uso</string>
+    <string name="value_free">libre</string>
+    <string name="value_dash">-</string>
+    <string name="value_released">liberado</string>
+    <string name="value_press_hold">pulsado / mantenido</string>
+    <string name="value_turning">girando</string>
+    <string name="value_yes">sí</string>
+    <string name="value_no">no</string>
+    <string name="value_unknown_state">desconocido</string>
+    <string name="value_not_reported">no informado</string>
+    <string name="value_used_by_another_app">usado por otra app</string>
+    <string name="value_zoom_in">zoom IN (%1$s)</string>
+    <string name="value_zoom_out">zoom OUT (%1$s)</string>
+    <string name="value_mode_code">código %1$d</string>
+    <string name="value_offset_centred">centrado</string>
+    <string name="value_offset_right">%1$d px a la derecha</string>
+    <string name="value_offset_left">%1$d px a la izquierda</string>
+    <string name="value_offset_above">%1$d px por encima del centro</string>
+    <string name="value_offset_below">%1$d px por debajo del centro</string>
+    <string name="status_idle">Inactivo</string>
+    <string name="status_scanning_for_gimbals">Buscando gimbals…</string>
+    <string name="status_scanning">Buscando…</string>
+    <string name="status_connecting">Conectando…</string>
+    <string name="status_disconnected">Desconectado</string>
+    <string name="status_discovering">Conectado, descubriendo servicios…</string>
+    <string name="status_negotiating_mtu">Negociando MTU…</string>
+    <string name="status_handshaking">Handshake…</string>
+    <string name="status_no_handshake">Sin respuesta al handshake</string>
+    <string name="status_streaming">Transmitiendo</string>
+    <string name="source_connected">conectado</string>
+    <string name="source_paired">emparejado</string>
+    <string name="source_advertising">anunciando</string>
+    <string name="label_state">Estado</string>
+    <string name="microphone_not_readable">no legible</string>
+
+    <!-- Accessibility service panel -->
+    <string name="accessibility_service_title">Servicio de accesibilidad</string>
+    <string name="action_open_accessibility_settings">Abrir los ajustes de accesibilidad</string>
+    <string name="action_enable_accessibility_service">Activar el servicio de accesibilidad</string>
+
+    <!-- Device screen -->
+    <string name="device_subtitle">Conecta un gimbal Hohem / Proove / Honji y observa lo que informa</string>
+    <string name="permissions_title">Permisos</string>
+    <string name="permissions_bluetooth_required">Se necesita el permiso de Bluetooth para buscar y conectar.</string>
+    <string name="permissions_versions_explanation">Android 12 y posteriores necesitan BLUETOOTH_SCAN / BLUETOOTH_CONNECT. Las versiones anteriores necesitan acceso a la ubicación para el escaneo BLE.</string>
+    <string name="action_grant_permission">Conceder permiso</string>
+    <string name="action_disconnect">Desconectar</string>
+    <string name="action_connect">Conectar</string>
+    <string name="action_stop_scan">Detener la búsqueda</string>
+    <string name="action_scan_for_gimbal">Buscar gimbal</string>
+    <string name="action_refresh_paired">Actualizar emparejados</string>
+    <string name="action_show_less">Mostrar menos</string>
+    <string name="action_show_all_entries">Mostrar las %1$d entradas</string>
+    <string name="connection_title">Conexión</string>
+    <string name="label_name">Nombre</string>
+    <string name="label_model">Modelo</string>
+    <string name="label_address">Dirección</string>
+    <string name="label_status">Estado</string>
+    <string name="label_mtu">MTU</string>
+    <string name="label_packets">Paquetes</string>
+    <string name="auto_connect_label">Conexión automática</string>
+    <string name="auto_connect_description">Conectar sin preguntar cuando solo hay un gimbal disponible</string>
+    <string name="notifications_blocked_warning">Las notificaciones están bloqueadas, así que no se mostrará el estado de la conexión.</string>
+    <string name="found_gimbals_title">Gimbals encontrados</string>
+    <string name="inputs_title">Entradas detectadas</string>
+    <string name="label_trigger">Gatillo</string>
+    <string name="label_shutter">Obturador</string>
+    <string name="label_m_button">Botón M</string>
+    <string name="label_knob">Rueda</string>
+    <string name="label_zoom_slider">Deslizador de zoom</string>
+    <string name="label_mode">Modo</string>
+    <string name="label_joystick">Joystick</string>
+    <string name="value_joystick">dir=%1$d estado=%2$d</string>
+    <string name="label_battery">Batería</string>
+    <string name="value_battery">nivel %1$d</string>
+    <string name="raw_fields_title">Campos sin procesar</string>
+    <string name="log_title">Registro de paquetes</string>
+    <string name="label_last_packet">Último paquete</string>
+    <string name="log_empty">Nada todavía.</string>
+
+    <!-- What the on-screen shutter detector did, read back in Settings. -->
+    <string name="shutter_report_flipped">El teléfono se volteó mientras se grababa - termino este clip y empiezo uno nuevo</string>
+    <string name="shutter_report_named_suffix"> (%1$s)</string>
+    <string name="shutter_report_pressed_named">Pulsado el disparador en %1$d,%2$d%3$s</string>
+    <string name="shutter_report_pixel_description">círculo %1$s %2$dx%3$d (puntuación %4$s)</string>
+    <string name="shutter_report_pressed_pixels">Pulsado el %1$s visto en pantalla en %2$d,%3$d</string>
+    <string name="shutter_report_pixels_untappable">Encontrado el %1$s en pantalla en %2$d,%3$d, pero no se pudo tocar</string>
+    <string name="shutter_report_none">No se encontró ningún disparador en pantalla</string>
+    <string name="shutter_report_shape_suffix"> - %1$s</string>
+    <string name="shutter_report_pressed_by_shape">Disparador pulsado en %1$d,%2$d (puntuación %3$s)%4$s</string>
+    <string name="shutter_report_shape_unpressable">Encontrado un disparador en %1$d,%2$d (puntuación %3$s), pero no se pudo pulsar</string>
+    <string name="shutter_colour_white">blanco</string>
+    <string name="shutter_colour_red">rojo</string>
+    <string name="shutter_colour_ring">hueco</string>
+    <string name="shutter_colour_coloured">de color</string>
+
+    <!-- Raw protocol field names: identifiers, never translated. -->
+
+    <!-- Mappings screen -->
+    <string name="mappings_subtitle">Elige qué hace cada botón y el deslizador de zoom en otras apps</string>
+    <string name="mappings_live_message">Estas asignaciones están activas. Los gestos van a la app que esté en primer plano.</string>
+    <string name="mappings_saved_message">Los ajustes se guardan aquí, pero no se ejecuta nada hasta que se active el servicio.</string>
+    <string name="trigger_mappings_title">Asignaciones del gatillo</string>
+    <string name="volume_note">Nota: las acciones de volumen cambian el volumen multimedia a través del sistema de audio. No pueden emular una pulsación real de la tecla de volumen, así que las apps de cámara que usan esa tecla como obturador no reaccionarán a ellas.</string>
+    <string name="pinch_zoom_title">Zoom por pellizco</string>
+    <string name="pinch_zoom_description">Cuánto recorren los dos dedos en cada gesto. Súbelo si el zoom va demasiado lento.</string>
+    <string name="pinch_zoom_strength">Intensidad: %1$d%%</string>
+
+    <!-- Triggers -->
+    <string name="trigger_zoom_slider">Deslizador de zoom</string>
+    <string name="trigger_zoom_slider_hint">Continuo: positivo = un sentido, negativo = el otro, 0 = liberado</string>
+    <string name="trigger_single">Gatillo · clic simple</string>
+    <string name="trigger_single_hint">Se informa como bruto 1, justo después del 15 inicial</string>
+    <string name="trigger_double">Gatillo · doble clic</string>
+    <string name="trigger_double_hint">Se informa como bruto 2, justo después del 15 inicial</string>
+    <string name="trigger_long">Gatillo · pulsación larga</string>
+    <string name="trigger_long_hint">El segundo 15, enviado mientras el botón sigue pulsado</string>
+    <string name="trigger_shutter_2">Obturador · doble clic</string>
+    <string name="trigger_shutter_2_hint">Normalmente cambia al modo de vídeo</string>
+    <string name="trigger_shutter_3">Obturador · triple clic</string>
+    <string name="trigger_shutter_3_hint">Normalmente cambia de cámara</string>
+    <string name="trigger_m_single">Botón M · pulsación simple</string>
+    <string name="trigger_m_single_hint">Normalmente cambia el modo del gimbal</string>
+    <string name="trigger_m_double">Botón M · doble pulsación</string>
+    <string name="trigger_m_double_hint">Normalmente cierra el seguimiento</string>
+
+    <!-- Actions -->
+    <string name="action_none">No hacer nada</string>
+    <string name="action_none_description">Dejar este gatillo como está</string>
+    <string name="action_pinch_zoom">Zoom por pellizco (continuo)</string>
+    <string name="action_pinch_zoom_description">Envía gestos de dos dedos, para que las apps de cámara apliquen el zoom</string>
+    <string name="action_volume_step">Volumen +/- (continuo)</string>
+    <string name="action_volume_step_description">Sube o baja un paso el flujo de música mientras se mantiene el deslizador</string>
+    <string name="action_screen_shutter">Pulsar el disparador en pantalla</string>
+    <string name="action_screen_shutter_description">Busca el botón de disparo de la app de cámara y lo pulsa. Funciona en apps que ignoran la tecla de volumen</string>
+    <string name="action_volume_up">Subir volumen</string>
+    <string name="action_volume_up_description">Un paso en el flujo de música</string>
+    <string name="action_volume_down">Bajar volumen</string>
+    <string name="action_volume_down_description">Un paso en el flujo de música</string>
+    <string name="action_play_pause">Reproducir / pausar multimedia</string>
+    <string name="action_media_next">Siguiente pista</string>
+    <string name="action_media_previous">Pista anterior</string>
+    <string name="action_media_description">Se envía a la sesión multimedia activa</string>
+    <string name="action_back">Atrás</string>
+    <string name="action_home">Inicio</string>
+    <string name="action_recents">Apps recientes</string>
+    <string name="action_global_description">Acción global de accesibilidad</string>
+    <string name="action_swipe_up">Deslizar hacia arriba</string>
+    <string name="action_swipe_down">Deslizar hacia abajo</string>
+    <string name="action_swipe_left">Deslizar hacia la izquierda</string>
+    <string name="action_swipe_right">Deslizar hacia la derecha</string>
+    <string name="action_swipe_description">Deslizamiento vertical por el centro de la pantalla</string>
+    <string name="action_swipe_horizontal_description">Deslizamiento horizontal por el centro de la pantalla</string>
+
+    <!-- Control screen -->
+    <string name="control_subtitle">Apunta el gimbal a mano, sin la rueda física</string>
+    <string name="stick_title">Palanca</string>
+    <string name="stick_connect_prompt">Conecta un gimbal para dirigirlo.</string>
+    <string name="stick_help_aim">Mantén pulsado para mover, suelta para parar y empuja más para ir más rápido. La puntería de abajo es lo que se le pide al gimbal, en grados.</string>
+    <string name="stick_help_steer">Mantén pulsado para mover, suelta para parar y empuja más para ir más rápido.</string>
+    <string name="label_aim">Puntería</string>
+    <string name="value_aim">guiñada %1$d°, inclinación %2$d°</string>
+    <string name="stick_sweep_speed">Velocidad de barrido, %1$s° por segundo a tope de recorrido</string>
+    <string name="action_back_to_level">Volver a nivel</string>
+    <string name="command_title">Comando</string>
+    <string name="command_description">El protocolo tiene dos formas de pedirle movimiento al gimbal. Esta le envía una velocidad mientras se mantiene la palanca, que es lo que envía el bucle de seguimiento de la app oficial.</string>
+    <string name="stick_mode_aim">Apuntar a un ángulo</string>
+    <string name="stick_mode_aim_description">Envía los grados a los que apuntar. El gimbal va allí y se queda.</string>
+    <string name="stick_mode_steer">Dirección (estilo seguimiento)</string>
+    <string name="stick_mode_steer_description">Envía una velocidad mientras se mantiene la palanca.</string>
+    <string name="direction_title">Dirección</string>
+    <string name="direction_description">En qué sentido gira el gimbal para un valor dado solo se puede averiguar probando, porque la app oficial solo usa estos comandos para seguir a un sujeto. Si un eje va al revés, inviértelo aquí.</string>
+    <string name="direction_invert_x">Invertir izquierda / derecha</string>
+    <string name="direction_invert_y">Invertir arriba / abajo</string>
+    <string name="direction_app_driven">Enviar el indicador de control por la app</string>
+    <string name="direction_app_driven_description">Solo lo usa el comando de dirección. La app oficial lo activa cuando es el teléfono el que apunta.</string>
+
+    <!-- Object tracking -->
+    <string name="tracking_title">Seguimiento de objetos</string>
+    <string name="tracking_description">Sigue algo que toques en la pantalla. Actívalo, abre una app de cámara y luego pulsa el botón flotante y toca el objeto que quieras mantener en el centro del encuadre.</string>
+    <string name="tracking_trigger_note">Pulsar dos veces el gatillo del gimbal lo detiene, porque el gimbal se nivela cuando lo haces.</string>
+    <string name="tracking_battery_note">El seguimiento consume mucho: se copia la pantalla y se busca tu objeto en cada fotograma, así que la batería durará bastante menos mientras esté activo.</string>
+    <string name="tracking_button_label">Botón flotante</string>
+    <string name="tracking_needs_service">Necesita el servicio de accesibilidad, que ahora mismo está desactivado.</string>
+    <string name="tracking_button_hint">Actívalo y luego abre una app de cámara: el botón solo aparece sobre una.</string>
+    <string name="tracking_button_live">El botón está en pantalla mientras se ejecuta una app de cámara.</string>
+    <string name="tracking_phase_off">Desactivado</string>
+    <string name="tracking_phase_idle">Listo, esperando el botón</string>
+    <string name="tracking_phase_waiting_for_camera">Esperando una app de cámara: el botón aparece sobre una</string>
+    <string name="tracking_phase_connecting">Esperando el permiso de captura de pantalla</string>
+    <string name="tracking_phase_selecting">Pulsa sobre un objeto para seguirlo</string>
+    <string name="tracking_phase_tracking">Siguiendo</string>
+    <string name="tracking_phase_lost">Objeto perdido, el gimbal se mantiene quieto</string>
+    <string name="tracking_label_screen_read">Lectura de pantalla</string>
+    <string name="tracking_value_fps">%1$s fotogramas por segundo</string>
+    <string name="tracking_label_match">Coincidencia</string>
+    <string name="tracking_value_percent">%1$d%%</string>
+    <string name="tracking_label_object_at">Objeto en</string>
+    <string name="tracking_label_correcting">Corrigiendo</string>
+    <string name="tracking_value_correction">%1$s° de guiñada, %2$s° de inclinación</string>
+    <string name="tracking_label_measured">Medido</string>
+    <string name="tracking_label_scale">Tamaño</string>
+    <string name="tracking_value_scale">%1$s×</string>
+    <string name="tracking_value_px_per_degree">%1$s px por grado</string>
+    <string name="tracking_readout_help">Mientras sigue, observa esos números. El objeto debería ir hacia el centro, la corrección debería reducirse y los píxeles por grado medidos deberían estabilizarse en lugar de quedarse en el valor con el que empezaron. Si el objeto se aleja más del centro, invierte la dirección correspondiente más abajo.</string>
+    <string name="tracking_reversed_warning">Algo va al revés: %1$d correcciones fueron en sentido contrario al que deberían. Invierte la dirección correspondiente más abajo.</string>
+    <string name="tracking_strength">Intensidad de corrección, %1$d%%</string>
+    <string name="tracking_strength_help">Qué parte de la distancia al centro intenta cubrir el gimbal en un paso. El valor por defecto deja que corrija la mitad, lo que da margen por si la idea del propio gimbal sobre cuánto mueve la imagen un grado es errónea; eso se mide mientras sigue y se muestra arriba. Subirlo persigue con más fuerza y arriesga pasarse.</string>
+
+    <!-- Tracking overlay -->
+    <string name="overlay_track_object">Seguir un objeto</string>
+    <string name="overlay_press_object">Pulsa sobre un objeto para seguirlo</string>
+    <string name="overlay_camera_keeps_running">La app de cámara sigue funcionando debajo</string>
+    <string name="overlay_chip_waiting_permission">Esperando permiso de captura…</string>
+    <string name="overlay_chip_following">Siguiendo · %1$s fps · %2$s%%</string>
+    <string name="overlay_chip_lost">Perdido · %1$s%% · pulsa para elegir otra vez</string>
+    <string name="overlay_chip_idle">Toca el botón para seguir un objeto</string>
+    <string name="toast_no_camera_app">No se detectó ninguna app de cámara</string>
+    <string name="tracking_message_capture_refused">Se rechazó la captura de pantalla</string>
+    <string name="tracking_message_capture_unavailable">La captura de pantalla no está disponible</string>
+    <string name="tracking_message_capture_not_allowed">No se permitió la captura de pantalla</string>
+    <string name="tracking_message_mirror_failed">No se pudo duplicar la pantalla</string>
+    <string name="tracking_message_pick_further_from_edge">Elige algo más lejos del borde de la pantalla</string>
+    <string name="tracking_message_pick_detail">Esa zona es demasiado plana para seguirla: elige algo con textura o un borde</string>
+    <string name="tracking_capture_channel_name">Captura de pantalla</string>
+    <string name="tracking_capture_channel_description">Se muestra mientras el gimbal sigue algo en la pantalla</string>
+    <string name="tracking_notification_title">Siguiendo un objeto</string>
+    <string name="tracking_notification_text">El seguimiento está observando la pantalla</string>
+    <string name="tracking_notification_stop">Detener</string>
+
+    <!-- Settings screen -->
+    <string name="settings_subtitle">Preferencias y una vista en directo de lo que ve la app</string>
+    <string name="status_title">Estado</string>
+    <string name="label_accessibility">Accesibilidad</string>
+    <string name="label_gimbal">Gimbal</string>
+    <string name="label_camera">Cámara</string>
+    <string name="camera_detection_title">Detección de cámara</string>
+    <string name="camera_only_label">Solo mientras se ejecuta una app de cámara</string>
+    <string name="camera_only_description">Usa el hecho de que la cámara deje de estar disponible como señal de que otra app la tiene abierta. Esta app nunca abre una cámara.</string>
+    <string name="camera_not_reported">Este dispositivo no informa de la disponibilidad de la cámara.</string>
+    <string name="camera_none_held">Ahora mismo ninguna app de cámara está usando la cámara.</string>
+    <string name="camera_held_by_other">%1$d de %2$d cámaras en uso por otra app: %3$s</string>
+    <string name="camera_unavailable_warning">Este dispositivo no informa de la disponibilidad de la cámara, así que con la opción activada las asignaciones nunca se ejecutarían.</string>
+    <string name="recording_title">Grabación</string>
+    <string name="flip_restart_label">Reiniciar el vídeo cuando el gimbal gire el teléfono</string>
+    <string name="flip_restart_description">Que la cámara esté abierta no significa que esté grabando, así que esto también comprueba si el micrófono está en uso. Cuando el gimbal gira el teléfono unos 120 grados o más mientras se graba, se pulsa el disparador para terminar el clip y se vuelve a pulsar poco después para empezar otro con la orientación correcta. Desactivado por defecto, porque toma el control de la app de cámara.</string>
+    <string name="label_microphone">Micrófono</string>
+    <string name="label_recording_video">Grabando vídeo</string>
+    <string name="recording_no_camera_only">no, solo está en uso la cámara</string>
+    <string name="microphone_unavailable_warning">Este dispositivo no deja que otras apps vean si el micrófono está en uso, así que no se puede distinguir un vídeo de una foto y el reinicio al girar no se activará. Todo lo demás no se ve afectado.</string>
+    <string name="shutter_title">Disparador en pantalla</string>
+    <string name="shutter_description">Cuando un gatillo se asigna a «Pulsar el disparador en pantalla», se prueban tres vías: un botón que se identifica como disparador, luego los píxeles de una captura de pantalla y, por último, un botón que solo está situado y tiene la forma de donde suele estar un disparador. El color solo sirve para desempatar, porque un árbol de accesibilidad no lleva píxeles y no todos los disparadores son blancos o rojos.</string>
+    <string name="shutter_no_attempt">Todavía no hay ningún intento. Actívalo desde una app de cámara y vuelve aquí: el resultado no se puede mostrar mientras otra app está en primer plano.</string>
+    <string name="about_title">Acerca de</string>
+    <string name="label_version">Versión</string>
+    <string name="label_protocol">Protocolo</string>
+    <string name="about_protocol">ingeniería inversa a partir de Gimbal Show 2.2.7.2</string>
+    <string name="about_icon_credit">Icono de la app: «gimbal» de Johannes Osterburg, publicado bajo CC0 1.0.</string>
+
+    <!-- Language picker. The language names are shown in their own language, as is the
+         convention everywhere else, so they are not translated. -->
+    <string name="language_title">Idioma de la app</string>
+    <string name="language_description">Cambia el idioma solo de esta app, no el del resto del teléfono.</string>
+    <string name="language_system">Predeterminado del sistema</string>
+    <string name="language_unsupported">Elegir idioma necesita Android 13 o posterior. En este dispositivo la app sigue el idioma del sistema.</string>
+
+    <!-- Gimbal models: the codes the hardware advertises, never translated. -->
+
+    <!-- Gimbal modes -->
+    <string name="gimbal_mode_ll_follow">Seguir (LL)</string>
+    <string name="gimbal_mode_pan_follow">Seguir panorámica</string>
+    <string name="gimbal_mode_all_lock">Bloqueo total</string>
+    <string name="gimbal_mode_fpv">FPV</string>
+    <string name="gimbal_mode_spin_shot">Toma giratoria</string>
+    <string name="gimbal_mode_pan_follow_plus">Seguir panorámica+</string>
+    <string name="gimbal_mode_all_follow_plus">Seguir todo+</string>
+
+    <!-- Accessibility service configuration -->
+    <string name="accessibility_service_label">OpenGimbal</string>
+    <string name="accessibility_service_summary">Asigna los botones del gimbal y el deslizador de zoom a acciones de zoom por pellizco, volumen y navegación, y puede pulsar el disparador en pantalla de una app de cámara.</string>
+    <string name="accessibility_service_description">Convierte los eventos de los botones y el deslizador del gimbal en entrada para todo el sistema.\n\nUsa gestos para el zoom por pellizco y la navegación, y el sistema de audio para el volumen. Solo cuando asignas un gatillo al disparador en pantalla lee la pantalla actual (la jerarquía de vistas y, si no encuentra nada, una captura de pantalla), únicamente para localizar ese botón. Si activas el reinicio del vídeo, también pregunta al sistema de audio si el micrófono está en uso, para distinguir una grabación de vídeo de una foto; nunca graba ni escucha nada. No se guarda ni se envía nada a ningún sitio.</string>
+
+    <!-- Connection notification -->
+    <string name="connection_channel_name">Conexión del gimbal</string>
+    <string name="connection_channel_description">Muestra si el gimbal está conectado.</string>
+    <string name="notification_connecting_title">Conectando con el gimbal</string>
+    <string name="notification_connected_title">Gimbal conectado</string>
+    <string name="notification_disconnected_title">Gimbal desconectado</string>
+    <string name="action_reconnect">Reconectar</string>
+
+    <!-- Remaining gimbal model codes, identifiers and never translated. -->
+
+    <!-- Raw trigger values, as reported in the inputs panel. -->
+    <string name="trigger_single_value">clic simple</string>
+    <string name="trigger_double_value">doble clic</string>
+    <string name="trigger_long_value">pulsación larga</string>
+    <string name="capture_switch_video">cambiar a modo VÍDEO</string>
+    <string name="capture_switch_camera">cambiar de cámara</string>
+    <string name="model_button_next_mode">pulsación simple -&gt; siguiente modo del gimbal</string>
+    <string name="model_button_close_tracking">doble pulsación -&gt; cerrar el seguimiento</string>
+    <string name="value_unknown_with_code">desconocido(%1$d)</string>
+
+</resources>

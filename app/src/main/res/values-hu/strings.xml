@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Every string the app puts in front of the user.
+
+    Deliberately not here: the packet log and the connect log. Those are diagnostics, the
+    equivalent of logcat, and they name protocol fields and error codes that mean nothing
+    once translated - a translated log is harder to act on, not easier.
+
+    Entries marked translatable="false" are identifiers or brand names: the model codes the
+    gimbal advertises itself as, and the raw field names shown in the device panel.
+-->
+<resources>
+
+    <!-- Navigation -->
+    <string name="nav_gimbal">Gimbal</string>
+    <string name="nav_mappings">Hozzárendelések</string>
+    <string name="nav_control">Vezérlés</string>
+    <string name="nav_settings">Beállítások</string>
+
+    <!-- Shared -->
+    <string name="state_enabled">Bekapcsolva</string>
+    <string name="state_disabled">Kikapcsolva</string>
+    <string name="value_enabled">bekapcsolva</string>
+    <string name="value_disabled">kikapcsolva</string>
+    <string name="value_not_connected">nincs csatlakozva</string>
+    <string name="value_unknown">Ismeretlen</string>
+    <string name="value_idle">tétlen</string>
+    <string name="value_in_use">használatban</string>
+    <string name="value_free">szabad</string>
+    <string name="value_dash">-</string>
+    <string name="value_released">elengedve</string>
+    <string name="value_press_hold">megnyomás / nyomva tartás</string>
+    <string name="value_turning">tekerés</string>
+    <string name="value_yes">igen</string>
+    <string name="value_no">nem</string>
+    <string name="value_unknown_state">ismeretlen</string>
+    <string name="value_not_reported">nincs jelentve</string>
+    <string name="value_used_by_another_app">másik alkalmazás használja</string>
+    <string name="value_zoom_in">nagyítás (%1$s)</string>
+    <string name="value_zoom_out">kicsinyítés (%1$s)</string>
+    <string name="value_mode_code">kód %1$d</string>
+    <string name="value_offset_centred">középen</string>
+    <string name="value_offset_right">%1$d px jobbra</string>
+    <string name="value_offset_left">%1$d px balra</string>
+    <string name="value_offset_above">%1$d px a középpont fölött</string>
+    <string name="value_offset_below">%1$d px a középpont alatt</string>
+    <string name="status_idle">Tétlen</string>
+    <string name="status_scanning_for_gimbals">Gimbalok keresése…</string>
+    <string name="status_scanning">Keresés…</string>
+    <string name="status_connecting">Csatlakozás…</string>
+    <string name="status_disconnected">Leválasztva</string>
+    <string name="status_discovering">Csatlakozva, szolgáltatások keresése…</string>
+    <string name="status_negotiating_mtu">MTU egyeztetése…</string>
+    <string name="status_handshaking">Kézfogás…</string>
+    <string name="status_no_handshake">Nincs válasz a kézfogásra</string>
+    <string name="status_streaming">Streamelés</string>
+    <string name="source_connected">csatlakozva</string>
+    <string name="source_paired">párosítva</string>
+    <string name="source_advertising">hirdet</string>
+    <string name="label_state">Állapot</string>
+    <string name="microphone_not_readable">nem olvasható</string>
+
+    <!-- Accessibility service panel -->
+    <string name="accessibility_service_title">Kisegítő szolgáltatás</string>
+    <string name="action_open_accessibility_settings">Kisegítő lehetőségek megnyitása</string>
+    <string name="action_enable_accessibility_service">Kisegítő szolgáltatás bekapcsolása</string>
+
+    <!-- Device screen -->
+    <string name="device_subtitle">Hohem / Proove / Honji gimbal csatlakoztatása és a jelentett adatok megtekintése</string>
+    <string name="permissions_title">Engedélyek</string>
+    <string name="permissions_bluetooth_required">A kereséshez és a csatlakozáshoz Bluetooth-engedély szükséges.</string>
+    <string name="permissions_versions_explanation">Az Android 12 és újabb verziói BLUETOOTH_SCAN / BLUETOOTH_CONNECT engedélyt igényelnek. A régebbi verzióknál a BLE-kereséshez helyhozzáférés kell.</string>
+    <string name="action_grant_permission">Engedély megadása</string>
+    <string name="action_disconnect">Leválasztás</string>
+    <string name="action_connect">Csatlakozás</string>
+    <string name="action_stop_scan">Keresés leállítása</string>
+    <string name="action_scan_for_gimbal">Gimbal keresése</string>
+    <string name="action_refresh_paired">Párosítottak frissítése</string>
+    <string name="action_show_less">Kevesebb megjelenítése</string>
+    <string name="action_show_all_entries">Az összes %1$d bejegyzés megjelenítése</string>
+    <string name="connection_title">Kapcsolat</string>
+    <string name="label_name">Név</string>
+    <string name="label_model">Modell</string>
+    <string name="label_address">Cím</string>
+    <string name="label_status">Állapot</string>
+    <string name="label_mtu">MTU</string>
+    <string name="label_packets">Csomagok</string>
+    <string name="auto_connect_label">Automatikus csatlakozás</string>
+    <string name="auto_connect_description">Csatlakozás kérdés nélkül, ha csak egy gimbal érhető el</string>
+    <string name="notifications_blocked_warning">Az értesítések le vannak tiltva, ezért a kapcsolat állapota nem jelenik meg.</string>
+    <string name="found_gimbals_title">Talált gimbalok</string>
+    <string name="inputs_title">Észlelt bemenetek</string>
+    <string name="label_trigger">Ravasz</string>
+    <string name="label_shutter">Zárkioldó</string>
+    <string name="label_m_button">M gomb</string>
+    <string name="label_knob">Forgatógomb</string>
+    <string name="label_zoom_slider">Zoom csúszka</string>
+    <string name="label_mode">Mód</string>
+    <string name="label_joystick">Joystick</string>
+    <string name="value_joystick">dir=%1$d state=%2$d</string>
+    <string name="label_battery">Akkumulátor</string>
+    <string name="value_battery">töltöttség %1$d</string>
+    <string name="raw_fields_title">Nyers mezők</string>
+    <string name="log_title">Csomagnapló</string>
+    <string name="label_last_packet">Utolsó csomag</string>
+    <string name="log_empty">Még semmi.</string>
+
+    <!-- What the on-screen shutter detector did, read back in Settings. -->
+    <string name="shutter_report_flipped">A telefon felvétel közben átfordult - a klipp lezárása és új indítása</string>
+    <string name="shutter_report_named_suffix"> (%1$s)</string>
+    <string name="shutter_report_pressed_named">Zárkioldó megnyomva a %1$d,%2$d pontban%3$s</string>
+    <string name="shutter_report_pixel_description">%1$s kör %2$dx%3$d (pontszám %4$s)</string>
+    <string name="shutter_report_pressed_pixels">Megnyomva a képernyőn %2$d,%3$d helyen: %1$s</string>
+    <string name="shutter_report_pixels_untappable">A képernyőn %2$d,%3$d helyen megtalálva: %1$s, de nem sikerült megnyomni</string>
+    <string name="shutter_report_none">Nem található zárkioldó a képernyőn</string>
+    <string name="shutter_report_shape_suffix"> - %1$s</string>
+    <string name="shutter_report_pressed_by_shape">Zárkioldó megnyomva a %1$d,%2$d pontban (pontszám %3$s)%4$s</string>
+    <string name="shutter_report_shape_unpressable">Zárkioldó található a %1$d,%2$d pontban (pontszám %3$s), de nem sikerült megnyomni</string>
+    <string name="shutter_colour_white">fehér</string>
+    <string name="shutter_colour_red">piros</string>
+    <string name="shutter_colour_ring">üreges</string>
+    <string name="shutter_colour_coloured">színes</string>
+
+    <!-- Mappings screen -->
+    <string name="mappings_subtitle">Annak beállítása, hogy az egyes gombok és a zoom csúszka mit tegyenek más alkalmazásokban</string>
+    <string name="mappings_live_message">Ezek a hozzárendelések élnek. A mozdulatok ahhoz az alkalmazáshoz kerülnek, amelyik éppen előtérben van.</string>
+    <string name="mappings_saved_message">A beállítások itt mentődnek, de semmi nem fut, amíg a szolgáltatás nincs bekapcsolva.</string>
+    <string name="trigger_mappings_title">A ravasz hozzárendelései</string>
+    <string name="volume_note">Megjegyzés: a hangerő-műveletek az audio rendszeren keresztül módosítják a médiahangerőt. Valódi hangerőgomb-megnyomást nem tudnak utánozni, ezért azok a kameraalkalmazások, amelyek a hangerőgombot zárkioldóként használják, nem fognak reagálni rájuk.</string>
+    <string name="pinch_zoom_title">Nagyítás két ujjal</string>
+    <string name="pinch_zoom_description">Hogy a két ujj mennyit mozdul el mozdulatonként. Növelni kell, ha a nagyítás túl lassúnak tűnik.</string>
+    <string name="pinch_zoom_strength">Erősség: %1$d%%</string>
+
+    <!-- Triggers -->
+    <string name="trigger_zoom_slider">Zoom csúszka</string>
+    <string name="trigger_zoom_slider_hint">Folyamatos: pozitív = az egyik irány, negatív = a másik, 0 = elengedve</string>
+    <string name="trigger_single">Ravasz · egyszeri kattintás</string>
+    <string name="trigger_single_hint">Nyers 1-es értékként jelentve, közvetlenül a kezdő 15 után</string>
+    <string name="trigger_double">Ravasz · dupla kattintás</string>
+    <string name="trigger_double_hint">Nyers 2-es értékként jelentve, közvetlenül a kezdő 15 után</string>
+    <string name="trigger_long">Ravasz · hosszú nyomás</string>
+    <string name="trigger_long_hint">A második 15-ös, ami a gomb nyomvatartása közben érkezik</string>
+    <string name="trigger_shutter_2">Zárkioldó · dupla kattintás</string>
+    <string name="trigger_shutter_2_hint">Általában videó módra vált</string>
+    <string name="trigger_shutter_3">Zárkioldó · hármas kattintás</string>
+    <string name="trigger_shutter_3_hint">Általában kamerát vált</string>
+    <string name="trigger_m_single">M gomb · egyszeri nyomás</string>
+    <string name="trigger_m_single_hint">Általában a gimbal módot váltja körbe</string>
+    <string name="trigger_m_double">M gomb · dupla nyomás</string>
+    <string name="trigger_m_double_hint">Általában bezárja a követést</string>
+
+    <!-- Actions -->
+    <string name="action_none">Nincs művelet</string>
+    <string name="action_none_description">A ravasz beállítatlanul hagyása</string>
+    <string name="action_pinch_zoom">Nagyítás két ujjal (folyamatos)</string>
+    <string name="action_pinch_zoom_description">Kétujjas mozdulatokat küld, így a kameraalkalmazások nagyítanak és kicsinyítenek</string>
+    <string name="action_volume_step">Hangerő +/- (folyamatos)</string>
+    <string name="action_volume_step_description">A csúszka nyomvatartása közben lépteti a zene hangerejét felfelé vagy lefelé</string>
+    <string name="action_screen_shutter">Zárkioldó megnyomása a képernyőn</string>
+    <string name="action_screen_shutter_description">Megkeresi a kameraalkalmazás zárkioldó gombját, és megérinti. Azokban az alkalmazásokban is működik, amelyek figyelmen kívül hagyják a hangerőgombot</string>
+    <string name="action_volume_up">Hangerő fel</string>
+    <string name="action_volume_up_description">Egy lépés a zene hangerején</string>
+    <string name="action_volume_down">Hangerő le</string>
+    <string name="action_volume_down_description">Egy lépés a zene hangerején</string>
+    <string name="action_play_pause">Lejátszás / szünet</string>
+    <string name="action_media_next">Következő</string>
+    <string name="action_media_previous">Előző</string>
+    <string name="action_media_description">Az aktív médiamunkamenetnek elküldve</string>
+    <string name="action_back">Vissza</string>
+    <string name="action_home">Kezdőlap</string>
+    <string name="action_recents">Legutóbbi alkalmazások</string>
+    <string name="action_global_description">Globális kisegítő művelet</string>
+    <string name="action_swipe_up">Felfelé húzás</string>
+    <string name="action_swipe_down">Lefelé húzás</string>
+    <string name="action_swipe_left">Balra húzás</string>
+    <string name="action_swipe_right">Jobbra húzás</string>
+    <string name="action_swipe_description">Függőleges húzás a képernyő közepén</string>
+    <string name="action_swipe_horizontal_description">Vízszintes húzás a képernyő közepén</string>
+
+    <!-- Control screen -->
+    <string name="control_subtitle">A gimbal irányítása kézzel, a fizikai forgatógomb nélkül</string>
+    <string name="stick_title">Botkormány</string>
+    <string name="stick_connect_prompt">Gimbal csatlakoztatása a kormányzáshoz.</string>
+    <string name="stick_help_aim">Nyomva tartva mozog, elengedve megáll, nagyobb kitérésre pedig gyorsabb. Az alábbi cél az, amit a gimbalnak fokban megadunk.</string>
+    <string name="stick_help_steer">Nyomva tartva mozog, elengedve megáll, nagyobb kitérésre pedig gyorsabb.</string>
+    <string name="label_aim">Célzás</string>
+    <string name="value_aim">elfordulás %1$d°, dőlés %2$d°</string>
+    <string name="stick_sweep_speed">Pásztázási sebesség, %1$s° másodpercenként teljes kitérésnél</string>
+    <string name="action_back_to_level">Vissza vízszintbe</string>
+    <string name="command_title">Parancs</string>
+    <string name="command_description">A protokoll kétféleképpen kéri a gimbal mozgatását. Ez a változat sebességet küld, amíg a botkormány nyomva van tartva, és pontosan ezt küldi a hivatalos alkalmazás követési ciklusa is.</string>
+    <string name="stick_mode_aim">Célzás megadott szögben</string>
+    <string name="stick_mode_aim_description">A célzási szöget küldi el. A gimbal odafordul, és ott marad.</string>
+    <string name="stick_mode_steer">Kormányzás (követéses stílus)</string>
+    <string name="stick_mode_steer_description">Sebességet küld, amíg a botkormány nyomva van tartva.</string>
+    <string name="direction_title">Irány</string>
+    <string name="direction_description">Hogy egy adott értékre merre fordul a gimbal, azt csak kipróbálással lehet megállapítani, mert a hivatalos alkalmazás ezeket a parancsokat kizárólag egy követett téma követésére használja. Ha valamelyik tengely rossz felé megy, itt fordítható meg.</string>
+    <string name="direction_invert_x">Bal / jobb megfordítása</string>
+    <string name="direction_invert_y">Fel / le megfordítása</string>
+    <string name="direction_app_driven">Az alkalmazás-vezérelt jelző elküldése</string>
+    <string name="direction_app_driven_description">Csak a kormányzási parancs használja. A hivatalos alkalmazás akkor állítja be, amikor a telefon végzi a célzást.</string>
+
+    <!-- Object tracking -->
+    <string name="tracking_title">Tárgykövetés</string>
+    <string name="tracking_description">A képernyőn megérintett dolgot követi. Bekapcsolás után egy kameraalkalmazást kell megnyitni, majd a lebegő gombot megnyomni, és megérinteni a követni kívánt tárgyat.</string>
+    <string name="tracking_trigger_note">A gimbal ravaszának kétszeri megnyomása leállítja, mert ilyenkor a gimbal magától vízszintbe áll.</string>
+    <string name="tracking_battery_note">A követés erőforrás-igényes: a képernyő másolása és minden képkocka átkutatása történik a tárgy kereséséhez, ezért bekapcsolva érezhetően rövidebb az akkumulátor üzemideje.</string>
+    <string name="tracking_button_label">Lebegő gomb</string>
+    <string name="tracking_needs_service">A kisegítő szolgáltatás szükséges hozzá, ami jelenleg ki van kapcsolva.</string>
+    <string name="tracking_button_hint">Bekapcsolás után egy kameraalkalmazást kell megnyitni - a gomb csak ilyen fölött jelenik meg.</string>
+    <string name="tracking_button_live">A gomb a képernyőn látható, amíg egy kameraalkalmazás fut.</string>
+    <string name="tracking_phase_off">Kikapcsolva</string>
+    <string name="tracking_phase_idle">Kész, a gomb megnyomására vár</string>
+    <string name="tracking_phase_waiting_for_camera">Kameraalkalmazásra vár - a gomb fölötte jelenik meg</string>
+    <string name="tracking_phase_connecting">Képernyőrögzítési engedélyre vár</string>
+    <string name="tracking_phase_selecting">A követni kívánt tárgy megérintése</string>
+    <string name="tracking_phase_tracking">Követés</string>
+    <string name="tracking_phase_lost">A tárgy elveszett, a gimbal egy helyben tart</string>
+    <string name="tracking_label_screen_read">Képernyőolvasás</string>
+    <string name="tracking_value_fps">másodpercenként %1$s képkocka</string>
+    <string name="tracking_label_match">Egyezés</string>
+    <string name="tracking_value_percent">%1$d%%</string>
+    <string name="tracking_label_object_at">Tárgy helye</string>
+    <string name="tracking_label_correcting">Korrekció</string>
+    <string name="tracking_value_correction">%1$s° elfordulás, %2$s° dőlés</string>
+    <string name="tracking_label_measured">Mért érték</string>
+    <string name="tracking_label_scale">Méret</string>
+    <string name="tracking_value_scale">%1$s×</string>
+    <string name="tracking_value_px_per_degree">%1$s px fokonként</string>
+    <string name="tracking_readout_help">Követés közben érdemes figyelni ezeket a számokat. A tárgynak a közép felé kell húzódnia, a korrekciónak csökkennie kell, a mért fokonkénti pixelszámnak pedig be kell állnia a kezdőérték helyett. Ha a tárgy inkább kifelé tolódik, az alábbi megfelelő irányt kell megfordítani.</string>
+    <string name="tracking_reversed_warning">Valami rossz felé mozdul: %1$d korrekció az ellenkező irányba ment, mint kellett volna. Az alábbi megfelelő irányt kell megfordítani.</string>
+    <string name="tracking_strength">Korrekció erőssége, %1$d%%</string>
+    <string name="tracking_strength_help">Hogy a középig vezető távolság mekkora részét próbálja a gimbal egy lépésben megtenni. Az alapértelmezett érték a felét korrigálja, ami hagy mozgásteret arra az esetre, ha a gimbal saját elképzelése hibás arról, hogy egy fok mennyit mozdít a képen - ezt követés közben méri, és fent meg is jeleníti. Nagyobb érték agresszívebben követ, de túllövés veszélyével jár.</string>
+
+    <!-- Tracking overlay -->
+    <string name="overlay_track_object">Tárgy követése</string>
+    <string name="overlay_press_object">A követni kívánt tárgy megérintése</string>
+    <string name="overlay_camera_keeps_running">A kameraalkalmazás tovább fut alatta</string>
+    <string name="overlay_chip_waiting_permission">Rögzítési engedélyre vár…</string>
+    <string name="overlay_chip_following">Követés · %1$s fps · %2$s%%</string>
+    <string name="overlay_chip_lost">Elveszett · %1$s%% · gombbal újra</string>
+    <string name="overlay_chip_idle">Tárgy követése a gombbal</string>
+    <string name="toast_no_camera_app">Nem található kameraalkalmazás</string>
+    <string name="tracking_message_capture_refused">A képernyőrögzítés elutasítva</string>
+    <string name="tracking_message_capture_unavailable">A képernyőrögzítés nem érhető el</string>
+    <string name="tracking_message_capture_not_allowed">A képernyőrögzítés nem lett engedélyezve</string>
+    <string name="tracking_message_mirror_failed">A képernyő tükrözése nem sikerült</string>
+    <string name="tracking_message_pick_further_from_edge">A képernyő szélétől távolabbi rész megérintése</string>
+    <string name="tracking_message_pick_detail">Ez a rész túl sima a követéshez - mintázatos vagy éllel rendelkező tárgy megérintése</string>
+    <string name="tracking_capture_channel_name">Képernyőrögzítés</string>
+    <string name="tracking_capture_channel_description">Akkor jelenik meg, amíg a gimbal követ valamit a képernyőn</string>
+    <string name="tracking_notification_title">Tárgy követése</string>
+    <string name="tracking_notification_text">A követés figyeli a képernyőt</string>
+    <string name="tracking_notification_stop">Leállítás</string>
+
+    <!-- Settings screen -->
+    <string name="settings_subtitle">Beállítások és élő kép arról, mit lát az alkalmazás</string>
+    <string name="status_title">Állapot</string>
+    <string name="label_accessibility">Kisegítő lehetőségek</string>
+    <string name="label_gimbal">Gimbal</string>
+    <string name="label_camera">Kamera</string>
+    <string name="camera_detection_title">Kameraészlelés</string>
+    <string name="camera_only_label">Csak kameraalkalmazás futása közben</string>
+    <string name="camera_only_description">Azt használja jelzésként, hogy a kamera elérhetetlenné válik, mert egy másik alkalmazás megnyitotta. Ez az alkalmazás soha nem nyit kamerát.</string>
+    <string name="camera_not_reported">Ez a készülék nem jelenti a kamera elérhetőségét.</string>
+    <string name="camera_none_held">Jelenleg egyetlen kameraalkalmazás sem használja a kamerát.</string>
+    <string name="camera_held_by_other">%2$d kamerából %1$d van más alkalmazás használatában: %3$s</string>
+    <string name="camera_unavailable_warning">Ez a készülék nem jelenti a kamera elérhetőségét, ezért a bekapcsolt beállítással a hozzárendelések soha nem futnának le.</string>
+    <string name="recording_title">Felvétel</string>
+    <string name="flip_restart_label">Videó újraindítása, ha a gimbal átfordítja a telefont</string>
+    <string name="flip_restart_description">Az, hogy a kamera nyitva van, nem jelenti azt, hogy felvétel készül, ezért ez a beállítás azt is ellenőrzi, hogy használatban van-e a mikrofon. Ha a gimbal felvétel közben körülbelül 120 fokot vagy annál többet fordít a telefonon, a zárkioldó megnyomásával zárul a klipp, majd röviddel később ismételt megnyomással indul egy új, helyes állásban. Alapértelmezésben kikapcsolva, mert átveszi a kameraalkalmazás feletti irányítást.</string>
+    <string name="label_microphone">Mikrofon</string>
+    <string name="label_recording_video">Videófelvétel folyamatban</string>
+    <string name="recording_no_camera_only">nem, csak a kamera van használatban</string>
+    <string name="microphone_unavailable_warning">Ez a készülék nem engedi, hogy más alkalmazások lássák, használatban van-e a mikrofon, ezért a videó nem különböztethető meg a fényképtől, és az átfordítási újraindítás nem lép működésbe. Minden más változatlanul működik.</string>
+    <string name="shutter_title">Zárkioldó a képernyőn</string>
+    <string name="shutter_description">Ha egy ravasz a „Zárkioldó megnyomása a képernyőn” művelethez van rendelve, három útvonalat próbál ki: először egy gombot, amely magát zárkioldóként nevezi meg, aztán a képernyőkép képpontjait, végül egy gombot, amely csak ott van, és úgy formált, ahogy egy zárkioldó szokott kinézni. A szín csak a holtverseny eldöntésére szolgál, mert a kisegítő fastruktúra nem hordoz képpontokat, és nem minden zárkioldó fehér vagy piros.</string>
+    <string name="shutter_no_attempt">Még nem történt próbálkozás. Egy kameraalkalmazásból kell kiváltani, majd ide visszatérni — az eredmény nem jeleníthető meg, amíg egy másik alkalmazás van előtérben.</string>
+    <string name="about_title">Névjegy</string>
+    <string name="label_version">Verzió</string>
+    <string name="label_protocol">Protokoll</string>
+    <string name="about_protocol">a Gimbal Show 2.2.7.2 visszafejtésével</string>
+    <string name="about_icon_credit">Alkalmazásikon: a Johannes Osterburg „gimbal” ikonja, CC0 1.0 alatt közzétéve.</string>
+
+    <!-- Language picker. The language names are shown in their own language, as is the
+         convention everywhere else, so they are not translated. -->
+    <string name="language_title">Alkalmazás nyelve</string>
+    <string name="language_description">Csak ennek az alkalmazásnak a nyelvét módosítja, a telefon többi részéét nem.</string>
+    <string name="language_system">Rendszer alapértelmezése</string>
+    <string name="language_unsupported">A nyelv kiválasztásához Android 13 vagy újabb szükséges. Ezen a készüléken az alkalmazás a rendszer nyelvét követi.</string>
+
+    <!-- Gimbal modes -->
+    <string name="gimbal_mode_ll_follow">Követés (LL)</string>
+    <string name="gimbal_mode_pan_follow">Vízszintes követés</string>
+    <string name="gimbal_mode_all_lock">Mindent rögzít</string>
+    <string name="gimbal_mode_fpv">FPV</string>
+    <string name="gimbal_mode_spin_shot">Pörgetett felvétel</string>
+    <string name="gimbal_mode_pan_follow_plus">Vízszintes követés+</string>
+    <string name="gimbal_mode_all_follow_plus">Mindent követ+</string>
+
+    <!-- Accessibility service configuration -->
+    <string name="accessibility_service_label">OpenGimbal</string>
+    <string name="accessibility_service_summary">A gimbal gombjait és a zoom csúszkát nagyításhoz, hangerőhöz és navigációhoz tartozó műveletekhez rendeli, és meg tudja nyomni egy kameraalkalmazás képernyőn lévő zárkioldóját.</string>
+    <string name="accessibility_service_description">A gimbal gombjainak és csúszkájának eseményeit rendszerszintű bemenetté alakítja.\n\nA nagyításhoz és a navigációhoz mozdulatokat, a hangerőhöz az audio rendszert használja. A képernyőt csak akkor olvassa ki, ha egy ravasz a képernyőn lévő zárkioldóhoz van rendelve - akkor is kizárólag annak a gombnak a megkereséséhez: előbb a nézeti fastruktúrát, és ha az nem talál semmit, egy képernyőképet. Ha a videó újraindítása be van kapcsolva, az audio rendszertől azt is megkérdezi, hogy használatban van-e a mikrofon, így különbözteti meg a videófelvételt a fényképtől; semmit nem rögzít és nem hallgat ki. Semmi nem kerül tárolásra vagy elküldésre.</string>
+
+    <!-- Connection notification -->
+    <string name="connection_channel_name">Gimbal kapcsolat</string>
+    <string name="connection_channel_description">Megjeleníti, hogy a gimbal csatlakozva van-e.</string>
+    <string name="notification_connecting_title">Csatlakozás a gimbalhoz</string>
+    <string name="notification_connected_title">Gimbal csatlakoztatva</string>
+    <string name="notification_disconnected_title">Gimbal leválasztva</string>
+    <string name="action_reconnect">Újracsatlakozás</string>
+
+    <!-- Raw trigger values, as reported in the inputs panel. -->
+    <string name="trigger_single_value">egyszeri kattintás</string>
+    <string name="trigger_double_value">dupla kattintás</string>
+    <string name="trigger_long_value">hosszú nyomás</string>
+    <string name="capture_switch_video">váltás VIDEO módra</string>
+    <string name="capture_switch_camera">kamera váltása</string>
+    <string name="model_button_next_mode">egyszeri nyomás -&gt; következő gimbal mód</string>
+    <string name="model_button_close_tracking">dupla nyomás -&gt; követés bezárása</string>
+    <string name="value_unknown_with_code">ismeretlen(%1$d)</string>
+
+</resources>

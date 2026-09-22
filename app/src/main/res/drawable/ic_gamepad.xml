@@ -1,0 +1,16 @@
+<!--
+    Control tab.
+    Material Icons "gamepad" (outlined, 24dp) - a d-pad with four arrows.
+    Source: https://fonts.google.com/icons?selected=Material+Icons+Outlined:gamepad
+    Repo:   google/material-design-icons -> src/hardware/gamepad/materialiconsoutlined/24px.svg
+    The transparent 24x24 frame path from the original SVG is dropped.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="@android:color/white"
+        android:pathData="M13,4v2.67l-1,1 -1,-1V4h2M20,11v2h-2.67l-1,-1 1,-1H20M6.67,11l1,1 -1,1H4v-2h2.67M12,16.33l1,1V20h-2v-2.67l1,-1M15,2H9v5.5l3,3 3,-3V2zM22,9h-5.5l-3,3 3,3H22V9zM7.5,9H2v6h5.5l3,-3 -3,-3zM12,13.5l-3,3V22h6v-5.5l-3,-3z" />
+</vector>

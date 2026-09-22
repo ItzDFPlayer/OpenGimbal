@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Every string the app puts in front of the user.
+
+    Deliberately not here: the packet log and the connect log. Those are diagnostics, the
+    equivalent of logcat, and they name protocol fields and error codes that mean nothing
+    once translated - a translated log is harder to act on, not easier.
+
+    Entries marked translatable="false" are identifiers or brand names: the model codes the
+    gimbal advertises itself as, and the raw field names shown in the device panel.
+-->
+<resources>
+
+    <!-- Navigation -->
+    <string name="nav_gimbal">ジンバル</string>
+    <string name="nav_mappings">マッピング</string>
+    <string name="nav_control">操作</string>
+    <string name="nav_settings">設定</string>
+
+    <!-- Shared -->
+    <string name="state_enabled">有効</string>
+    <string name="state_disabled">無効</string>
+    <string name="value_enabled">有効</string>
+    <string name="value_disabled">無効</string>
+    <string name="value_not_connected">未接続</string>
+    <string name="value_unknown">不明</string>
+    <string name="value_idle">待機中</string>
+    <string name="value_in_use">使用中</string>
+    <string name="value_free">空き</string>
+    <string name="value_dash">-</string>
+    <string name="value_released">離した</string>
+    <string name="value_press_hold">押す / 長押し</string>
+    <string name="value_turning">回転中</string>
+    <string name="value_yes">はい</string>
+    <string name="value_no">いいえ</string>
+    <string name="value_unknown_state">不明</string>
+    <string name="value_not_reported">未報告</string>
+    <string name="value_used_by_another_app">他のアプリが使用中</string>
+    <string name="value_zoom_in">ズームイン（%1$s）</string>
+    <string name="value_zoom_out">ズームアウト（%1$s）</string>
+    <string name="value_mode_code">コード %1$d</string>
+    <string name="value_offset_centred">中央</string>
+    <string name="value_offset_right">右へ %1$d px</string>
+    <string name="value_offset_left">左へ %1$d px</string>
+    <string name="value_offset_above">中心より上へ %1$d px</string>
+    <string name="value_offset_below">中心より下へ %1$d px</string>
+    <string name="status_idle">待機中</string>
+    <string name="status_scanning_for_gimbals">ジンバルを検索中…</string>
+    <string name="status_scanning">検索中…</string>
+    <string name="status_connecting">接続中…</string>
+    <string name="status_disconnected">切断</string>
+    <string name="status_discovering">接続済み、サービスを検出中…</string>
+    <string name="status_negotiating_mtu">MTU をネゴシエート中…</string>
+    <string name="status_handshaking">ハンドシェイク中…</string>
+    <string name="status_no_handshake">ハンドシェイクの応答なし</string>
+    <string name="status_streaming">ストリーミング中</string>
+    <string name="source_connected">接続済み</string>
+    <string name="source_paired">ペア設定済み</string>
+    <string name="source_advertising">アドバタイズ中</string>
+    <string name="label_state">状態</string>
+    <string name="microphone_not_readable">読み取り不可</string>
+
+    <!-- Accessibility service panel -->
+    <string name="accessibility_service_title">アクセシビリティサービス</string>
+    <string name="action_open_accessibility_settings">アクセシビリティ設定を開く</string>
+    <string name="action_enable_accessibility_service">アクセシビリティサービスを有効にする</string>
+
+    <!-- Device screen -->
+    <string name="device_subtitle">Hohem / Proove / Honji のジンバルを接続して、その報告内容を確認できます</string>
+    <string name="permissions_title">権限</string>
+    <string name="permissions_bluetooth_required">検索と接続には Bluetooth 権限が必要です。</string>
+    <string name="permissions_versions_explanation">Android 12 以降では BLUETOOTH_SCAN / BLUETOOTH_CONNECT が必要です。それより古いバージョンでは、BLE の検索に位置情報へのアクセスが必要です。</string>
+    <string name="action_grant_permission">権限を許可</string>
+    <string name="action_disconnect">切断</string>
+    <string name="action_connect">接続</string>
+    <string name="action_stop_scan">検索を停止</string>
+    <string name="action_scan_for_gimbal">ジンバルを検索</string>
+    <string name="action_refresh_paired">ペア設定済みを更新</string>
+    <string name="action_show_less">折りたたむ</string>
+    <string name="action_show_all_entries">%1$d 件をすべて表示</string>
+    <string name="connection_title">接続</string>
+    <string name="label_name">名前</string>
+    <string name="label_model">機種</string>
+    <string name="label_address">アドレス</string>
+    <string name="label_status">状態</string>
+    <string name="label_mtu">MTU</string>
+    <string name="label_packets">パケット</string>
+    <string name="auto_connect_label">自動接続</string>
+    <string name="auto_connect_description">ジンバルが 1 台だけ見つかったときは、確認せずに接続します</string>
+    <string name="notifications_blocked_warning">通知がブロックされているため、接続状態は表示されません。</string>
+    <string name="found_gimbals_title">見つかったジンバル</string>
+    <string name="inputs_title">検出された入力</string>
+    <string name="label_trigger">トリガー</string>
+    <string name="label_shutter">シャッター</string>
+    <string name="label_m_button">M ボタン</string>
+    <string name="label_knob">ノブ</string>
+    <string name="label_zoom_slider">ズームスライダー</string>
+    <string name="label_mode">モード</string>
+    <string name="label_joystick">ジョイスティック</string>
+    <string name="value_joystick">dir=%1$d state=%2$d</string>
+    <string name="label_battery">バッテリー</string>
+    <string name="value_battery">残量 %1$d</string>
+    <string name="raw_fields_title">生のフィールド</string>
+    <string name="log_title">パケットログ</string>
+    <string name="label_last_packet">最後のパケット</string>
+    <string name="log_empty">まだありません。</string>
+
+    <!-- What the on-screen shutter detector did, read back in Settings. -->
+    <string name="shutter_report_flipped">録画中にスマートフォンが反転したため、このクリップを終了して新しいクリップを始めます</string>
+    <string name="shutter_report_named_suffix">（%1$s）</string>
+    <string name="shutter_report_pressed_named">画面の %1$d,%2$d で撮影ボタンを押しました%3$s</string>
+    <string name="shutter_report_pixel_description">%1$s %2$dx%3$d（スコア %4$s）</string>
+    <string name="shutter_report_pressed_pixels">画面の %2$d,%3$d で見つけた%1$sを押しました</string>
+    <string name="shutter_report_pixels_untappable">画面の %2$d,%3$d で%1$sを見つけましたが、タップできませんでした</string>
+    <string name="shutter_report_none">画面に撮影ボタンが見つかりませんでした</string>
+    <string name="shutter_report_shape_suffix"> - %1$s</string>
+    <string name="shutter_report_pressed_by_shape">画面の %1$d,%2$d で撮影ボタンを押しました（スコア %3$s）%4$s</string>
+    <string name="shutter_report_shape_unpressable">画面の %1$d,%2$d で撮影ボタンを見つけました（スコア %3$s）が、押せませんでした</string>
+    <string name="shutter_colour_white">白い円</string>
+    <string name="shutter_colour_red">赤い円</string>
+    <string name="shutter_colour_ring">リング状の円</string>
+    <string name="shutter_colour_coloured">色付きの円</string>
+
+    <!-- Mappings screen -->
+    <string name="mappings_subtitle">各ボタンとズームスライダーが、他のアプリで何をするかを選びます</string>
+    <string name="mappings_live_message">このマッピングはすぐに反映されます。ジェスチャーは前面にあるアプリに送られます。</string>
+    <string name="mappings_saved_message">設定はここに保存されますが、サービスを有効にするまで何も動作しません。</string>
+    <string name="trigger_mappings_title">トリガーのマッピング</string>
+    <string name="volume_note">注意：音量の操作はオーディオシステムを通じてメディア音量を変えます。実際の音量キーの押下を再現することはできないため、音量キーをシャッターとして使うカメラアプリは反応しません。</string>
+    <string name="pinch_zoom_title">ピンチズーム</string>
+    <string name="pinch_zoom_description">1 回のジェスチャーで 2 本の指が動く距離です。ズームが遅いと感じる場合は大きくしてください。</string>
+    <string name="pinch_zoom_strength">強さ：%1$d%%</string>
+
+    <!-- Triggers -->
+    <string name="trigger_zoom_slider">ズームスライダー</string>
+    <string name="trigger_zoom_slider_hint">連続：正 = 一方の向き、負 = もう一方の向き、0 = 離した状態</string>
+    <string name="trigger_single">トリガー · 1 回押し</string>
+    <string name="trigger_single_hint">先頭の 15 の直後に、生の値 1 として報告されます</string>
+    <string name="trigger_double">トリガー · 2 回押し</string>
+    <string name="trigger_double_hint">先頭の 15 の直後に、生の値 2 として報告されます</string>
+    <string name="trigger_long">トリガー · 長押し</string>
+    <string name="trigger_long_hint">ボタンが押されたまま送られる 2 つ目の 15</string>
+    <string name="trigger_shutter_2">シャッター · 2 回押し</string>
+    <string name="trigger_shutter_2_hint">通常はビデオモードに切り替わります</string>
+    <string name="trigger_shutter_3">シャッター · 3 回押し</string>
+    <string name="trigger_shutter_3_hint">通常はカメラを切り替えます</string>
+    <string name="trigger_m_single">M ボタン · 短押し</string>
+    <string name="trigger_m_single_hint">通常はジンバルモードを順に切り替えます</string>
+    <string name="trigger_m_double">M ボタン · 2 回押し</string>
+    <string name="trigger_m_double_hint">通常はトラッキングを終了します</string>
+
+    <!-- Actions -->
+    <string name="action_none">何もしない</string>
+    <string name="action_none_description">このトリガーには何も割り当てません</string>
+    <string name="action_pinch_zoom">ピンチズーム（連続）</string>
+    <string name="action_pinch_zoom_description">2 本指のジェスチャーを送り、カメラアプリをズームイン・ズームアウトさせます</string>
+    <string name="action_volume_step">音量 +/-（連続）</string>
+    <string name="action_volume_step_description">スライダーを押している間、音楽ストリームの音量を 1 段ずつ上下します</string>
+    <string name="action_screen_shutter">画面の撮影ボタンを押す</string>
+    <string name="action_screen_shutter_description">カメラアプリの撮影ボタンを見つけてタップします。音量キーを無視するアプリでも動作します</string>
+    <string name="action_volume_up">音量を上げる</string>
+    <string name="action_volume_up_description">音楽ストリームを 1 段上げます</string>
+    <string name="action_volume_down">音量を下げる</string>
+    <string name="action_volume_down_description">音楽ストリームを 1 段下げます</string>
+    <string name="action_play_pause">メディアの再生 / 一時停止</string>
+    <string name="action_media_next">次のメディア</string>
+    <string name="action_media_previous">前のメディア</string>
+    <string name="action_media_description">アクティブなメディアセッションに送られます</string>
+    <string name="action_back">戻る</string>
+    <string name="action_home">ホーム</string>
+    <string name="action_recents">最近使ったアプリ</string>
+    <string name="action_global_description">アクセシビリティのグローバル操作</string>
+    <string name="action_swipe_up">上へスワイプ</string>
+    <string name="action_swipe_down">下へスワイプ</string>
+    <string name="action_swipe_left">左へスワイプ</string>
+    <string name="action_swipe_right">右へスワイプ</string>
+    <string name="action_swipe_description">画面中央を縦にスワイプします</string>
+    <string name="action_swipe_horizontal_description">画面中央を横にスワイプします</string>
+
+    <!-- Control screen -->
+    <string name="control_subtitle">物理ノブを使わず、手でジンバルの向きを変えます</string>
+    <string name="stick_title">スティック</string>
+    <string name="stick_connect_prompt">ジンバルを接続すると操作できます。</string>
+    <string name="stick_help_aim">押している間は動き、離すと止まり、大きく倒すほど速くなります。下に表示される向きは、ジンバルに要求している角度を度で表したものです。</string>
+    <string name="stick_help_steer">押している間は動き、離すと止まり、大きく倒すほど速くなります。</string>
+    <string name="label_aim">向き</string>
+    <string name="value_aim">ヨー %1$d°、ピッチ %2$d°</string>
+    <string name="stick_sweep_speed">旋回速度、最大まで倒したとき毎秒 %1$s°</string>
+    <string name="action_back_to_level">水平に戻す</string>
+    <string name="command_title">コマンド</string>
+    <string name="command_description">プロトコルにはジンバルを動かす方法が 2 つあります。これはスティックを押している間、速度を送る方法で、公式アプリのトラッキングループが送っているものです。</string>
+    <string name="stick_mode_aim">角度を指定して向ける</string>
+    <string name="stick_mode_aim_description">向けたい角度を送ります。ジンバルはその角度まで動いてそのまま保持します。</string>
+    <string name="stick_mode_steer">ステアリング（トラッキング方式）</string>
+    <string name="stick_mode_steer_description">スティックを押している間、速度を送ります。</string>
+    <string name="direction_title">方向</string>
+    <string name="direction_description">ある値に対してジンバルがどちらへ回るかは、実際に試してみるまで分かりません。公式アプリはこれらのコマンドを、追尾対象を追うためだけに使っているからです。軸が逆に動く場合は、ここで反転してください。</string>
+    <string name="direction_invert_x">左右を反転</string>
+    <string name="direction_invert_y">上下を反転</string>
+    <string name="direction_app_driven">アプリ駆動フラグを送る</string>
+    <string name="direction_app_driven_description">ステアリングのコマンドでのみ使われます。公式アプリは、スマートフォン側が向きを決めているときにこれを設定します。</string>
+
+    <!-- Object tracking -->
+    <string name="tracking_title">オブジェクトトラッキング</string>
+    <string name="tracking_description">画面でタップしたものを追尾します。これをオンにしてカメラアプリを開き、フローティングボタンを押してから、画面中央に保ちたい対象をタップしてください。</string>
+    <string name="tracking_trigger_note">ジンバルのトリガーを 2 回押すと停止します。そうするとジンバル自身が水平に戻るためです。</string>
+    <string name="tracking_battery_note">トラッキングは負荷が高く、画面を複製して毎フレーム対象を探すため、オンの間はバッテリーの持ちが明らかに短くなります。</string>
+    <string name="tracking_button_label">フローティングボタン</string>
+    <string name="tracking_needs_service">アクセシビリティサービスが必要ですが、現在はオフになっています。</string>
+    <string name="tracking_button_hint">これをオンにしてからカメラアプリを開いてください。ボタンはカメラアプリの上にしか表示されません。</string>
+    <string name="tracking_button_live">カメラアプリの実行中は、ボタンが画面に表示されます。</string>
+    <string name="tracking_phase_off">オフ</string>
+    <string name="tracking_phase_idle">待機中、ボタンが押されるのを待っています</string>
+    <string name="tracking_phase_waiting_for_camera">カメラアプリを待っています。ボタンはその上に表示されます</string>
+    <string name="tracking_phase_connecting">画面キャプチャの許可を待っています</string>
+    <string name="tracking_phase_selecting">追尾する対象を押してください</string>
+    <string name="tracking_phase_tracking">追尾中</string>
+    <string name="tracking_phase_lost">対象を見失いました。ジンバルは停止しています</string>
+    <string name="tracking_label_screen_read">画面読み取り</string>
+    <string name="tracking_value_fps">毎秒 %1$s フレーム</string>
+    <string name="tracking_label_match">一致度</string>
+    <string name="tracking_value_percent">%1$d%%</string>
+    <string name="tracking_label_object_at">対象の位置</string>
+    <string name="tracking_label_correcting">補正</string>
+    <string name="tracking_value_correction">ヨー %1$s°、ピッチ %2$s°</string>
+    <string name="tracking_label_measured">実測</string>
+    <string name="tracking_label_scale">サイズ</string>
+    <string name="tracking_value_scale">%1$s×</string>
+    <string name="tracking_value_px_per_degree">1 度あたり %1$s px</string>
+    <string name="tracking_readout_help">追尾中はこの数値を確認してください。対象は中央へ引き寄せられ、補正量は小さくなり、実測した 1 度あたりのピクセル数は初期値のままではなく落ち着いていくはずです。逆に対象が外へ押し出される場合は、下の対応する方向を反転してください。</string>
+    <string name="tracking_reversed_warning">何かが逆方向に動いています。%1$d 回の補正が、本来の向きとは逆になりました。下の対応する方向を反転してください。</string>
+    <string name="tracking_strength">補正の強さ、%1$d%%</string>
+    <string name="tracking_strength_help">ジンバルが 1 ステップで、中央までの距離のどれだけを詰めようとするかです。既定ではその半分だけ補正するため、ジンバル自身が持つ「1 度で映像がどれだけ動くか」の見積もりが誤っていても余裕があります。その値は追尾中に実測され、上に表示されます。大きくするとより強く追いますが、行き過ぎる危険があります。</string>
+
+    <!-- Tracking overlay -->
+    <string name="overlay_track_object">対象を追尾</string>
+    <string name="overlay_press_object">追尾する対象を押してください</string>
+    <string name="overlay_camera_keeps_running">下ではカメラアプリが動き続けます</string>
+    <string name="overlay_chip_waiting_permission">画面キャプチャの許可待ち…</string>
+    <string name="overlay_chip_following">追尾中 · %1$s fps · %2$s%%</string>
+    <string name="overlay_chip_lost">見失い · %1$s%% · ボタンで選び直す</string>
+    <string name="overlay_chip_idle">ボタンをタップして対象を追尾</string>
+    <string name="toast_no_camera_app">カメラアプリが見つかりません</string>
+    <string name="tracking_message_capture_refused">画面キャプチャが拒否されました</string>
+    <string name="tracking_message_capture_unavailable">画面キャプチャを利用できません</string>
+    <string name="tracking_message_capture_not_allowed">画面キャプチャが許可されませんでした</string>
+    <string name="tracking_message_mirror_failed">画面をミラーリングできませんでした</string>
+    <string name="tracking_message_pick_further_from_edge">画面の端からもっと離れたものを選んでください</string>
+    <string name="tracking_message_pick_detail">その部分は平坦すぎて追尾できません。模様や輪郭のあるものを選んでください</string>
+    <string name="tracking_capture_channel_name">画面キャプチャ</string>
+    <string name="tracking_capture_channel_description">ジンバルが画面上の何かを追尾している間だけ表示されます</string>
+    <string name="tracking_notification_title">対象を追尾中</string>
+    <string name="tracking_notification_text">トラッキングは画面を監視しています</string>
+    <string name="tracking_notification_stop">停止</string>
+
+    <!-- Settings screen -->
+    <string name="settings_subtitle">設定と、アプリが今見ているもののライブ表示</string>
+    <string name="status_title">状態</string>
+    <string name="label_accessibility">アクセシビリティ</string>
+    <string name="label_gimbal">ジンバル</string>
+    <string name="label_camera">カメラ</string>
+    <string name="camera_detection_title">カメラの検出</string>
+    <string name="camera_only_label">カメラアプリの実行中のみ</string>
+    <string name="camera_only_description">カメラが使用不可になったことを、他のアプリがカメラを開いた合図として使います。このアプリ自身がカメラを開くことはありません。</string>
+    <string name="camera_not_reported">この端末はカメラの空き状況を報告しません。</string>
+    <string name="camera_none_held">現在、カメラを占有しているカメラアプリはありません。</string>
+    <string name="camera_held_by_other">%2$d 台中 %1$d 台のカメラが他のアプリに使用中：%3$s</string>
+    <string name="camera_unavailable_warning">この端末はカメラの空き状況を報告しないため、このオプションをオンにするとマッピングが一度も実行されなくなります。</string>
+    <string name="recording_title">録画</string>
+    <string name="flip_restart_label">ジンバルがスマートフォンを反転させたら動画を録り直す</string>
+    <string name="flip_restart_description">カメラが開いているだけでは録画中とは限らないため、マイクが使用中かどうかも確認します。録画中にジンバルがスマートフォンを約 120 度以上回すと、撮影ボタンを押してこのクリップを終了し、少し後に再度押して正しい向きで新しく録画を始めます。カメラアプリを乗っ取る動作になるため、既定ではオフです。</string>
+    <string name="label_microphone">マイク</string>
+    <string name="label_recording_video">動画を録画中</string>
+    <string name="recording_no_camera_only">いいえ、カメラのみ使用中</string>
+    <string name="microphone_unavailable_warning">この端末では、他のアプリからマイクが使用中かどうかを確認できません。そのため動画と写真を区別できず、反転時の録り直しは行われません。それ以外は影響を受けません。</string>
+    <string name="shutter_title">画面上の撮影ボタン</string>
+    <string name="shutter_description">トリガーを「画面の撮影ボタンを押す」に割り当てると、3 つの経路を順に試します。まず自分を撮影ボタンだと名乗るボタン、次にスクリーンショットのピクセル、最後に撮影ボタンがありそうな位置と形をしたボタンです。色は最後の決め手にしか使いません。アクセシビリティツリーにはピクセルが含まれず、しかもすべての撮影ボタンが白や赤とは限らないからです。</string>
+    <string name="shutter_no_attempt">まだ実行していません。カメラアプリからトリガーして、ここに戻ってきてください — 他のアプリが前面にある間は結果を表示できません。</string>
+    <string name="about_title">このアプリについて</string>
+    <string name="label_version">バージョン</string>
+    <string name="label_protocol">プロトコル</string>
+    <string name="about_protocol">Gimbal Show 2.2.7.2 からリバースエンジニアリング</string>
+    <string name="about_icon_credit">アプリアイコン：Johannes Osterburg による「gimbal」、CC0 1.0 で公開。</string>
+
+    <!-- Language picker. The language names are shown in their own language, as is the
+         convention everywhere else, so they are not translated. -->
+    <string name="language_title">アプリの言語</string>
+    <string name="language_description">このアプリの言語だけを変更します。スマートフォン全体には影響しません。</string>
+    <string name="language_system">システムの既定</string>
+    <string name="language_unsupported">言語の選択には Android 13 以降が必要です。この端末では、アプリはシステムの言語に従います。</string>
+
+    <!-- Gimbal modes -->
+    <string name="gimbal_mode_ll_follow">フォロー（LL）</string>
+    <string name="gimbal_mode_pan_follow">パンフォロー</string>
+    <string name="gimbal_mode_all_lock">オールロック</string>
+    <string name="gimbal_mode_fpv">FPV</string>
+    <string name="gimbal_mode_spin_shot">スピンショット</string>
+    <string name="gimbal_mode_pan_follow_plus">パンフォロー+</string>
+    <string name="gimbal_mode_all_follow_plus">オールフォロー+</string>
+
+    <!-- Accessibility service configuration -->
+    <string name="accessibility_service_label">OpenGimbal</string>
+    <string name="accessibility_service_summary">ジンバルのボタンとズームスライダーを、ピンチズーム・音量・ナビゲーションの操作に割り当て、カメラアプリの画面上の撮影ボタンを押すこともできます。</string>
+    <string name="accessibility_service_description">ジンバルのボタンとスライダーの操作を、システム全体の入力に変換します。\n\nピンチズームとナビゲーションにはジェスチャーを、音量にはオーディオシステムを使います。画面を読み取るのは、トリガーを画面の撮影ボタンに割り当てたときだけです。そのボタンの位置を特定するためだけに、まずビューの階層を、そこに見つからなければスクリーンショットを見ます。動画の録り直しをオンにした場合は、マイクが使用中かどうかをオーディオシステムに問い合わせて、録画中の動画と写真を区別します。録音や音の取り込みは一切行いません。何も保存せず、どこにも送信しません。</string>
+
+    <!-- Connection notification -->
+    <string name="connection_channel_name">ジンバルの接続</string>
+    <string name="connection_channel_description">ジンバルが接続されているかを表示します。</string>
+    <string name="notification_connecting_title">ジンバルに接続中</string>
+    <string name="notification_connected_title">ジンバルに接続しました</string>
+    <string name="notification_disconnected_title">ジンバルから切断しました</string>
+    <string name="action_reconnect">再接続</string>
+
+    <!-- Raw trigger values, as reported in the inputs panel. -->
+    <string name="trigger_single_value">1 回押し</string>
+    <string name="trigger_double_value">2 回押し</string>
+    <string name="trigger_long_value">長押し</string>
+    <string name="capture_switch_video">VIDEO モードに切り替え</string>
+    <string name="capture_switch_camera">カメラを切り替え</string>
+    <string name="model_button_next_mode">短押し -&gt; 次のジンバルモード</string>
+    <string name="model_button_close_tracking">2 回押し -&gt; トラッキングを終了</string>
+    <string name="value_unknown_with_code">不明（%1$d）</string>
+
+</resources>

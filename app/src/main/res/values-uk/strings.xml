@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Every string the app puts in front of the user.
+
+    Deliberately not here: the packet log and the connect log. Those are diagnostics, the
+    equivalent of logcat, and they name protocol fields and error codes that mean nothing
+    once translated - a translated log is harder to act on, not easier.
+
+    Entries marked translatable="false" are identifiers or brand names: the model codes the
+    gimbal advertises itself as, and the raw field names shown in the device panel.
+-->
+<resources>
+
+    <!-- Navigation -->
+    <string name="nav_gimbal">Гімбал</string>
+    <string name="nav_mappings">Прив\'язки</string>
+    <string name="nav_control">Керування</string>
+    <string name="nav_settings">Налаштування</string>
+
+    <!-- Shared -->
+    <string name="state_enabled">Увімкнено</string>
+    <string name="state_disabled">Вимкнено</string>
+    <string name="value_enabled">увімкнено</string>
+    <string name="value_disabled">вимкнено</string>
+    <string name="value_not_connected">не підключено</string>
+    <string name="value_unknown">Невідомо</string>
+    <string name="value_idle">очікування</string>
+    <string name="value_in_use">використовується</string>
+    <string name="value_free">вільна</string>
+    <string name="value_dash">-</string>
+    <string name="value_released">відпущено</string>
+    <string name="value_press_hold">натиснуто / утримується</string>
+    <string name="value_turning">обертається</string>
+    <string name="value_yes">так</string>
+    <string name="value_no">ні</string>
+    <string name="value_unknown_state">невідомо</string>
+    <string name="value_not_reported">не повідомляється</string>
+    <string name="value_used_by_another_app">використовується іншим застосунком</string>
+    <string name="value_zoom_in">наближення (%1$s)</string>
+    <string name="value_zoom_out">віддалення (%1$s)</string>
+    <string name="value_mode_code">код %1$d</string>
+    <string name="value_offset_centred">по центру</string>
+    <string name="value_offset_right">на %1$d px праворуч</string>
+    <string name="value_offset_left">на %1$d px ліворуч</string>
+    <string name="value_offset_above">на %1$d px вище центру</string>
+    <string name="value_offset_below">на %1$d px нижче центру</string>
+    <string name="status_idle">Очікування</string>
+    <string name="status_scanning_for_gimbals">Пошук гімбалів…</string>
+    <string name="status_scanning">Сканування…</string>
+    <string name="status_connecting">Підключення…</string>
+    <string name="status_disconnected">Від\'єднано</string>
+    <string name="status_discovering">Підключено, пошук служб…</string>
+    <string name="status_negotiating_mtu">Узгодження MTU…</string>
+    <string name="status_handshaking">Рукостискання…</string>
+    <string name="status_no_handshake">Немає відповіді на рукостискання</string>
+    <string name="status_streaming">Потік даних</string>
+    <string name="source_connected">підключено</string>
+    <string name="source_paired">спарено</string>
+    <string name="source_advertising">рекламується</string>
+    <string name="label_state">Стан</string>
+    <string name="microphone_not_readable">не читається</string>
+
+    <!-- Accessibility service panel -->
+    <string name="accessibility_service_title">Служба спеціальних можливостей</string>
+    <string name="action_open_accessibility_settings">Відкрити налаштування спеціальних можливостей</string>
+    <string name="action_enable_accessibility_service">Увімкнути службу спеціальних можливостей</string>
+
+    <!-- Device screen -->
+    <string name="device_subtitle">Підключіть гімбал Hohem / Proove / Honji і дивіться, що він повідомляє</string>
+    <string name="permissions_title">Дозволи</string>
+    <string name="permissions_bluetooth_required">Для сканування й підключення потрібен дозвіл на Bluetooth.</string>
+    <string name="permissions_versions_explanation">Android 12 і новішим потрібні BLUETOOTH_SCAN / BLUETOOTH_CONNECT. Старішим версіям для сканування BLE потрібен доступ до місцеположення.</string>
+    <string name="action_grant_permission">Надати дозвіл</string>
+    <string name="action_disconnect">Від\'єднати</string>
+    <string name="action_connect">Підключити</string>
+    <string name="action_stop_scan">Зупинити сканування</string>
+    <string name="action_scan_for_gimbal">Шукати гімбал</string>
+    <string name="action_refresh_paired">Оновити спарені</string>
+    <string name="action_show_less">Показати менше</string>
+    <string name="action_show_all_entries">Показати всі записи: %1$d</string>
+    <string name="connection_title">З\'єднання</string>
+    <string name="label_name">Назва</string>
+    <string name="label_model">Модель</string>
+    <string name="label_address">Адреса</string>
+    <string name="label_status">Статус</string>
+    <string name="label_mtu">MTU</string>
+    <string name="label_packets">Пакети</string>
+    <string name="auto_connect_label">Автопідключення</string>
+    <string name="auto_connect_description">Підключатися без запитання, коли доступний лише один гімбал</string>
+    <string name="notifications_blocked_warning">Сповіщення заблоковано, тому стан з\'єднання не показуватиметься.</string>
+    <string name="found_gimbals_title">Знайдені гімбали</string>
+    <string name="inputs_title">Виявлені входи</string>
+    <string name="label_trigger">Тригер</string>
+    <string name="label_shutter">Затвор</string>
+    <string name="label_m_button">Кнопка M</string>
+    <string name="label_knob">Коліщатко</string>
+    <string name="label_zoom_slider">Повзунок зуму</string>
+    <string name="label_mode">Режим</string>
+    <string name="label_joystick">Джойстик</string>
+    <string name="value_joystick">напрямок=%1$d стан=%2$d</string>
+    <string name="label_battery">Батарея</string>
+    <string name="value_battery">рівень %1$d</string>
+    <string name="raw_fields_title">Сирі поля</string>
+    <string name="log_title">Журнал пакетів</string>
+    <string name="label_last_packet">Останній пакет</string>
+    <string name="log_empty">Поки нічого.</string>
+
+    <!-- What the on-screen shutter detector did, read back in Settings. -->
+    <string name="shutter_report_flipped">Телефон перевернувся під час запису - завершуємо цей фрагмент і починаємо новий</string>
+    <string name="shutter_report_named_suffix"> (%1$s)</string>
+    <string name="shutter_report_pressed_named">Натиснуто затвор у точці %1$d,%2$d%3$s</string>
+    <string name="shutter_report_pixel_description">%1$s круг %2$dx%3$d (оцінка %4$s)</string>
+    <string name="shutter_report_pressed_pixels">Натиснуто %1$s, помічений на екрані в точці %2$d,%3$d</string>
+    <string name="shutter_report_pixels_untappable">Знайдено %1$s на екрані в точці %2$d,%3$d, але натиснути його не вдалося</string>
+    <string name="shutter_report_none">Кнопку затвора на екрані не знайдено</string>
+    <string name="shutter_report_shape_suffix"> - %1$s</string>
+    <string name="shutter_report_pressed_by_shape">Натиснуто затвор у точці %1$d,%2$d (оцінка %3$s)%4$s</string>
+    <string name="shutter_report_shape_unpressable">Знайдено затвор у точці %1$d,%2$d (оцінка %3$s), але натиснути його не вдалося</string>
+    <string name="shutter_colour_white">білий</string>
+    <string name="shutter_colour_red">червоний</string>
+    <string name="shutter_colour_ring">порожній</string>
+    <string name="shutter_colour_coloured">кольоровий</string>
+
+    <!-- Mappings screen -->
+    <string name="mappings_subtitle">Виберіть, що кожна кнопка та повзунок зуму роблять в інших застосунках</string>
+    <string name="mappings_live_message">Ці прив\'язки діють. Жести надсилаються застосунку, який зараз на передньому плані.</string>
+    <string name="mappings_saved_message">Налаштування зберігаються тут, але нічого не працюватиме, поки не увімкнено службу.</string>
+    <string name="trigger_mappings_title">Прив\'язки тригера</string>
+    <string name="volume_note">Примітка: дії з гучністю змінюють гучність медіа через аудіосистему. Вони не можуть імітувати справжнє натискання клавіші гучності, тому застосунки камери, які використовують клавішу гучності як затвор, не реагуватимуть на них.</string>
+    <string name="pinch_zoom_title">Зум двома пальцями</string>
+    <string name="pinch_zoom_description">Наскільки далеко два пальці проходять за один жест. Збільште, якщо зум працює надто повільно.</string>
+    <string name="pinch_zoom_strength">Сила: %1$d%%</string>
+
+    <!-- Triggers -->
+    <string name="trigger_zoom_slider">Повзунок зуму</string>
+    <string name="trigger_zoom_slider_hint">Безперервно: додатне = в один бік, від\'ємне = в інший, 0 = відпущено</string>
+    <string name="trigger_single">Тригер · одне натискання</string>
+    <string name="trigger_single_hint">Повідомляється як сире значення 1, одразу після початкового 15</string>
+    <string name="trigger_double">Тригер · подвійне натискання</string>
+    <string name="trigger_double_hint">Повідомляється як сире значення 2, одразу після початкового 15</string>
+    <string name="trigger_long">Тригер · довге натискання</string>
+    <string name="trigger_long_hint">Друге 15, надіслане, поки кнопку ще утримують</string>
+    <string name="trigger_shutter_2">Затвор · подвійне натискання</string>
+    <string name="trigger_shutter_2_hint">Зазвичай перемикає в режим відео</string>
+    <string name="trigger_shutter_3">Затвор · потрійне натискання</string>
+    <string name="trigger_shutter_3_hint">Зазвичай перемикає камеру</string>
+    <string name="trigger_m_single">Кнопка M · одне натискання</string>
+    <string name="trigger_m_single_hint">Зазвичай перемикає режим гімбала</string>
+    <string name="trigger_m_double">Кнопка M · подвійне натискання</string>
+    <string name="trigger_m_double_hint">Зазвичай закриває відстеження</string>
+
+    <!-- Actions -->
+    <string name="action_none">Нічого не робити</string>
+    <string name="action_none_description">Не чіпати цей тригер</string>
+    <string name="action_pinch_zoom">Зум двома пальцями (безперервно)</string>
+    <string name="action_pinch_zoom_description">Надсилає жести двома пальцями, тож застосунки камери наближають і віддаляють</string>
+    <string name="action_volume_step">Гучність +/- (безперервно)</string>
+    <string name="action_volume_step_description">Крок за кроком змінює гучність музичного потоку, поки повзунок утримують</string>
+    <string name="action_screen_shutter">Натиснути затвор на екрані</string>
+    <string name="action_screen_shutter_description">Знаходить кнопку затвора в застосунку камери та натискає її. Працює в застосунках, які ігнорують клавішу гучності</string>
+    <string name="action_volume_up">Гучніше</string>
+    <string name="action_volume_up_description">Один крок гучності музичного потоку</string>
+    <string name="action_volume_down">Тихіше</string>
+    <string name="action_volume_down_description">Один крок гучності музичного потоку</string>
+    <string name="action_play_pause">Медіа: відтворити / пауза</string>
+    <string name="action_media_next">Медіа: наступний</string>
+    <string name="action_media_previous">Медіа: попередній</string>
+    <string name="action_media_description">Надсилається активному медіасеансу</string>
+    <string name="action_back">Назад</string>
+    <string name="action_home">Додому</string>
+    <string name="action_recents">Останні застосунки</string>
+    <string name="action_global_description">Глобальна дія спеціальних можливостей</string>
+    <string name="action_swipe_up">Провести вгору</string>
+    <string name="action_swipe_down">Провести вниз</string>
+    <string name="action_swipe_left">Провести вліво</string>
+    <string name="action_swipe_right">Провести вправо</string>
+    <string name="action_swipe_description">Вертикальний свайп через центр екрана</string>
+    <string name="action_swipe_horizontal_description">Горизонтальний свайп через центр екрана</string>
+
+    <!-- Control screen -->
+    <string name="control_subtitle">Наводьте гімбал вручну, без фізичного коліщатка</string>
+    <string name="stick_title">Стік</string>
+    <string name="stick_connect_prompt">Підключіть гімбал, щоб ним керувати.</string>
+    <string name="stick_help_aim">Утримуйте, щоб рухати, відпустіть, щоб зупинити, і відхиляйте далі для більшої швидкості. Нижче показано наведення, яке задано гімбалу, у градусах.</string>
+    <string name="stick_help_steer">Утримуйте, щоб рухати, відпустіть, щоб зупинити, і відхиляйте далі для більшої швидкості.</string>
+    <string name="label_aim">Наведення</string>
+    <string name="value_aim">поворот %1$d°, нахил %2$d°</string>
+    <string name="stick_sweep_speed">Швидкість обертання, %1$s°/с за повного відхилення</string>
+    <string name="action_back_to_level">Повернути до рівня</string>
+    <string name="command_title">Команда</string>
+    <string name="command_description">У протоколі є два способи попросити гімбал рухатися. Цей надсилає швидкість, поки стік утримують; саме так робить цикл відстеження в офіційному застосунку.</string>
+    <string name="stick_mode_aim">Наведення на кут</string>
+    <string name="stick_mode_aim_description">Надсилає градуси, на які треба навести. Гімбал переходить туди й утримує позицію.</string>
+    <string name="stick_mode_steer">Керування швидкістю (як у відстеженні)</string>
+    <string name="stick_mode_steer_description">Надсилає швидкість, поки стік утримують.</string>
+    <string name="direction_title">Напрямок</string>
+    <string name="direction_description">У який бік гімбал повертається за заданого значення, можна з\'ясувати лише спробою, бо офіційний застосунок використовує ці команди тільки для супроводу відстежуваного об\'єкта. Якщо вісь рухається не в той бік, переверніть її тут.</string>
+    <string name="direction_invert_x">Інвертувати ліво / право</string>
+    <string name="direction_invert_y">Інвертувати вгору / вниз</string>
+    <string name="direction_app_driven">Надсилати прапорець керування застосунком</string>
+    <string name="direction_app_driven_description">Використовується лише командою керування швидкістю. Офіційний застосунок встановлює його, коли наведення виконує телефон.</string>
+
+    <!-- Object tracking -->
+    <string name="tracking_title">Відстеження об\'єкта</string>
+    <string name="tracking_description">Стежить за тим, що ви торкнетеся на екрані. Увімкніть це, відкрийте застосунок камери, потім натисніть плаваючу кнопку та торкніться об\'єкта, який хочете тримати в центрі кадру.</string>
+    <string name="tracking_trigger_note">Подвійне натискання тригера на гімбалі зупиняє це, бо тоді гімбал сам вирівнюється.</string>
+    <string name="tracking_battery_note">Відстеження витратне: екран копіюється і в кожному кадрі шукається ваш об\'єкт, тож очікуйте помітно коротшого часу роботи від батареї, поки воно увімкнене.</string>
+    <string name="tracking_button_label">Плаваюча кнопка</string>
+    <string name="tracking_needs_service">Потрібна служба спеціальних можливостей, а вона зараз вимкнена.</string>
+    <string name="tracking_button_hint">Увімкніть це, потім відкрийте застосунок камери - кнопка з\'являється лише поверх нього.</string>
+    <string name="tracking_button_live">Кнопка є на екрані, поки працює застосунок камери.</string>
+    <string name="tracking_phase_off">Вимкнено</string>
+    <string name="tracking_phase_idle">Готово, очікуємо на кнопку</string>
+    <string name="tracking_phase_waiting_for_camera">Очікуємо на застосунок камери - кнопка з\'являється поверх нього</string>
+    <string name="tracking_phase_connecting">Очікуємо на дозвіл захоплення екрана</string>
+    <string name="tracking_phase_selecting">Натисніть на об\'єкт, щоб відстежувати</string>
+    <string name="tracking_phase_tracking">Слідує</string>
+    <string name="tracking_phase_lost">Об\'єкт втрачено, гімбал утримує позицію</string>
+    <string name="tracking_label_screen_read">Читання екрана</string>
+    <string name="tracking_value_fps">%1$s кадр/с</string>
+    <string name="tracking_label_match">Збіг</string>
+    <string name="tracking_value_percent">%1$d%%</string>
+    <string name="tracking_label_object_at">Позиція об\'єкта</string>
+    <string name="tracking_label_correcting">Корекція</string>
+    <string name="tracking_value_correction">%1$s° поворот, %2$s° нахил</string>
+    <string name="tracking_label_measured">Виміряно</string>
+    <string name="tracking_label_scale">Розмір</string>
+    <string name="tracking_value_scale">%1$s×</string>
+    <string name="tracking_value_px_per_degree">%1$s px на градус</string>
+    <string name="tracking_readout_help">Поки воно слідує, стежте за цими числами. Об\'єкт має притягуватися до центру, корекція має зменшуватися, а виміряні пікселі на градус мають стабілізуватися, а не залишатися на початковому значенні. Якщо об\'єкт, навпаки, відходить далі, переверніть відповідний напрямок нижче.</string>
+    <string name="tracking_reversed_warning">Щось рухається не в той бік: корекція йшла в протилежному напрямку, ніж мала. Таких випадків: %1$d. Переверніть відповідний напрямок нижче.</string>
+    <string name="tracking_strength">Сила корекції, %1$d%%</string>
+    <string name="tracking_strength_help">Яку частину відстані до центру гімбал намагається подолати за один крок. Типове значення змушує його коригувати половину, що дає запас на випадок, якщо уявлення гімбала про те, наскільки один градус зсуває зображення, хибне - це вимірюється під час супроводу і показано вище. Збільшення змушує наздоганяти рішучіше й ризикує перерегулюванням.</string>
+
+    <!-- Tracking overlay -->
+    <string name="overlay_track_object">Відстежувати об\'єкт</string>
+    <string name="overlay_press_object">Натисніть на об\'єкт, щоб відстежувати</string>
+    <string name="overlay_camera_keeps_running">Застосунок камери продовжує працювати позаду</string>
+    <string name="overlay_chip_waiting_permission">Очікування дозволу на захоплення екрана…</string>
+    <string name="overlay_chip_following">Слідує · %1$s fps · %2$s%%</string>
+    <string name="overlay_chip_lost">Втрачено · %1$s%% · натисніть кнопку, щоб вибрати знову</string>
+    <string name="overlay_chip_idle">Натисніть кнопку, щоб відстежувати об\'єкт</string>
+    <string name="toast_no_camera_app">Застосунок камери не виявлено</string>
+    <string name="tracking_message_capture_refused">У захопленні екрана відмовлено</string>
+    <string name="tracking_message_capture_unavailable">Захоплення екрана недоступне</string>
+    <string name="tracking_message_capture_not_allowed">Захоплення екрана не дозволено</string>
+    <string name="tracking_message_mirror_failed">Не вдалося віддзеркалити екран</string>
+    <string name="tracking_message_pick_further_from_edge">Виберіть щось далі від краю екрана</string>
+    <string name="tracking_message_pick_detail">Ця ділянка надто однорідна, щоб за нею стежити - виберіть щось із текстурою або краєм</string>
+    <string name="tracking_capture_channel_name">Захоплення екрана</string>
+    <string name="tracking_capture_channel_description">Показується, поки гімбал супроводжує щось на екрані</string>
+    <string name="tracking_notification_title">Супровід об\'єкта</string>
+    <string name="tracking_notification_text">Відстеження спостерігає за екраном</string>
+    <string name="tracking_notification_stop">Зупинити</string>
+
+    <!-- Settings screen -->
+    <string name="settings_subtitle">Налаштування та поточний стан того, що бачить застосунок</string>
+    <string name="status_title">Статус</string>
+    <string name="label_accessibility">Спеціальні можливості</string>
+    <string name="label_gimbal">Гімбал</string>
+    <string name="label_camera">Камера</string>
+    <string name="camera_detection_title">Виявлення камери</string>
+    <string name="camera_only_label">Лише поки працює застосунок камери</string>
+    <string name="camera_only_description">Використовує те, що камера стає недоступною, як ознаку того, що її відкрив інший застосунок. Цей застосунок сам ніколи не відкриває камеру.</string>
+    <string name="camera_not_reported">На цьому пристрої доступність камери не повідомляється.</string>
+    <string name="camera_none_held">Зараз жоден застосунок камери не займає камеру.</string>
+    <string name="camera_held_by_other">%1$d з %2$d камер зайнято іншим застосунком: %3$s</string>
+    <string name="camera_unavailable_warning">Цей пристрій не повідомляє про доступність камери, тож з увімкненим параметром прив\'язки ніколи не спрацьовували б.</string>
+    <string name="recording_title">Запис</string>
+    <string name="flip_restart_label">Перезапускати відео, коли гімбал перевертає телефон</string>
+    <string name="flip_restart_description">Те, що камера відкрита, ще не означає, що триває запис, тож додатково перевіряється, чи використовується мікрофон. Коли гімбал повертає телефон приблизно на 120 градусів або більше під час запису, натискається затвор, щоб завершити фрагмент, і невдовзі натискається знову, щоб почати новий у правильному положенні. Типово вимкнено, бо це бере під контроль застосунок камери.</string>
+    <string name="label_microphone">Мікрофон</string>
+    <string name="label_recording_video">Запис відео</string>
+    <string name="recording_no_camera_only">ні, використовується лише камера</string>
+    <string name="microphone_unavailable_warning">Цей пристрій не дає іншим застосункам бачити, чи використовується мікрофон, тож відео не відрізнити від фото і перезапуск під час перевертання не спрацює. Решта працює як звичайно.</string>
+    <string name="shutter_title">Затвор на екрані</string>
+    <string name="shutter_description">Коли тригер прив\'язано до «Натиснути затвор на екрані», пробуються три шляхи: кнопка, яка сама називає себе затвором, потім пікселі знімка екрана, а тоді кнопка, яка лише розташована й має форму там, де зазвичай буває затвор. Колір лише остаточно вирішує сумнів, бо дерево спеціальних можливостей не передає пікселів, і не кожен затвор білий або червоний.</string>
+    <string name="shutter_no_attempt">Спроби ще не було. Запустіть його із застосунку камери, а потім поверніться сюди — результат не можна показати, поки попереду інший застосунок.</string>
+    <string name="about_title">Про застосунок</string>
+    <string name="label_version">Версія</string>
+    <string name="label_protocol">Протокол</string>
+    <string name="about_protocol">відтворено шляхом зворотної розробки з Gimbal Show 2.2.7.2</string>
+    <string name="about_icon_credit">Іконка застосунку: «gimbal» від Johannes Osterburg, випущена за CC0 1.0.</string>
+
+    <!-- Language picker. The language names are shown in their own language, as is the
+         convention everywhere else, so they are not translated. -->
+    <string name="language_title">Мова застосунку</string>
+    <string name="language_description">Змінює мову лише цього застосунку, а не решти телефона.</string>
+    <string name="language_system">Як у системі</string>
+    <string name="language_unsupported">Вибір мови потребує Android 13 або новішого. На цьому пристрої застосунок використовує мову системи.</string>
+
+    <!-- Gimbal modes -->
+    <string name="gimbal_mode_ll_follow">Супровід (LL)</string>
+    <string name="gimbal_mode_pan_follow">Супровід за поворотом</string>
+    <string name="gimbal_mode_all_lock">Повне блокування</string>
+    <string name="gimbal_mode_fpv">FPV</string>
+    <string name="gimbal_mode_spin_shot">Круговий знімок</string>
+    <string name="gimbal_mode_pan_follow_plus">Супровід за поворотом+</string>
+    <string name="gimbal_mode_all_follow_plus">Повний супровід+</string>
+
+    <!-- Accessibility service configuration -->
+    <string name="accessibility_service_label">OpenGimbal</string>
+    <string name="accessibility_service_summary">Зіставляє кнопки гімбала та повзунок зуму з діями зуму двома пальцями, гучності й навігації, а також може натискати затвор на екрані застосунку камери.</string>
+    <string name="accessibility_service_description">Перетворює події кнопок і повзунка гімбала на загальносистемне введення.\n\nВикористовує жести для зуму двома пальцями та навігації, а аудіосистему — для гучності. Лише коли ви прив\'яжете тригер до затвора на екрані, він читає поточний екран - ієрархію подання, а якщо там нічого не знайде, то знімок екрана - виключно щоб знайти цю кнопку. Якщо ви увімкнете перезапуск відео, він також запитує в аудіосистеми, чи використовується мікрофон, щоб відрізнити відеозапис від фото; він ніколи нічого не записує й не слухає. Нічого не зберігається й нікуди не надсилається.</string>
+
+    <!-- Connection notification -->
+    <string name="connection_channel_name">З\'єднання з гімбалом</string>
+    <string name="connection_channel_description">Показує, чи підключено гімбал.</string>
+    <string name="notification_connecting_title">Підключення до гімбала</string>
+    <string name="notification_connected_title">Гімбал підключено</string>
+    <string name="notification_disconnected_title">Гімбал від\'єднано</string>
+    <string name="action_reconnect">Підключити знову</string>
+
+    <!-- Raw trigger values, as reported in the inputs panel. -->
+    <string name="trigger_single_value">одне натискання</string>
+    <string name="trigger_double_value">подвійне натискання</string>
+    <string name="trigger_long_value">довге натискання</string>
+    <string name="capture_switch_video">перехід у режим ВІДЕО</string>
+    <string name="capture_switch_camera">перемикання камери</string>
+    <string name="model_button_next_mode">одне натискання -&gt; наступний режим гімбала</string>
+    <string name="model_button_close_tracking">подвійне натискання -&gt; закрити відстеження</string>
+    <string name="value_unknown_with_code">невідомо(%1$d)</string>
+
+</resources>
