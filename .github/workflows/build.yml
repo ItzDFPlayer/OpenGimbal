@@ -1,0 +1,256 @@
+name: Build and release
+
+# Releases are cut by hand (Actions → Build and release → Run workflow) so that a version
+# number is always chosen deliberately. Pushes and pull requests only test and build.
+#
+# Note: there is deliberately no `tags:` trigger. The release job creates the tag itself, so
+# listening for it would make every release run this workflow a second time.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release, without the "v" (e.g. 1.4.0). Becomes the tag v1.4.0.'
+        required: true
+        type: string
+      version_code:
+        description: 'Android versionCode. Blank derives it from the version (1.4.0 → 10400).'
+        required: false
+        type: string
+      prerelease:
+        description: 'Publish as a pre-release'
+        required: false
+        type: boolean
+        default: false
+
+concurrency:
+  # A second release run must not cancel the first mid-publish; everything else can.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name != 'workflow_dispatch' }}
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - uses: android-actions/setup-android@v3
+
+      - name: Run unit tests
+        run: ./gradlew :app:testDebugUnitTest --console=plain
+
+      # Mirrors what the project is checked with locally, so the run page says the same
+      # thing a local `./gradlew test` does rather than only pass/fail.
+      - name: Summarise results
+        if: always()
+        run: |
+          python3 - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import glob
+          import xml.etree.ElementTree as ET
+
+          totals = {"tests": 0, "failures": 0, "errors": 0, "skipped": 0}
+          classes = 0
+
+          for path in sorted(glob.glob("app/build/test-results/testDebugUnitTest/*.xml")):
+              root = ET.parse(path).getroot()
+              classes += 1
+              for key in totals:
+                  totals[key] += int(root.get(key, 0))
+
+          if classes == 0:
+              print("### Unit tests\n\nNo test results were produced — the test task did not run.")
+          else:
+              print("### Unit tests\n")
+              print(f"{classes} test classes\n")
+              print("| Tests | Failures | Errors | Skipped |")
+              print("| --- | --- | --- | --- |")
+              print(
+                  f"| {totals['tests']} | {totals['failures']} | "
+                  f"{totals['errors']} | {totals['skipped']} |"
+              )
+          PY
+
+      - name: Upload test report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: app/build/test-results/testDebugUnitTest/
+          if-no-files-found: ignore
+
+  build:
+    name: Build APKs
+    needs: test
+    runs-on: ubuntu-latest
+    env:
+      # Empty on push and pull_request, set only for a manual release. app/build.gradle.kts
+      # reads these as -PversionName / -PversionCode.
+      VERSION_NAME: ${{ github.event.inputs.version }}
+      VERSION_CODE: ${{ github.event.inputs.version_code }}
+
+      # Kept outside the checkout so it never shows up in the working tree.
+      RELEASE_KEYSTORE_FILE: ${{ runner.temp }}/release.keystore
+      KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
+      RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
+      RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
+      RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: gradle
+
+      - uses: android-actions/setup-android@v3
+
+      # Pinned rather than left to AGP's own download, so a missing platform is a clear
+      # error here instead of a confusing failure inside the build.
+      - name: Install SDK platform
+        run: sdkmanager "platforms;android-37"
+
+      # `env` rather than `secrets` in the condition: the secrets context is not available
+      # to a step's `if`. Without any of these secrets the build still succeeds and simply
+      # produces an unsigned APK, which the release job then rejects.
+      - name: Decode signing keystore
+        if: env.KEYSTORE_BASE64 != ''
+        run: printf '%s' "$KEYSTORE_BASE64" | base64 --decode > "$RELEASE_KEYSTORE_FILE"
+
+      - name: Resolve version
+        id: version
+        run: |
+          set -euo pipefail
+          name="${VERSION_NAME:-}"
+          code="${VERSION_CODE:-}"
+
+          # Only a manual release names a version; a push build uses what is checked in.
+          if [ -z "$name" ]; then
+            {
+              echo "args="
+              echo "name="
+            } >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          if [ -z "$code" ]; then
+            # 1.4.0 -> 10400, so versionCode rises with the version and never has to be
+            # remembered separately. A missing component counts as zero (1.4 -> 10400).
+            code=$(printf '%s' "$name" | awk -F. '{printf "%d", $1*10000 + ($2+0)*100 + ($3+0)}')
+          fi
+
+          {
+            echo "args=-PversionName=$name -PversionCode=$code"
+            echo "name=$name"
+          } >> "$GITHUB_OUTPUT"
+
+          echo "Building \`$name\` (versionCode \`$code\`)." >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Build APKs
+        run: |
+          ./gradlew :app:assembleDebug :app:assembleRelease --console=plain ${{ steps.version.outputs.args }}
+
+      - name: Upload debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: opengimbal-debug
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+
+      - name: Upload release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: opengimbal-release
+          path: app/build/outputs/apk/release/*.apk
+          if-no-files-found: error
+
+  release:
+    name: Publish release
+    needs: build
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      VERSION: ${{ github.event.inputs.version }}
+      PRERELEASE: ${{ github.event.inputs.prerelease }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: opengimbal-release
+          path: dist
+
+      - name: Check the APK is signed
+        run: |
+          set -euo pipefail
+          apk=$(find dist -name '*.apk' | head -n 1)
+
+          if [ -z "$apk" ]; then
+            echo "::error::No release APK was produced."
+            exit 1
+          fi
+
+          # AGP names an unsigned release APK app-release-unsigned.apk, so the name is the
+          # clearest signal that the signing secrets are missing.
+          case "$apk" in
+            *-unsigned.apk)
+              echo "::error::The release APK is unsigned, so it would not install. Add the RELEASE_KEYSTORE_BASE64, RELEASE_KEYSTORE_PASSWORD, RELEASE_KEY_ALIAS and RELEASE_KEY_PASSWORD repository secrets, then run this workflow again."
+              exit 1
+              ;;
+          esac
+
+          # Then confirm it independently. AGP signs with the v2/v3 schemes, which store the
+          # signature in the APK Signing Block rather than as META-INF entries, so an unsigned
+          # APK is one without that block. This does not depend on the naming convention above.
+          if ! python3 -c '
+          import sys
+          data = open(sys.argv[1], "rb").read()
+          block = data.rfind(b"APK Sig Block 42")
+          central = data.rfind(b"PK\x01\x02")
+          print(f"signing block at {block}, central directory at {central}")
+          sys.exit(0 if block != -1 and central != -1 and block < central else 1)
+          ' "$apk"; then
+            echo "::error::The release APK has no APK Signing Block, so it is not signed and would not install."
+            exit 1
+          fi
+
+          mv "$apk" "dist/OpenGimbal-$VERSION.apk"
+          ( cd dist && sha256sum "OpenGimbal-$VERSION.apk" > "OpenGimbal-$VERSION.apk.sha256" )
+
+      - name: Create the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          tag="v$VERSION"
+
+          # Fail rather than silently attaching to whatever already owns this tag.
+          if gh release view "$tag" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "::error::Release $tag already exists. Choose a new version, or delete the existing release and tag first."
+            exit 1
+          fi
+
+          # Tag exactly the commit that was built and tested.
+          flags=(--title "$tag" --generate-notes --target "$GITHUB_SHA")
+          if [ "$PRERELEASE" = "true" ]; then
+            flags+=(--prerelease)
+          fi
+
+          gh release create "$tag" \
+            "dist/OpenGimbal-$VERSION.apk" \
+            "dist/OpenGimbal-$VERSION.apk.sha256" \
+            "${flags[@]}" \
+            --repo "$GITHUB_REPOSITORY"

@@ -127,6 +127,56 @@ components (the template matcher, the correction maths, and the servo gain estim
 
 Results land in `app/build/test-results/testDebugUnitTest/`.
 
+### Releasing
+
+Releases run from `.github/workflows/build.yml`, triggered by hand: **Actions → Build and
+release → Run workflow**. Pushes and pull requests only test and build.
+
+The version is an input, not something you edit in a file:
+
+| Input | Meaning |
+| --- | --- |
+| `version` | Required. Without the `v` — `1.4.0` becomes the tag `v1.4.0`. |
+| `version_code` | Optional. Left blank it is derived from the version: `1.4.0 → 10400`. |
+| `prerelease` | Marks the GitHub release as a pre-release. |
+
+Internally the workflow passes these as `-PversionName` / `-PversionCode`, which
+`app/build.gradle.kts` reads. The same thing works locally:
+
+```bash
+./gradlew :app:assembleRelease -PversionName=1.4.0 -PversionCode=10400
+```
+
+**Signing is optional locally, required to publish.** Supply it through environment variables:
+
+```bash
+keytool -genkeypair -v -keystore release.keystore -alias opengimbal \
+  -keyalg RSA -keysize 4096 -validity 10000
+
+export RELEASE_KEYSTORE_FILE=$PWD/release.keystore
+export RELEASE_KEYSTORE_PASSWORD=...
+export RELEASE_KEY_ALIAS=opengimbal
+export RELEASE_KEY_PASSWORD=...
+./gradlew :app:assembleRelease
+```
+
+If the four variables are absent the build still succeeds and emits
+`app-release-unsigned.apk`, so a plain `assembleRelease` works without a keystore. The release
+job refuses to *publish* an unsigned APK, because it would be a file users cannot install.
+
+To let CI publish, add four repository secrets — `RELEASE_KEYSTORE_BASE64` (the keystore,
+base64-encoded), `RELEASE_KEYSTORE_PASSWORD`, `RELEASE_KEY_ALIAS`, `RELEASE_KEY_PASSWORD`:
+
+```bash
+base64 -w0 release.keystore   # paste the output as RELEASE_KEYSTORE_BASE64
+```
+
+Each release attaches `OpenGimbal-<version>.apk` and a matching `.sha256`. An existing tag is
+never reused — the workflow fails instead, so a release can't silently land on a previous one.
+
+> Note: a release APK is signed with a different key from the debug APK, so installing it over a
+> debug build requires uninstalling first.
+
 ---
 
 ## Permissions, and what they're for

@@ -31,3 +31,8 @@ google-services.json
 
 # Android Profiling
 *.hprof
+
+# AGP release output: baseline profiles, output metadata and the APKs themselves.
+# Generated per build, and `output-metadata.json` in particular records the version
+# of whatever build produced it, so a committed copy goes stale immediately.
+app/release/
