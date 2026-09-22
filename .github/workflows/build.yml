@@ -51,6 +51,10 @@ jobs:
       # accepted, so android-actions/setup-android is deliberately not used: its v3 tag still
       # asks sdkmanager for the `tools` package, which was removed from the SDK repository, and
       # that fails the job before any Gradle task runs.
+      #
+      # Watch the package names. Android now versions platforms by minor level, so the platform
+      # for `compileSdk { version = release(37) }` in app/build.gradle.kts is `platforms;android-37.0`
+      # - there is no `platforms;android-37`. Keep both in step when compileSdk changes.
       - name: Install SDK platform
         run: |
           set -euo pipefail
@@ -66,12 +70,13 @@ jobs:
             exit 1
           fi
 
-          # Harmless when the image has already accepted them, and it stops the install below
-          # from blocking on a licence prompt.
-          yes | "$sdkmanager" --licenses > /dev/null 2>&1 || true
+          # Harmless when the image has already accepted them. Both streams are silenced
+          # because `yes` reports a broken pipe once sdkmanager exits, which is expected and
+          # would otherwise read like a failure in the log.
+          { yes | "$sdkmanager" --licenses >/dev/null; } 2>/dev/null || true
 
           echo "Using $sdkmanager"
-          "$sdkmanager" --install "platforms;android-37"
+          "$sdkmanager" --install "platforms;android-37.0" "build-tools;37.0.0"
 
           # Only needed if the image did not set it; makes the SDK discoverable to Gradle.
           if [ -z "${ANDROID_HOME:-}" ]; then
@@ -152,6 +157,10 @@ jobs:
       # accepted, so android-actions/setup-android is deliberately not used: its v3 tag still
       # asks sdkmanager for the `tools` package, which was removed from the SDK repository, and
       # that fails the job before any Gradle task runs.
+      #
+      # Watch the package names. Android now versions platforms by minor level, so the platform
+      # for `compileSdk { version = release(37) }` in app/build.gradle.kts is `platforms;android-37.0`
+      # - there is no `platforms;android-37`. Keep both in step when compileSdk changes.
       - name: Install SDK platform
         run: |
           set -euo pipefail
@@ -167,12 +176,13 @@ jobs:
             exit 1
           fi
 
-          # Harmless when the image has already accepted them, and it stops the install below
-          # from blocking on a licence prompt.
-          yes | "$sdkmanager" --licenses > /dev/null 2>&1 || true
+          # Harmless when the image has already accepted them. Both streams are silenced
+          # because `yes` reports a broken pipe once sdkmanager exits, which is expected and
+          # would otherwise read like a failure in the log.
+          { yes | "$sdkmanager" --licenses >/dev/null; } 2>/dev/null || true
 
           echo "Using $sdkmanager"
-          "$sdkmanager" --install "platforms;android-37"
+          "$sdkmanager" --install "platforms;android-37.0" "build-tools;37.0.0"
 
           # Only needed if the image did not set it; makes the SDK discoverable to Gradle.
           if [ -z "${ANDROID_HOME:-}" ]; then
