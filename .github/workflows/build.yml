@@ -39,15 +39,45 @@ jobs:
     name: Unit tests
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v5
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
           cache: gradle
 
-      - uses: android-actions/setup-android@v3
+      # The runner image already ships the Android SDK with ANDROID_HOME set and the licences
+      # accepted, so android-actions/setup-android is deliberately not used: its v3 tag still
+      # asks sdkmanager for the `tools` package, which was removed from the SDK repository, and
+      # that fails the job before any Gradle task runs.
+      - name: Install SDK platform
+        run: |
+          set -euo pipefail
+          sdk_root="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          sdkmanager=""
+
+          if [ -d "$sdk_root/cmdline-tools" ]; then
+            sdkmanager=$(find "$sdk_root/cmdline-tools" -name sdkmanager -type f | sort | tail -n 1)
+          fi
+
+          if [ -z "$sdkmanager" ]; then
+            echo "::error::No sdkmanager found under $sdk_root/cmdline-tools"
+            exit 1
+          fi
+
+          # Harmless when the image has already accepted them, and it stops the install below
+          # from blocking on a licence prompt.
+          yes | "$sdkmanager" --licenses > /dev/null 2>&1 || true
+
+          echo "Using $sdkmanager"
+          "$sdkmanager" --install "platforms;android-37"
+
+          # Only needed if the image did not set it; makes the SDK discoverable to Gradle.
+          if [ -z "${ANDROID_HOME:-}" ]; then
+            echo "ANDROID_HOME=$sdk_root" >> "$GITHUB_ENV"
+            echo "ANDROID_SDK_ROOT=$sdk_root" >> "$GITHUB_ENV"
+          fi
 
       - name: Run unit tests
         run: ./gradlew :app:testDebugUnitTest --console=plain
@@ -85,7 +115,7 @@ jobs:
 
       - name: Upload test report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-results
           path: app/build/test-results/testDebugUnitTest/
@@ -101,25 +131,54 @@ jobs:
       VERSION_NAME: ${{ github.event.inputs.version }}
       VERSION_CODE: ${{ github.event.inputs.version_code }}
 
+      # Do not add RELEASE_KEYSTORE_FILE here pointing at the runner's temp directory. The
+      # `runner` context is not available to job-level `env`, and referencing it anywhere in
+      # this block makes GitHub reject the entire file. The keystore step below exports the
+      # path instead, through $RUNNER_TEMP and $GITHUB_ENV.
       KEYSTORE_BASE64: ${{ secrets.RELEASE_KEYSTORE_BASE64 }}
       RELEASE_KEYSTORE_PASSWORD: ${{ secrets.RELEASE_KEYSTORE_PASSWORD }}
       RELEASE_KEY_ALIAS: ${{ secrets.RELEASE_KEY_ALIAS }}
       RELEASE_KEY_PASSWORD: ${{ secrets.RELEASE_KEY_PASSWORD }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-java@v5
+      - uses: actions/setup-java@v6
         with:
           distribution: temurin
           java-version: '21'
           cache: gradle
 
-      - uses: android-actions/setup-android@v3
-
-      # Pinned rather than left to AGP's own download, so a missing platform is a clear
-      # error here instead of a confusing failure inside the build.
+      # The runner image already ships the Android SDK with ANDROID_HOME set and the licences
+      # accepted, so android-actions/setup-android is deliberately not used: its v3 tag still
+      # asks sdkmanager for the `tools` package, which was removed from the SDK repository, and
+      # that fails the job before any Gradle task runs.
       - name: Install SDK platform
-        run: sdkmanager "platforms;android-37"
+        run: |
+          set -euo pipefail
+          sdk_root="${ANDROID_HOME:-/usr/local/lib/android/sdk}"
+          sdkmanager=""
+
+          if [ -d "$sdk_root/cmdline-tools" ]; then
+            sdkmanager=$(find "$sdk_root/cmdline-tools" -name sdkmanager -type f | sort | tail -n 1)
+          fi
+
+          if [ -z "$sdkmanager" ]; then
+            echo "::error::No sdkmanager found under $sdk_root/cmdline-tools"
+            exit 1
+          fi
+
+          # Harmless when the image has already accepted them, and it stops the install below
+          # from blocking on a licence prompt.
+          yes | "$sdkmanager" --licenses > /dev/null 2>&1 || true
+
+          echo "Using $sdkmanager"
+          "$sdkmanager" --install "platforms;android-37"
+
+          # Only needed if the image did not set it; makes the SDK discoverable to Gradle.
+          if [ -z "${ANDROID_HOME:-}" ]; then
+            echo "ANDROID_HOME=$sdk_root" >> "$GITHUB_ENV"
+            echo "ANDROID_SDK_ROOT=$sdk_root" >> "$GITHUB_ENV"
+          fi
 
       # `env` rather than `secrets` in the condition: the secrets context is not available
       # to a step's `if`. Without any of these secrets the build still succeeds and simply
@@ -166,14 +225,14 @@ jobs:
           ./gradlew :app:assembleDebug :app:assembleRelease --console=plain ${{ steps.version.outputs.args }}
 
       - name: Upload debug APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: opengimbal-debug
           path: app/build/outputs/apk/debug/*.apk
           if-no-files-found: error
 
       - name: Upload release APK
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: opengimbal-release
           path: app/build/outputs/apk/release/*.apk
@@ -190,7 +249,7 @@ jobs:
       VERSION: ${{ github.event.inputs.version }}
       PRERELEASE: ${{ github.event.inputs.prerelease }}
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: opengimbal-release
           path: dist
