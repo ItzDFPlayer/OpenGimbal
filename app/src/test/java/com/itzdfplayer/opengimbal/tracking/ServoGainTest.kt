@@ -138,4 +138,44 @@ class ServoGainTest {
         // A long lens: very little scene per degree, so many pixels per degree.
         assertTrue(gain.observe(shiftedPixels = ServoGain.MAX_PIXELS_PER_DEGREE * 2f, commandedDegrees = 2f))
     }
+
+    @Test
+    fun `a frame size gives a starting guess much closer than the flat one`() {
+        // 1080 pixels across a 65 degree camera is about 17 pixels per degree, where the flat
+        // guess says 45. Being out by nearly three is not a detail: it is every correction for
+        // the first seconds of a session asking for a third of the turn it needs, which from
+        // outside is indistinguishable from a tracker that does not work at all.
+        val seeded = ServoGain(ServoGain.seedFor(1080))
+
+        assertEquals(
+            1080f / ServoGain.ASSUMED_FIELD_OF_VIEW_DEGREES,
+            seeded.pixelsPerDegree,
+            0.01f,
+        )
+        assertTrue(
+            "a seeded gain must be nearer the truth than the flat guess",
+            seeded.pixelsPerDegree < ServoGain.DEFAULT_PIXELS_PER_DEGREE / 2f,
+        )
+    }
+
+    @Test
+    fun `a seeded gain returns to its own seed, not to the flat guess`() {
+        val gain = ServoGain(ServoGain.seedFor(1080))
+        gain.observe(shiftedPixels = 34f, commandedDegrees = 2f)
+
+        gain.reset()
+
+        // The seed is part of what makes this instance useful; going back to the flat guess on
+        // a new object would throw away the only thing known about the camera.
+        assertEquals(ServoGain.seedFor(1080), gain.pixelsPerDegree, 0.001f)
+    }
+
+    @Test
+    fun `a seed from any frame size stays inside what a camera can do`() {
+        for (size in listOf(320, 720, 1080, 1440, 2400, 4320)) {
+            val seeded = ServoGain.seedFor(size)
+            assertTrue("$size is below the band", seeded >= ServoGain.MIN_PIXELS_PER_DEGREE)
+            assertTrue("$size is above the band", seeded <= ServoGain.MAX_PIXELS_PER_DEGREE)
+        }
+    }
 }

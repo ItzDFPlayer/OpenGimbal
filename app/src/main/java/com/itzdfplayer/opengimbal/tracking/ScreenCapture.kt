@@ -28,6 +28,13 @@ import kotlin.math.min
  * The mirrored size is the display size, so a point in a frame and a point on screen are the
  * same coordinates. That is what lets the overlay's selection be used directly as a position
  * in a frame.
+ *
+ * The frame handed to [onFrame] is reused from one call to the next, so it is only valid for
+ * the duration of the call and the callee must not hold on to it. That is not a nicety: at a
+ * full display's resolution a fresh buffer is twenty megabytes a frame, and at any useful
+ * frame rate that is both a large share of the work and enough garbage to have the collector
+ * running inside the frame interval - which is the one thing this feature cannot afford, since
+ * the whole loop advances by frames.
  */
 class ScreenCapture(
     context: Context,
@@ -46,6 +53,9 @@ class ScreenCapture(
     private var virtualDisplay: VirtualDisplay? = null
     private var reader: ImageReader? = null
     private var row: ByteArray = ByteArray(0)
+
+    /** The one frame buffer, made on first use and filled again on every frame. */
+    private var reusable: Gray? = null
 
     /** Size of the mirrored display, which is also the size of the frames handed out. */
     var width = 0
@@ -98,6 +108,9 @@ class ScreenCapture(
         runCatching { reader?.close() }
         virtualDisplay = null
         reader = null
+        // Released rather than kept: a session that has ended should not be sitting on a
+        // screenful of pixels until the next one happens to start.
+        reusable = null
         runCatching { projection.unregisterCallback(callback) }
         runCatching { projection.stop() }
     }
@@ -129,6 +142,10 @@ class ScreenCapture(
     /**
      * The reader gives RGBA rows with padding, so the row stride has to be respected.
      * Assuming tightly packed rows would work on some devices and shear the image on others.
+     *
+     * Fills the reusable frame and returns it, rather than making a new one; see the note on
+     * the class. The buffer is only ever grown, so a session on a screen that changes size
+     * still gets a buffer big enough for every frame.
      */
     private fun toGray(image: Image): Gray {
         val plane = image.planes[0]
@@ -137,7 +154,14 @@ class ScreenCapture(
         val pixelStride = plane.pixelStride
 
         if (row.size < rowStride) row = ByteArray(rowStride)
-        val out = IntArray(width * height)
+
+        val needed = width * height
+        var frame = reusable
+        if (frame == null || frame.pixels.size < needed) {
+            frame = Gray(IntArray(needed), width, height)
+            reusable = frame
+        }
+        val out = frame.pixels
 
         for (y in 0 until height) {
             buffer.position(y * rowStride)
@@ -157,6 +181,6 @@ class ScreenCapture(
                 offset += pixelStride
             }
         }
-        return Gray(out, width, height)
+        return frame
     }
 }

@@ -5,6 +5,7 @@ import android.accessibilityservice.GestureDescription
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.graphics.Path
 import android.media.AudioManager
 import android.os.Build
@@ -185,6 +186,20 @@ class GimbalAccessibilityService : AccessibilityService() {
         stopContinuous()
     }
 
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        // A rotation changes what "the screen size" means, and the overlay places every window
+        // from a size it measured earlier - so without this the floating button and the marker
+        // are positioned in coordinates from one screen shape on a screen that is now a
+        // different shape. The marker is the worse of the two: it is drawn at the position the
+        // patch was found at, in the space the captured frames use, and a mismatch puts it
+        // somewhere the object is not.
+        measureScreen()
+        if (trackingOverlayActive) {
+            trackingOverlay.setScreenSize(screenWidth, screenHeight)
+        }
+    }
+
     // ---- the tracking overlay ---------------------------------------------
 
     /**
@@ -197,6 +212,11 @@ class GimbalAccessibilityService : AccessibilityService() {
      * and that is the only reason the floating button works at all.
      */
     fun applyTrackingOverlay() {
+        // Measured again rather than trusted from whenever the service happened to connect.
+        // The overlay places every window from this, so a stale size puts the floating button
+        // somewhere the user is not looking on a screen that has since changed shape.
+        measureScreen()
+
         if (!MappingStore.trackingOverlay(this) || screenWidth == 0) {
             stopTrackingOverlay()
             return
@@ -332,7 +352,14 @@ class GimbalAccessibilityService : AccessibilityService() {
             TrackingPhase.SELECTING -> {
                 trackingOverlay.hideMarker()
                 trackingOverlay.showSelection()
-                trackingOverlay.updateChip(null)
+                // A pick can be refused - too near the edge for a patch to fit, or over a
+                // piece of screen with nothing in it to match against - and the phase stays
+                // here, waiting for another one. Saying nothing when that happened left the
+                // user tapping at a screen that appeared not to be listening, so the reason
+                // is shown alongside the instruction.
+                trackingOverlay.updateChip(
+                    TrackingStatus.messageRes?.let { getString(it) }
+                )
             }
 
             TrackingPhase.TRACKING -> {

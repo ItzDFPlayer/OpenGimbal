@@ -17,16 +17,31 @@ import kotlin.math.abs
  * it is what lets a correction be sized in pixels the object will really travel.
  */
 class ServoGain(
-    initialPixelsPerDegree: Float = DEFAULT_PIXELS_PER_DEGREE,
+    /**
+     * Where to start, and what [reset] goes back to - the number an instance is built with
+     * is part of what makes it that instance, so a gain seeded from a frame size returns to
+     * that seed rather than to a fixed constant when a new object is picked.
+     */
+    private val initialPixelsPerDegree: Float = DEFAULT_PIXELS_PER_DEGREE,
 ) {
 
     companion object {
         /**
-         * Where to start: a narrow-ish field of view, which makes the first corrections too
-         * small rather than too large. Under-correcting converges over a few steps;
-         * over-correcting oscillates. A first guess should err towards the boring failure.
+         * Where to start when the caller knows nothing about the camera: a narrow-ish field
+         * of view, which makes the first corrections too small rather than too large.
+         * Under-correcting converges over a few steps; over-correcting oscillates. A first
+         * guess should err towards the boring failure.
          */
         const val DEFAULT_PIXELS_PER_DEGREE = 45f
+
+        /**
+         * The field of view a phone's main camera can be assumed to have, in degrees.
+         *
+         * Anything from an ultra-wide to a modest telephoto is outside this, but every
+         * ordinary phone camera sits close to it whatever the screen it is shown on, which is
+         * what makes it usable as a starting point. See [seedFor].
+         */
+        const val ASSUMED_FIELD_OF_VIEW_DEGREES = 65f
 
         /**
          * Measurements outside this band are refused. A phone camera cannot be outside it,
@@ -39,8 +54,30 @@ class ServoGain(
         /** Below this the command was too small for the resulting movement to mean much. */
         const val MIN_COMMAND_DEGREES = 0.3f
 
-        /** How much of each accepted measurement to believe, and how much to keep. */
-        const val BLEND = 0.35f
+        /**
+         * How much of each accepted measurement to believe, and how much to keep.
+         *
+         * Raised from a third. A measurement is taken from two matches that both passed the
+         * similarity and peak-margin tests, so it is not the wild guess the cautious blend
+         * was written for - while a lagging estimate is not harmless: for the first couple of
+         * seconds of every session the loop under-corrects by whatever the seed was wrong by,
+         * and those are the seconds in which the object is most likely to be lost.
+         */
+        const val BLEND = 0.5f
+
+        /**
+         * A first guess from the size of the frame the patches are cut from.
+         *
+         * Pixels per degree is the camera's field of view spread across the frame, and the
+         * field of view barely changes from phone to phone - it is the screen that does.
+         * Dividing the frame by [ASSUMED_FIELD_OF_VIEW_DEGREES] therefore lands within tens
+         * of percent almost everywhere, where the fixed [DEFAULT_PIXELS_PER_DEGREE] was out
+         * by nearly a factor of three on a typical 1080-wide frame. Being out by three means
+         * every correction for the first two seconds asks for a third of the turn it needs,
+         * which from the outside is indistinguishable from a tracker that does not work.
+         */
+        fun seedFor(frameSize: Int): Float = (frameSize / ASSUMED_FIELD_OF_VIEW_DEGREES)
+            .coerceIn(MIN_PIXELS_PER_DEGREE, MAX_PIXELS_PER_DEGREE)
     }
 
     var pixelsPerDegree = initialPixelsPerDegree
@@ -94,9 +131,14 @@ class ServoGain(
         return true
     }
 
-    /** Back to the starting guess, for a new target on a new scene. */
+    /**
+     * Back to the starting guess, for a new target on a new scene.
+     *
+     * Goes back to the value this instance was built with rather than to the fixed default,
+     * so a gain that was seeded from the frame size stays seeded.
+     */
     fun reset() {
-        pixelsPerDegree = DEFAULT_PIXELS_PER_DEGREE
+        pixelsPerDegree = initialPixelsPerDegree
         accepted = 0
         reversed = 0
         discarded = 0

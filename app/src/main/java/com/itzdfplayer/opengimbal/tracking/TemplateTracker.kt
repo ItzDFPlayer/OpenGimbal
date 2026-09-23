@@ -135,6 +135,33 @@ class Patch(val pixels: IntArray, val width: Int, val height: Int) {
         return Patch(out, outWidth, outHeight)
     }
 
+    /**
+     * The same patch at an exact [outWidth] by [outHeight].
+     *
+     * For bringing a window that was cut at the size the object was matched at back to the
+     * template's own shape, so the two can be mixed. [resampled] is the wrong tool for that:
+     * it targets a size by multiplying by a factor and rounding, which is fine when the point
+     * is just to try a neighbouring size, but here the caller is going to blend the result
+     * with a patch of a known size and the two grids have to agree exactly. A pixel of
+     * disagreement makes the counts differ, the blend is refused, and it is refused silently -
+     * on the frames where the object was changing size, which are the ones that needed it.
+     */
+    fun resampledTo(outWidth: Int, outHeight: Int): Patch {
+        val out = IntArray(outWidth * outHeight)
+        // How many source pixels one output pixel covers.
+        val spanX = width.toFloat() / outWidth
+        val spanY = height.toFloat() / outHeight
+        for (y in 0 until outHeight) {
+            val sourceY = (y + 0.5f) * spanY - 0.5f
+            for (x in 0 until outWidth) {
+                val sourceX = (x + 0.5f) * spanX - 0.5f
+                // The reciprocal, because sampleArea derives its span by dividing by it.
+                out[y * outWidth + x] = sampleArea(sourceX, sourceY, 1f / max(spanX, spanY))
+            }
+        }
+        return Patch(out, outWidth, outHeight)
+    }
+
     /** Average of the source block a scaled pixel covers, clamped to the patch. */
     private fun sampleArea(sourceX: Float, sourceY: Float, factor: Float): Int {
         val span = if (factor >= 1f) 1f else 1f / factor
@@ -222,6 +249,29 @@ data class Match(
  */
 object TemplateTracker {
 
+    /**
+     * The best score the last [find] looked at, whether or not it was good enough to act on.
+     *
+     * For reporting only; nothing in here decides anything from it. It exists because [find]
+     * returns nothing at all below [MIN_SIMILARITY], so a caller that shows the match quality
+     * has nothing to show on a failing frame and ends up printing 0% - which says "no
+     * resemblance whatsoever" when the truth may be "nearly, and it is about to come back".
+     * The difference between those two is the difference between a scene that has changed
+     * completely and a tracker that is holding on, and it is the first thing worth knowing
+     * when this goes wrong on someone else's phone.
+     *
+     * Treat it as a floor rather than a figure: it may come from the coarse pass, whose pixels
+     * are averaged into blocks, and averaging tends to lose the fine detail a correlation is
+     * made of. It therefore reads low rather than high, which is the safe direction for a
+     * number people will make decisions about.
+     */
+    @Volatile
+    var lastScore = 0f
+        private set
+
+    /** Highest candidate score seen during the current [find] call. */
+    private var bestSeen = Float.NEGATIVE_INFINITY
+
     /** First pass runs on the frame divided by this. */
     const val COARSE_FACTOR = 4
 
@@ -239,8 +289,18 @@ object TemplateTracker {
      */
     const val COARSE_STRIDE = 1
 
-    /** How far to re-examine at full resolution around the coarse answer. */
-    const val REFINE_RADIUS = 10
+    /**
+     * How far to re-examine at full resolution around the coarse answer.
+     *
+     * Reduced from ten, which made the fine pass the most expensive thing in the tracker
+     * rather than the cheap correction it is meant to be: a radius of ten examines 441
+     * positions at full resolution against the coarse pass's 4 225 at a sixteenth of the
+     * pixels each, so the pass meant to be precise but small was costing three times what the
+     * pass meant to be thorough was. Six still covers the coarse grid's own error several
+     * times over - the coarse winner is right to within half a cell, which is two pixels - so
+     * nothing is lost but the time, and the frame rate is what the whole loop runs on.
+     */
+    const val REFINE_RADIUS = 6
 
     /**
      * Below this, the patch is treated as lost rather than matched.
@@ -368,15 +428,29 @@ object TemplateTracker {
         radius: Int,
         fallbacks: List<Patch> = emptyList(),
     ): Match? {
-        if (patch.count == 0 || frame.width < patch.width || frame.height < patch.height) return null
+        bestSeen = Float.NEGATIVE_INFINITY
+        if (patch.count == 0 || frame.width < patch.width || frame.height < patch.height) {
+            lastScore = 0f
+            return null
+        }
 
-        var best = search(frame, patch, centerX, centerY, radius)
+        // Downscaled once for the whole call rather than once per size tried. It is a pass
+        // over every pixel of the frame and the sizes are tried in turn, so doing it inside
+        // the search meant paying for it three times over on exactly the frames that are
+        // already the slowest - the ones where the first size did badly and the others had to
+        // be tried after it.
+        val coarseFrame = frame.downscaled(COARSE_FACTOR)
+
+        var best = search(frame, coarseFrame, patch, centerX, centerY, radius)
         if ((best?.similarity ?: -1f) < FALLBACK_BELOW) {
             for (fallback in fallbacks) {
-                val alternative = search(frame, fallback, centerX, centerY, radius) ?: continue
+                val alternative =
+                    search(frame, coarseFrame, fallback, centerX, centerY, radius) ?: continue
                 if (best == null || alternative.similarity > best.similarity) best = alternative
             }
         }
+
+        lastScore = bestSeen.coerceIn(0f, 1f)
 
         // A match nobody would act on is not a match. Without this, a rejected answer at the
         // right size can be replaced by a piece of noise at the wrong one: the sizes are tried
@@ -389,9 +463,15 @@ object TemplateTracker {
         return best
     }
 
-    /** One template, tried at the sizes that matter and then pinned down to the pixel. */
+    /**
+     * One template, tried at the sizes that matter and then pinned down to the pixel.
+     *
+     * @param coarseFrame the frame already downscaled by [COARSE_FACTOR]. The caller does that
+     *   once for all the sizes, rather than each size doing it again here.
+     */
     private fun search(
         frame: Gray,
+        coarseFrame: Gray,
         patch: Patch,
         centerX: Int,
         centerY: Int,
@@ -399,7 +479,6 @@ object TemplateTracker {
     ): Match? {
         if (!patch.hasDetail) return null
 
-        val coarseFrame = frame.downscaled(COARSE_FACTOR)
         val coarseRadius = max(1, radius / COARSE_FACTOR)
 
         var best: Match? = null
@@ -456,6 +535,15 @@ object TemplateTracker {
      * rather than just the winner, because how close the runner-up was is the difference
      * between a match and a guess, and that cannot be worked out once the winner has been
      * chosen.
+     *
+     * The margin test has to happen here and nowhere else, which is worth stating because it
+     * looks like something the coarse pass could safely check and the fine pass would confirm.
+     * It cannot: the fine pass only examines a small window around the coarse answer, so a
+     * second convincing subject anywhere further away is invisible to it, and the decision
+     * about whether this frame is ambiguous would never be made. The coarse pass covers the
+     * whole search radius, so it is the only one of the two that can see a rival - which is
+     * also why a refusal from it costs the whole size, and why [RIVALRY_FLOOR] exists to stop
+     * that refusal being made on the strength of two worthless numbers.
      */
     private fun bestPosition(
         frame: Gray,
@@ -490,6 +578,16 @@ object TemplateTracker {
         if (index < 0) return null
 
         val score = peaks.scores[index]
+        // Recorded for reporting, from whichever pass saw it. Nothing here decides anything
+        // from the number, which matters because a score measured on pixels averaged into
+        // blocks is not directly comparable with one measured at full resolution - the
+        // averaging smooths fine texture away, so it tends to read low rather than high. As a
+        // floor on how much the frame resembles the object that is exactly the right way for
+        // it to be wrong. It is also the only score available at all in the case that matters
+        // most: when this pass refuses the answer for being ambiguous, the fine pass never
+        // runs, and reporting nothing would leave "two of them" looking identical to "gone".
+        if (score > bestSeen) bestSeen = score
+
         if (score >= RIVALRY_FLOOR) {
             val runnerUp = peaks.runnerUpExcept(index)
             if (runnerUp != null && score - runnerUp < MIN_PEAK_MARGIN) return null

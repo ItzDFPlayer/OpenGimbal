@@ -449,6 +449,54 @@ class TemplateTrackerTest {
         assertNull("two equally good answers mean the match is a coin toss", found)
     }
 
+    // ---- what the match was worth, for reporting ---------------------------
+
+    @Test
+    fun `a frame the object is in reports a usable score`() {
+        val frame = frameWithBlock(BLOCK_X, BLOCK_Y)
+        val patch = requireNotNull(TemplateTracker.patchAt(frame, TAP_X, TAP_Y, SIZE))
+
+        requireNotNull(TemplateTracker.find(frame, patch, TAP_X, TAP_Y, radius = 24))
+
+        assertTrue(
+            "a frame the object is in must report a score worth acting on",
+            TemplateTracker.lastScore >= TemplateTracker.MIN_SIMILARITY,
+        )
+    }
+
+    @Test
+    fun `a frame the object has left reports a poor score`() {
+        val frame = frameWithBlock(BLOCK_X, BLOCK_Y)
+        val patch = requireNotNull(TemplateTracker.patchAt(frame, TAP_X, TAP_Y, SIZE))
+        // A good match first, so that a stale number would be a good one.
+        requireNotNull(TemplateTracker.find(frame, patch, TAP_X, TAP_Y, radius = 24))
+
+        assertNull(TemplateTracker.find(frameWithoutBlock(), patch, TAP_X, TAP_Y, radius = 24))
+        assertTrue(
+            "a frame with nothing in it must report a poor score, not the last good one",
+            TemplateTracker.lastScore < TemplateTracker.MIN_SIMILARITY,
+        )
+    }
+
+    @Test
+    fun `a merely ambiguous frame reports a good score`() {
+        val twice = frameWithBlocks(listOf(BLOCK_X to BLOCK_Y, BLOCK_X + 96 to BLOCK_Y))
+        val patch = requireNotNull(
+            TemplateTracker.patchAt(frameWithBlock(BLOCK_X, BLOCK_Y), TAP_X, TAP_Y, SIZE)
+        )
+
+        assertNull(TemplateTracker.find(twice, patch, TAP_X, TAP_Y, radius = 120))
+
+        // The matcher gives the same answer - nothing - as it does for a frame the object has
+        // left, and telling those two apart is the whole reason this number is published. One
+        // means the scene has changed completely; the other means the object is right there,
+        // twice, and the search cannot choose. A readout stuck on 0% cannot say either.
+        assertTrue(
+            "an ambiguous frame still resembles the object closely",
+            TemplateTracker.lastScore >= TemplateTracker.MIN_SIMILARITY,
+        )
+    }
+
     @Test
     fun `a match that jumped further than the object could have is refused`() {
         val reference = frameWithBlock(BLOCK_X, BLOCK_Y)
@@ -494,6 +542,43 @@ class TemplateTrackerTest {
         // template a couple of pixels a side would match everything and mean nothing.
         assertEquals(8, patch.resampled(0.05f).width)
         assertEquals(8, patch.resampled(0.05f).height)
+    }
+
+    @Test
+    fun `resampling to an exact size lands on that size, always`() {
+        val patch = Patch(IntArray(SIZE * SIZE) { it % 200 }, SIZE, SIZE)
+
+        // The point of this one, as against resampled, is that the size is exact rather than
+        // approximate. The caller blends the result with a patch of a known size, and a blend
+        // between two differently shaped arrays is refused - silently, on the frames where the
+        // object was growing or shrinking, which are the frames that needed the refresh.
+        for (size in listOf(8, 24, 37, SIZE, 61, 97)) {
+            val resized = patch.resampledTo(size, size)
+            assertEquals("width at $size", size, resized.width)
+            assertEquals("height at $size", size, resized.height)
+            assertEquals("pixels at $size", size * size, resized.pixels.size)
+        }
+    }
+
+    @Test
+    fun `resampling to the same size leaves the patch exactly alone`() {
+        val patch = Patch(IntArray(SIZE * SIZE) { (it * 7) % 256 }, SIZE, SIZE)
+
+        // The identity case is the one that runs on almost every frame - an object at a steady
+        // distance - so any drift here would be a small error added to the template again and
+        // again, which is a template sliding off an object that is standing still.
+        assertTrue(patch.resampledTo(SIZE, SIZE).pixels.contentEquals(patch.pixels))
+    }
+
+    @Test
+    fun `resampling to a size keeps a constant patch constant`() {
+        val constant = Patch(IntArray(SIZE * SIZE) { 90 }, SIZE, SIZE)
+
+        // Whatever the shape, a patch with no variation in it must not acquire one: an edge
+        // invented at the border would be the resampler matching its own invention.
+        for (value in constant.resampledTo(30, 30).pixels) {
+            assertEquals(90, value)
+        }
     }
 
     // ---- refreshing the template -------------------------------------------
