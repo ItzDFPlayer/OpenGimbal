@@ -130,7 +130,10 @@ fun SettingsScreen(
 
             CameraDiagnostics()
 
-            if (cameraOnly && !CameraUsageMonitor.watching) {
+            // "reported" rather than "watching": a successful registration with nothing ever
+            // reported is the failure this warning is about, and it is the one a plain
+            // "watching" test misses.
+            if (cameraOnly && !CameraUsageMonitor.reported) {
                 Text(
                     stringResource(R.string.camera_unavailable_warning),
                     style = MaterialTheme.typography.bodySmall,
@@ -276,7 +279,11 @@ private fun LanguagePicker() {
 
 @StringRes
 private fun cameraStateLabelRes(): Int = when {
-    !CameraUsageMonitor.watching -> R.string.value_not_reported
+    // "reported", not "watching". Registering the callback can succeed while the platform
+    // never describes a single camera, and then there is no state to report at all. Asking
+    // only about the registration would answer "free" - a claim about the camera, made from a
+    // signal that has never said anything.
+    !CameraUsageMonitor.reported -> R.string.value_not_reported
     CameraUsageMonitor.cameraInUse -> R.string.value_used_by_another_app
     else -> R.string.value_free
 }
@@ -293,7 +300,12 @@ private fun recordingLabelRes(microphone: MicrophoneState): Int = when {
 private fun CameraDiagnostics() {
     val unavailable = CameraUsageMonitor.unavailableIds
     when {
-        !CameraUsageMonitor.watching -> Text(
+        // "reported" rather than "watching", for the reason given on cameraStateLabelRes. This
+        // is the case behind a floating button that never appears: the row used to fall
+        // through to "no camera app is holding the camera right now", which reads as a signal
+        // that is working and simply has nothing to say, when the truth is that it has never
+        // said anything at all.
+        !CameraUsageMonitor.reported -> Text(
             stringResource(R.string.camera_not_reported),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,

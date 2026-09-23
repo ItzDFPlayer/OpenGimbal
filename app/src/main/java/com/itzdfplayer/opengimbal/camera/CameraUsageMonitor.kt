@@ -2,6 +2,7 @@ package com.itzdfplayer.opengimbal.camera
 
 import android.content.Context
 import android.hardware.camera2.CameraManager
+import android.os.SystemClock
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -37,6 +38,29 @@ object CameraUsageMonitor {
     var watching by mutableStateOf(false)
         private set
 
+    /**
+     * Whether the platform is describing any camera at all.
+     *
+     * False before the first callback arrives, and false if the registration was refused.
+     * The distinction matters because "no camera is in use" means nothing when this is false -
+     * it is not evidence that the user is not in a camera app, it is the absence of any
+     * evidence either way. Anything that hides itself on "no camera is in use" has to fall
+     * back to showing when this is false, or it hides for good on the strength of a fact it
+     * never had.
+     */
+    val reported: Boolean get() = watching && knownCameraCount > 0
+
+    /**
+     * When a camera was last seen held by another app, or 0 if it never has been.
+     *
+     * Kept because the state cannot be observed from the app itself: looking at these rows
+     * means leaving the camera app, which is exactly what releases the camera. So the useful
+     * question afterwards is not "is a camera in use now" - it never is - but "was one, a
+     * moment ago", and that is what this answers.
+     */
+    var lastInUseAt by mutableStateOf(0L)
+        private set
+
     fun start(context: Context) {
         if (registered) return
         val manager = context.getSystemService(CameraManager::class.java) ?: return
@@ -67,8 +91,22 @@ object CameraUsageMonitor {
     }
 
     private fun publish() {
+        val wasInUse = cameraInUse
         cameraInUse = availability.inUse
         unavailableIds = availability.unavailableIds
         knownCameraCount = availability.knownCount
+        if (cameraInUse) lastInUseAt = SystemClock.uptimeMillis()
+
+        if (wasInUse != cameraInUse) {
+            // One line each time it changes, because this single flag decides both the
+            // "only while a camera app is running" gate and whether the floating button
+            // exists at all - and when that goes wrong there is nothing on screen to say
+            // which half of it failed.
+            Log.i(
+                TAG,
+                "Camera in use: $cameraInUse (held=${availability.unavailableIds}, " +
+                    "known=${availability.knownCount})",
+            )
+        }
     }
 }

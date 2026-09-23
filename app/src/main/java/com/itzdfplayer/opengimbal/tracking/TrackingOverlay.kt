@@ -102,8 +102,19 @@ class TrackingOverlay(private val service: AccessibilityService) {
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
             PixelFormat.TRANSLUCENT,
         ).apply {
-            gravity = Gravity.TOP or Gravity.START
-            x = screenWidth - size - margin
+            // Anchored to the right edge by gravity, rather than placed at a coordinate worked
+            // out from the measured screen width. The two say the same thing while the
+            // measurement is right, and only one of them survives it being wrong: this window
+            // is allowed outside the display, so an x derived from a stale width - a size
+            // taken before a rotation, say - puts the button off the screen entirely, where it
+            // is invisible and, being a window, gives no other sign that it exists at all.
+            // Resolved against the display by the system, the margin stays a margin.
+            //
+            // END rather than RIGHT because that is the non-deprecated one, which makes this
+            // the right edge for every locale the app ships. An RTL locale would resolve it to
+            // the left edge, and the drag below assumes the anchor it was laid out with.
+            gravity = Gravity.TOP or Gravity.END
+            x = margin
             y = screenHeight / 3
         }
 
@@ -150,8 +161,15 @@ class TrackingOverlay(private val service: AccessibilityService) {
                     val dx = (event.rawX - touchX).roundToInt()
                     val dy = (event.rawY - touchY).roundToInt()
                     if (abs(dx) > dp(4) || abs(dy) > dp(4)) moved = true
-                    params.x = (startX + dx).coerceIn(0, (screenWidth - params.width).coerceAtLeast(0))
-                    params.y = (startY + dy).coerceIn(0, (screenHeight - params.height).coerceAtLeast(0))
+                    // Minus dx, not plus: the gravity anchors the button to the right edge, so
+                    // x counts inwards from there and a finger moving right makes it smaller.
+                    // The clamp is the same range either way - nought is flush against the
+                    // right edge, and the width of the screen less the button is flush against
+                    // the left.
+                    params.x = (startX - dx)
+                        .coerceIn(0, (screenWidth - params.width).coerceAtLeast(0))
+                    params.y = (startY + dy)
+                        .coerceIn(0, (screenHeight - params.height).coerceAtLeast(0))
                     runCatching { windowManager.updateViewLayout(view, params) }
                     true
                 }
