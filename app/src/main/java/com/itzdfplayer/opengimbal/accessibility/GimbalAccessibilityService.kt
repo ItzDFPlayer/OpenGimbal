@@ -73,6 +73,40 @@ class GimbalAccessibilityService : AccessibilityService() {
          */
         private const val SWIPE_MARGIN_FRACTION = 0.28f
 
+        /**
+         * Where the pinch happens vertically, as a share of the screen height from the top.
+         *
+         * 0.4, so above the middle rather than on it - 60% of the way up the screen, which is
+         * the easier way to picture it and the way the code before this described it as well.
+         * It is written from the top because that is the direction screen y runs in.
+         *
+         * Off the middle because that is where a camera app draws whatever it is framing and,
+         * on most of them, a focus ring too: a pinch there is a pinch over the subject.
+         */
+        private const val PINCH_CENTRE_HEIGHT_FRACTION = 0.4f
+
+        /**
+         * How far the pinch fingers stay clear of the left and right edges, in dp.
+         *
+         * The system's own back gesture lives in a strip down each side of the screen, and its
+         * width is a physical size rather than a share of the display, which is why this is in
+         * dp and not a fraction. A pinch whose fingers start inside that strip is not seen as a
+         * pinch at all: the first finger down is claimed as the start of a back swipe and the
+         * rest of the gesture goes with it. Being generous here costs a little travel and
+         * nothing else.
+         */
+        private const val PINCH_EDGE_DP = 32
+
+        /**
+         * The most of the available width one finger may travel, as a share of the distance
+         * from the middle to the edge strip.
+         *
+         * Short of one, so the fingers can never begin on top of each other however far the
+         * strength setting is pushed. A pinch that starts with both fingers at the same point
+         * has nowhere to open from, and what the app underneath sees is two taps.
+         */
+        private const val PINCH_MAX_TRAVEL_FRACTION = 0.9f
+
         /** How fast the volume steps while the slider is held. */
         private const val VOLUME_STEP_INTERVAL_MS = 140L
 
@@ -299,8 +333,17 @@ class GimbalAccessibilityService : AccessibilityService() {
      */
     private val trackingTick = object : Runnable {
         override fun run() {
-            syncTrackingWindows()
+            // Scheduled before the work rather than after it, and guarded. Reconciling the
+            // windows is a poll, so the only thing keeping the feature alive is this runnable
+            // rescheduling itself; doing that on the way *out* of the work means the first
+            // exception thrown by anything below stops it for good. The floating button would
+            // then never appear again for the life of the service, with nothing on screen to
+            // say why - and that is exactly the failure this poll was written to be immune to.
             main.postDelayed(this, TRACKING_TICK_MS)
+            runCatching { syncTrackingWindows() }
+                .onFailure {
+                    Log.w(TAG, "Could not reconcile the tracking windows: ${it.message}")
+                }
         }
     }
 
@@ -321,10 +364,18 @@ class GimbalAccessibilityService : AccessibilityService() {
      * sitting on top of everything all day is exactly the kind of thing the user switches
      * off and never switches back on. An active session keeps its button regardless, because
      * that button is how the session gets stopped.
+     *
+     * With one exception, and it is the difference between a button that sometimes does not
+     * appear and a feature that never works at all: if the platform is describing no camera
+     * whatsoever, then "no camera is in use" is not an answer, it is the absence of one.
+     * Hiding on the strength of that would hide for good, so the button is shown instead.
+     * The worst case is then a button the user can switch off, against a feature that
+     * silently never appears.
      */
     private val floatingButtonWanted: Boolean
         get() = TrackingStatus.enabled && (
             CameraUsageMonitor.cameraInUse ||
+                !CameraUsageMonitor.reported ||
                 TrackingStatus.phase == TrackingPhase.CONNECTING ||
                 TrackingStatus.phase == TrackingPhase.SELECTING ||
                 TrackingStatus.phase == TrackingPhase.TRACKING ||
@@ -737,8 +788,19 @@ class GimbalAccessibilityService : AccessibilityService() {
     /**
      * Two fingers moving apart (zoom in) or together (zoom out).
      *
-     * Coordinates are clamped to the display, so an extreme strength setting can
-     * never produce an out-of-bounds gesture that the system would reject.
+     * The fingers sit on the left and on the right of the screen, as far apart as the edge
+     * strips allow, rather than around the middle. That is what makes the gesture reliably a
+     * pinch: it spans the width, so neither finger is competing with whatever the app has put
+     * in the centre of its own layout, and both have room to move.
+     *
+     * The distance kept from the edges is not a matter of taste. The system claims a
+     * horizontal drag that begins inside the narrow strip down each side of the screen, so a
+     * pinch starting there is swallowed as a back gesture before the app sees any of it.
+     *
+     * Zooming in has to begin further in than zooming out, because the fingers are already as
+     * far out as they are allowed to go and there is nowhere to open from. The two directions
+     * are therefore mirror images of each other - one opening out to the limits, the other
+     * closing in from them - which also keeps the zoom speed the same both ways.
      */
     private fun buildPinchGesture(direction: Int): GestureDescription? {
         val width = screenWidth.toFloat()
@@ -747,21 +809,35 @@ class GimbalAccessibilityService : AccessibilityService() {
 
         val strength = MappingStore.pinchStrength(this) / 100f
         val centreX = width / 2f
-        val centreY = height * 0.45f
-        val spread = minOf(width, height) * 0.18f
-        val travel = spread * 0.6f * strength
-        // Zoom in means the fingers move apart.
-        val sign = if (direction > 0) 1f else -1f
+        val centreY = height * PINCH_CENTRE_HEIGHT_FRACTION
 
-        fun clamped(x: Float) = x.coerceIn(8f, width - 8f)
+        // The furthest from the middle a finger may go. Capped at a share of the width as
+        // well, so that an odd density cannot leave no room at all - which would put the two
+        // fingers on the wrong sides of each other and produce nothing usable.
+        val edge = (PINCH_EDGE_DP * resources.displayMetrics.density)
+            .coerceAtMost(width * 0.25f)
+        val reach = width / 2f - edge
+        if (reach <= 0f) return null
 
+        // How far each finger travels. The base is a share of the short edge so that a pinch
+        // means the same thing on a phone and on a tablet, and the cap is the room there is.
+        val baseTravel = minOf(width, height) * 0.18f
+        val limit = (reach * PINCH_MAX_TRAVEL_FRACTION).coerceAtLeast(1f)
+        val travel = (baseTravel * 0.6f * strength).coerceIn(1f, limit)
+
+        // Zoom in means the fingers move apart, so it starts that much closer in and finishes
+        // at the limits; zoom out starts at the limits and closes by the same amount.
+        val startHalf = if (direction > 0) reach - travel else reach
+        val endHalf = if (direction > 0) reach else reach - travel
+
+        // Every one of these is inside the band the edge strips leave, by construction.
         val left = Path().apply {
-            moveTo(clamped(centreX - spread), centreY)
-            lineTo(clamped(centreX - spread - travel * sign), centreY)
+            moveTo(centreX - startHalf, centreY)
+            lineTo(centreX - endHalf, centreY)
         }
         val right = Path().apply {
-            moveTo(clamped(centreX + spread), centreY)
-            lineTo(clamped(centreX + spread + travel * sign), centreY)
+            moveTo(centreX + startHalf, centreY)
+            lineTo(centreX + endHalf, centreY)
         }
 
         return GestureDescription.Builder()
